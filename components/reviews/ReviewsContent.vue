@@ -1,7 +1,7 @@
 <template>
-  <div class="ratings__content">
+  <div class="reviews__content">
     <div>
-      <span class="ratings__top-icon">
+      <span class="reviews__top-icon">
       <slot name="top-icon" />
       </span>
       <span class="d-block text-purple"><slot name="title"/></span>
@@ -37,22 +37,5 @@ export default {
 </script>
 
 <style lang="scss">
-.ratings__content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  right: 10%;
-  margin-top: 50px;
-  span {
-    margin-top: 25px;
-  }
-}
-.ratings__top-icon {
-  font-size: 40px;
-}
-.button--purple {
-  width: 40%;
-  border-radius: 80px;
-}
+
 </style>

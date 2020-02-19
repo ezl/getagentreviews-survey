@@ -1,6 +1,6 @@
 <template>
   <div class="external-feedback">
-    <ReviewsContent :includeButton="false">
+    <ReviewsContent :includeButton="false" :multiLineBody="true">
       <template slot="top-icon">
         <i class="fas fa-gifts"></i>
       </template>
@@ -8,17 +8,17 @@
         Hooray! That's good to hear.
       </template>
       <template slot="subtitle">
-        <span class="d-block"
+        <span class="multi-line-body"
           >One more thing. Reviews are super important for real estate agents
           like me.</span
         >
-        <span>Could you leave me a review on Google? It would mean a lot.</span>
+        <span class="multi-line-body">Could you leave me a review on Google? It would mean a lot.</span>
       </template>
       <template slot="body">
         <span class="external-feedback__leave-review">Leave a review on:</span>
         <div class="google">
           <ExternalCard>
-            <i class="fab fa-google"></i>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Google_wordmark.svg/800px-Google_wordmark.svg.png" alt="google">
           </ExternalCard>
         </div>
       </template>
@@ -28,13 +28,13 @@
         >
         <div class="external-feedback__others">
          <ExternalCard>
-            <i class="fab fa-google"></i>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Zillow_logo19.png" alt="zillow">
           </ExternalCard>
          <ExternalCard>
-            <i class="fab fa-google"></i>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Yelp_Logo.svg/1280px-Yelp_Logo.svg.png" alt="yelp">
           </ExternalCard>
          <ExternalCard>
-            <i class="fab fa-google"></i>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Facebook%2C_Inc._Logo_2019.png" alt="facebook">
           </ExternalCard>
         </div>
       </template>
@@ -54,24 +54,5 @@ export default {
 </script>
 
 <style lang="scss">
-.external-feedback {
-  .d-block {
-    margin-bottom: 10px;
-  }
 
-  .external-feedback__leave-review {
-    margin-bottom: 100px;
-    color: blue;
-  }
-
-  .google {
-    margin-top: 15px;
-    margin-bottom: 50px;
-  }
-  .external-feedback__others {
-    display: flex;
-    justify-content: space-between;
-    width: 90%;
-  }
-}
 </style>

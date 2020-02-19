@@ -1,0 +1,46 @@
+.external-feedback {
+  .external-feedback__leave-review {
+    margin-bottom: 100px;
+    color: blue;
+  }
+
+  .google {
+    margin-top: 15px;
+    margin-bottom: 50px;
+    @include small("down") {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  .external-feedback__others {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    @include small("down") {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .external-feedback__card {
+      @include small("down") {
+        margin: 3px;
+      }
+    }
+  }
+}
+
+.external-feedback__card {
+  background-color: white;
+  padding: 30px 25px;
+  width: 190px;
+  border-radius: 3px;
+  box-shadow: 3px 3px;
+  cursor: pointer;
+  transition: transform 0.25s;
+  &:hover {
+    transform: scale(1.02);
+  }
+  img {
+    max-width: 100%;
+    height: 30px;
+  }
+}

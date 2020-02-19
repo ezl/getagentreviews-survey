@@ -1,0 +1,27 @@
+.reviews__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  right: 10%;
+  margin-top: 50px;
+  span {
+    margin-top: 25px;
+  }
+  .multi-line-body {
+    display: block;
+    margin: 10px 0;
+  }
+  .button--purple {
+    width: 40%;
+    border-radius: 80px;
+  }
+
+  @include medium("down") {
+    right: 0;
+    text-align: center;
+  }
+}
+.reviews__top-icon {
+  font-size: 40px;
+}

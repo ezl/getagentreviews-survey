@@ -11,6 +11,7 @@
               @click="$store.commit('reviews/setChosen', star.rating)"
               :class="[
                 hovered.includes(index) ||
+                hovered[0] >= index ||
                 $store.state.reviews.chosen >= star.rating
                   ? 'fas fa-star'
                   : 'far fa-star',
@@ -43,11 +44,6 @@ data () {
 </script>
 
 <style lang="scss">
-@import '@/styles/index.scss';
 
-.ratings__stars {
-.text-purple {
-    color: $purple;
-}
-}
+
 </style>

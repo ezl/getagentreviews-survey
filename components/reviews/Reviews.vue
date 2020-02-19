@@ -33,39 +33,4 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/styles/index.scss';
-
-.ratings {
-  font-size: 17px;
-}
-.ratings__stars {
-  justify-content: space-between;
-  width: 95%;
-  height: 150px;
-}
-.ratings__star {
-  i {
-    font-size: 50px;
-    color: $purple;
-    cursor: pointer;
-  }
-}
-.fas {
-  transition: transform $default-timing;
-  &:hover {
-    transform: translateY(-5px);
-  }
-}
-.ratings__star-text {
-  font-size: 16px;
-  color: rgb(173, 170, 170);
-}
-.ratings__star-is-chosen {
-  opacity: 0.9;
-  &:hover {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 </style>

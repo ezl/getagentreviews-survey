@@ -8,11 +8,12 @@
             Thank you fo your feedback.
         </template>
         <template slot="subtitle">
-            <span class="d-block">I'll read what you've written and work to incorporate your feedback</span>
+            <span class="multi-line-body">I'll read what you've written and work to incorporate your feedback</span>
             <span>to provide better experiences in the future</span>
         </template>
         <template slot="extra-content">
-            Review: {{ $store.state.reviews.chosen }}<br>
+            <br>
+            Review: {{ $store.state.reviews.chosen }} <template v-if="$store.state.reviews.chosen === 1">star</template><template v-else>stars</template><br>
             Feedback: {{ $store.state.reviews.feedback }}<br>
             User: John Smith
         </template>
@@ -30,7 +31,5 @@ export default {
 </script>
 
 <style>
-.d-block {
-    margin-bottom: 10px;
-}
+
 </style>

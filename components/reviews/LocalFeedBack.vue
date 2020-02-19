@@ -15,7 +15,7 @@
       </template>
       <template slot="subtitle">
         <template v-if="goodFeedBack">
-          <span class="d-block">
+          <span class="multi-line-body">
             Can you share a few words on how I could make your experience even
             better for the future?
           </span>
@@ -25,7 +25,7 @@
           >
         </template>
         <template v-else>
-          <span class="d-block">
+          <span class="multi-line-body">
             Can you share a few words on how I could make your experience
             excellent in the future?
           </span>
@@ -84,27 +84,5 @@ export default {
 </script>
 
 <style lang="scss">
-.local-feedback {
-  .d-block {
-    margin-bottom: 5px;
-  }
-  textarea {
-    background-color: rgb(236, 236, 236);
-    resize: none;
-    width: 85%;
-    height: 100px;
-    border-radius: 3px;
-    border: none;
-    margin: 25px 0;
-    padding: 20px;
-    line-height: 27px;
-  }
-}
-.local-feedback__link {
-    display: block;
-    color: gray;
-    text-decoration: underline;
-    font-size: 12px;
-    margin-top: 25px;
-}
+
 </style>
