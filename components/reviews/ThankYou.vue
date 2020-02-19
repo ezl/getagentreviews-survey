@@ -11,6 +11,11 @@
             <span class="d-block">I'll read what you've written and work to incorporate your feedback</span>
             <span>to provide better experiences in the future</span>
         </template>
+        <template slot="extra-content">
+            Review: {{ $store.state.reviews.chosen }}<br>
+            Feedback: {{ $store.state.reviews.feedback }}<br>
+            User: John Smith
+        </template>
     </ReviewsContent>
   </div>
 </template>
