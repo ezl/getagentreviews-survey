@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Ratings from '@/components/ratings/Ratings'
+import Ratings from '@/components/reviews/Reviews'
 export default {
   components: {
     Ratings

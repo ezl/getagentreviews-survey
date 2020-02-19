@@ -3,7 +3,7 @@
     <h3 class="text-purple text-center">
       Agent Reviews
     </h3>
-    <RatingsContent button-title="Save Review" :button-cta="saveReview">
+    <ReviewsContent button-title="Save Review" :button-cta="saveReview">
       <template slot="title">
         How was your experience with <b>John Smith</b>?
       </template>
@@ -13,22 +13,30 @@
       <template slot="body">
         <RatingsStars />
       </template>
-    </RatingsContent>
+    </ReviewsContent>
   </div>
 </template>
 
 <script>
 import RatingsStars from './RatingStars'
-import RatingsContent from './RatingsContent'
+import ReviewsContent from './ReviewsContent'
 export default {
   components: {
     RatingsStars,
-    RatingsContent
+    ReviewsContent
   },
   data() {
-    return {}
+    return {
+      rated: false,
+      leftFeedBackLocal: false,
+      leftFeedBackGoogle: false,
+    }
   },
-  methods: {}
+  methods: {
+    saveReview() {
+      this.rated = true
+    }
+  }
 }
 </script>
 
