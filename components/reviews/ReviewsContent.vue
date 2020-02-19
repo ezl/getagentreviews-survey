@@ -1,13 +1,15 @@
 <template>
   <div class="ratings__content">
     <div>
-      <slot name="icon" />
+      <span class="ratings__top-icon">
+      <slot name="top-icon" />
+      </span>
       <span class="d-block text-purple"><slot name="title"/></span>
       <span class="d-block">
         <slot name="subtitle" />
       </span>
       <slot name="body" />
-      <button @click="buttonCTA" class="button button--purple">
+      <button v-if="includeButton" @click="buttonCTA" class="button button--purple">
         {{ buttonTitle }}
       </button>
       <slot name="extra-content" />
@@ -21,6 +23,10 @@ export default {
     buttonTitle: {
       type: String,
       default: ''
+    },
+    includeButton: {
+      type: Boolean,
+      default: true
     },
     buttonCTA: {
       type: Function,
@@ -41,5 +47,12 @@ export default {
   span {
     margin-top: 25px;
   }
+}
+.ratings__top-icon {
+  font-size: 40px;
+}
+.button--purple {
+  width: 40%;
+  border-radius: 80px;
 }
 </style>

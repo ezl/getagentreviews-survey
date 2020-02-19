@@ -8,19 +8,19 @@
             <i
               @mouseout="hovered = hovered.filter(each => each !== index)"
               @mouseover="hovered = [...hovered, index]"
-              @click="$store.commit('ratings/setChosen', star.rating)"
+              @click="$store.commit('reviews/setChosen', star.rating)"
               :class="[
                 hovered.includes(index) ||
-                $store.state.ratings.chosen >= star.rating
+                $store.state.reviews.chosen >= star.rating
                   ? 'fas fa-star'
                   : 'far fa-star',
-                $store.state.ratings.chosen >= star.rating
+                $store.state.reviews.chosen >= star.rating
                   ? 'ratings__star-is-chosen'
                   : ''
               ]"
               class="d-block"
             ></i>
-            <span :class="$store.state.ratings.chosen === star.rating && 'bold text-purple'" class="text-center ratings__star-text">{{ star.text }}</span>
+            <span :class="$store.state.reviews.chosen === star.rating && 'bold text-purple'" class="text-center ratings__star-text">{{ star.text }}</span>
           </span>
         </div>
 </template>

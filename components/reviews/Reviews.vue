@@ -3,39 +3,31 @@
     <h3 class="text-purple text-center">
       Agent Reviews
     </h3>
-    <ReviewsContent button-title="Save Review" :button-cta="saveReview">
-      <template slot="title">
-        How was your experience with <b>John Smith</b>?
-      </template>
-      <template slot="subtitle">
-        We won't publish your responses until after you confirm his review here.
-      </template>
-      <template slot="body">
-        <RatingsStars />
-      </template>
-    </ReviewsContent>
+    <Rating v-if="!$store.state.reviews.rated" />
+    <LocalFeedBack v-else-if="$store.state.reviews.rated && !$store.state.reviews.leftFeedBackLocal" />
+    <ExternalFeedBack v-else-if="$store.state.reviews.feedback && !$store.state.reviews.leftFeedBackExternal" />
+    <ThankYou v-else />
   </div>
 </template>
 
 <script>
-import RatingsStars from './RatingStars'
-import ReviewsContent from './ReviewsContent'
+import Rating from './Rating'
+import LocalFeedBack from './LocalFeedBack'
+import ExternalFeedBack from './ExternalFeedback'
+import ThankYou from './ThankYou'
 export default {
   components: {
-    RatingsStars,
-    ReviewsContent
+    Rating,
+    LocalFeedBack,
+    ExternalFeedBack,
+    ThankYou
   },
   data() {
     return {
-      rated: false,
-      leftFeedBackLocal: false,
-      leftFeedBackGoogle: false,
     }
   },
   methods: {
-    saveReview() {
-      this.rated = true
-    }
+    
   }
 }
 </script>
@@ -75,8 +67,5 @@ export default {
     transform: translateY(0);
   }
 }
-.button--purple {
-  width: 60%;
-  border-radius: 50px;
-}
+
 </style>
