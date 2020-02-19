@@ -1,11 +1,11 @@
 <template>
-  <div class="ratings">
-    <h3 class="text-purple text-center">
+  <div class="reviews">
+    <h3 v-if="!rated || !leftFeedBackLocal || !leftFeedBackExternal" class="text-purple text-center">
       Agent Reviews
     </h3>
-    <Rating v-if="!$store.state.reviews.rated" />
-    <LocalFeedBack v-else-if="$store.state.reviews.rated && !$store.state.reviews.leftFeedBackLocal" />
-    <ExternalFeedBack v-else-if="$store.state.reviews.feedback && !$store.state.reviews.leftFeedBackExternal" />
+    <Rating v-if="!rated" />
+    <LocalFeedBack v-else-if="rated && !leftFeedBackLocal" />
+    <ExternalFeedBack v-else-if="feedback && !leftFeedBackExternal" />
     <ThankYou v-else />
   </div>
 </template>
@@ -22,15 +22,21 @@ export default {
     ExternalFeedBack,
     ThankYou
   },
-  data() {
-    return {
+  computed: {
+    rated() {
+      return this.$store.state.reviews.rated
+    },
+    leftFeedBackLocal() {
+      return this.$store.state.reviews.leftFeedBackLocal
+    },
+    feedback() {
+      return this.$store.state.reviews.feedback
+    },
+    leftFeedBackExternal() {
+      return this.$store.state.reviews.leftFeedBackExternal
     }
-  },
-  methods: {
-    
   }
 }
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

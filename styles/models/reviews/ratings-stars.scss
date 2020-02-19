@@ -1,6 +1,6 @@
 .ratings__stars {
   justify-content: space-between;
-  width: 95%;
+  width: 85%;
   height: 150px;
   .text-purple {
     color: $purple;
@@ -8,7 +8,7 @@
 }
 .ratings__star {
   i {
-    font-size: 50px;
+    font-size: 35px;
     color: $purple;
     cursor: pointer;
   }
