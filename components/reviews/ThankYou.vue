@@ -15,7 +15,8 @@
             <br>
             Review: {{ $store.state.reviews.chosen }} <template v-if="$store.state.reviews.chosen === 1">star</template><template v-else>stars</template><br>
             Feedback: {{ $store.state.reviews.feedback }}<br>
-            User: John Smith
+            User: {{ $store.state.auth.user.name }}<br>
+            Agent: {{ $store.state.reviews.agent.users.name }}
         </template>
     </ReviewsContent>
   </div>
@@ -26,6 +27,27 @@ import ReviewsContent from './ReviewsContent'
 export default {
     components: {
         ReviewsContent
+    },
+    methods: {
+        submitReview() {
+            const res = this.$axios.get('http://localhost:805/api/reviews/store', {
+                params: {
+                user: this.$store.state.auth.user.id,
+                agent: this.$store.state.reviews.agent.id,
+                rating: this.$store.state.reviews.chosen,
+                review: this.$store.state.reviews.feedback
+                }
+            })
+            .then(({data}) => {
+                console.log(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        }
+    },
+    mounted() {
+        this.submitReview()
     }
 }
 </script>

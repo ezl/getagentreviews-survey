@@ -10,6 +10,22 @@ import Ratings from '@/components/reviews/Reviews'
 export default {
   components: {
     Ratings
+  },
+  mounted() {
+    console.log(this.$url)
+    const params = window.location.search.slice(1)
+                      .split('&')
+                      .reduce(function _reduce (/*Object*/ a, /*String*/ b) {
+                        b = b.split('=');
+                        a[b[0]] = decodeURIComponent(b[1]);
+                        return a;
+                      }, {});
+    const data = params.rating.split('-')
+    if (data.length) {
+      this.$store.commit('reviews/setChosen', data[0])
+      this.$store.dispatch('auth/getUser', data[1])
+      this.$store.dispatch('reviews/getAgent', data[2])
+    }
   }
 }
 </script>

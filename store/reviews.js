@@ -4,8 +4,23 @@ const state = () => ({
   leftFeedBackLocal: false,
   feedback: '',
   leftFeedBackExternal: false,
-  externalFeedBack: ''
+  externalFeedBack: '',
+  agent: null
 })
+
+const actions = {
+  getAgent({ commit }, id) {
+    this.$axios
+      .get(`http://localhost:805/api/agents/${id}`)
+      .then(({ data }) => {
+        console.log(data)
+        commit('setAgent', data)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+}
 
 const mutations = {
   setChosen(state, chosen) {
@@ -31,10 +46,15 @@ const mutations = {
   },
   setFeedback(state, feedback) {
     state.feedback = feedback
+  },
+  setAgent(state, agent) {
+    console.log(agent)
+    state.agent = agent
   }
 }
 
 export default {
   state,
-  mutations
+  mutations,
+  actions
 }
