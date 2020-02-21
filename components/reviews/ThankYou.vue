@@ -15,7 +15,7 @@
             <br>
             Review: {{ $store.state.reviews.chosen }} <template v-if="$store.state.reviews.chosen === 1">star</template><template v-else>stars</template><br>
             Feedback: {{ $store.state.reviews.feedback }}<br>
-            User: {{ $store.state.auth.user.name }}<br>
+            User: {{ $store.state.auth.email.email }}<br>
             Agent: {{ $store.state.reviews.agent.users.name }}
         </template>
     </ReviewsContent>
@@ -30,19 +30,17 @@ export default {
     },
     methods: {
         submitReview() {
-            const res = this.$axios.get('http://localhost:805/api/reviews/store', {
-                params: {
-                user: this.$store.state.auth.user.id,
+            const res = this.$axios.post('http://localhost:805/api/reviews/', {
+                email: this.$store.state.auth.email.email,
                 agent: this.$store.state.reviews.agent.id,
                 rating: this.$store.state.reviews.chosen,
                 review: this.$store.state.reviews.feedback
-                }
             })
             .then(({data}) => {
                 console.log(data)
             })
             .catch(err => {
-                console.log(err)
+                console.log('err', err)
             })
         }
     },

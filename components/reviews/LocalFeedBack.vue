@@ -7,10 +7,10 @@
       </template>
       <template slot="title">
         <template v-if="goodFeedBack">
-          <b>{{ user.name }}</b>, we are happy we've hit the mark
+          <b>{{ user }}</b>, we are happy we've hit the mark
         </template>
         <template v-else>
-          <b>{{ user.name }}</b>, we are sorry to hear that we missed the mark
+          <b>{{ user }}</b>, we are sorry to hear that we missed the mark
         </template>
       </template>
       <template slot="subtitle">
@@ -70,7 +70,7 @@ export default {
       return this.$store.state.reviews.chosen > 3
     },
     user() {
-      return this.$store.state.auth.user
+      return this.$store.state.auth.email.email
     }
   },
   methods: {

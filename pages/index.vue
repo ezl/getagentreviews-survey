@@ -1,47 +1,38 @@
 <template>
-  <div class="container">
-    <div class="idk" style="height: 20vh;"></div>
-    <Ratings />
-  </div>
+<div>
+  <form @submit.prevent="inquire">
+  <input v-model="email" type="email" class="default-input" placeholder="enter your email">
+  <button class="button button--success">Submit</button>
+  </form>
+  <div v-if="sent">Check your email to send a response</div>
+</div>
 </template>
 
 <script>
-import Ratings from '@/components/reviews/Reviews'
 export default {
-  components: {
-    Ratings
-  },
-  mounted() {
-    console.log(this.$url)
-    const params = window.location.search.slice(1)
-                      .split('&')
-                      .reduce(function _reduce (/*Object*/ a, /*String*/ b) {
-                        b = b.split('=');
-                        a[b[0]] = decodeURIComponent(b[1]);
-                        return a;
-                      }, {});
-    const data = params.rating.split('-')
-    if (data.length) {
-      this.$store.commit('reviews/setChosen', data[0])
-      this.$store.dispatch('auth/getUser', data[1])
-      this.$store.dispatch('reviews/getAgent', data[2])
+  data() {
+    return {
+      email: '',
+      sent: false
     }
+  },
+methods:{  
+  inquire() {
+    this.$axios.post('http://localhost:805/api/emails', {
+      email: this.email
+    })
+    .then(({data}) => {
+      this.sent = true
+      console.log(data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
+}
 }
 </script>
 
 <style>
 
-.title {
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-
-.links {
-  padding-top: 15px;
-}
 </style>
