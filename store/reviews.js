@@ -11,7 +11,7 @@ const state = () => ({
 const actions = {
   getAgent({ commit }, id) {
     this.$axios
-      .get(`http://localhost:805/api/agents/${id}`)
+      .get(`/agents/${id}`)
       .then(({ data }) => {
         console.log(data)
         commit('setAgent', data)

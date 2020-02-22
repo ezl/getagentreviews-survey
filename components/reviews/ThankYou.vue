@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         submitReview() {
-            const res = this.$axios.post('http://localhost:805/api/reviews/', {
+            const res = this.$axios.post('/reviews', {
                 email: this.$store.state.auth.email.email,
                 agent: this.$store.state.reviews.agent.id,
                 rating: this.$store.state.reviews.chosen,

@@ -18,7 +18,7 @@ export default {
   },
 methods:{  
   inquire() {
-    this.$axios.post('http://localhost:805/api/emails', {
+    this.$axios.post('/emails', {
       email: this.email
     })
     .then(({data}) => {

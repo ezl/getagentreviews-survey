@@ -6,7 +6,7 @@ const state = () => ({
 
 const actions = {
   getUser({ commit }, id) {
-    this.$axios(`http://localhost:805/api/users/${id}`)
+    this.$axios.get(`/users/${id}`)
       .then(({ data }) => {
         console.log(data)
         commit('setUser', data)
@@ -16,7 +16,7 @@ const actions = {
       })
   },
   getEmail({ commit }, id) {
-    this.$axios(`http://localhost:805/api/emails/${id}`)
+    this.$axios.get(`/emails/${id}`)
       .then(({ data }) => {
         console.log(data)
         commit('setEmail', data)
