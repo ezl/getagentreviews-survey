@@ -6,6 +6,11 @@
       class="default-input"
       v-model="name"
     />
+    <div v-if="errors && errors.errors.name">
+      <span :key="i" v-for="(err, i) in errors.errors.name">
+        {{ err }}
+      </span>
+    </div>
     <input
       placeholder="Enter Email"
       type="text"
@@ -42,10 +47,10 @@
       v-model="googleLink"
     />
     <input
-      placeholder="Your Other Link"
+      placeholder="Your Yelp Link"
       type="text"
       class="default-input"
-      v-model="anotherLink"
+      v-model="yelpLink"
     />
     <button class="button button--success">Submit</button>
   </form>
@@ -61,9 +66,10 @@ export default {
       description: '',
       email_description: '',
       googleLink: '',
-      anotherLink: '',
+      yelpLink: '',
       file: '',
-      atest: ''
+      atest: '',
+      errors: null
     }
   },
   methods: {
@@ -99,7 +105,8 @@ export default {
           console.log(data)
         })
         .catch(err => {
-          console.log(err)
+          console.log(err.response)
+          this.errors = err.response.data
         })
     }
   },
@@ -107,7 +114,7 @@ export default {
     links() {
       return {
         google: this.googleLink,
-        anotherLink: this.anotherLink
+        yelp: this.yelpLink
       }
     },
     batch() {
