@@ -55,7 +55,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://trayvonnorthern.com/getagencyreviews-api/public/api'
+    // baseURL: 'https://trayvonnorthern.com/getagencyreviews-api/public/api'
+    baseURL: 'http://localhost:805/api'
   },
   /*
    ** Build configuration
