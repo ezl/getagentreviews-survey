@@ -1,7 +1,5 @@
 <template>
   <form enctype="multipart/form-data" @submit.prevent="addUser">
-    {{ url }}
-    {{ file }}
     <input
       placeholder="Enter Name"
       type="text"
@@ -36,7 +34,7 @@
         id="image"
       />
     </label>
-    <img v-if="url" :src="url.src" alt="" />
+    <img v-if="imgPreview" :src="imgPreview" alt="" />
     <input
       placeholder="Your Google Review Link"
       type="text"
@@ -59,23 +57,37 @@ export default {
     return {
       name: '',
       email: '',
-      url: '',
+      imgPreview: '',
       description: '',
       email_description: '',
       googleLink: '',
       anotherLink: '',
-      file: ''
+      file: '',
+      atest: ''
     }
   },
   methods: {
     getURL(e) {
-      const file = e.target.files[0]
+      let fileList = Array.prototype.slice.call(e.target.files)
+      fileList.forEach(f => {
+        if (!f.type.match('image.*')) {
+          alert('Please upload an image.')
+          return
+        }
+
+        let reader = new FileReader()
+        let that = this
+
+        reader.onload = function(e) {
+          that.imgPreview = e.target.result
+        }
+        reader.readAsDataURL(f)
+      })
+
       this.file = e.target.files[0]
-      console.log(file)
-      this.url = { imageObj: file, src: URL.createObjectURL(file) }
+
     },
     addUser() {
-      console.log(this.batch)
       // return
       this.$axios
         .post('/users', this.batch, {
