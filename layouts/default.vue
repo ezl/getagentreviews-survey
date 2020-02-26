@@ -1,7 +1,9 @@
 <template>
-  <v-app>
+  <v-app style="padding-bottom: 10px;">
     <nuxt />
   </v-app>
 </template>
 
-<style></style>
+<style>
+
+</style>

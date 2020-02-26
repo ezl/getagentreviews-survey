@@ -3,27 +3,27 @@
     <div v-for="user in users.data" :key="user.id" class="test">
       <h2>{{ user.name }}</h2>
       <p>{{ user.description }}</p>
-      <img :src="user.image" :alt="`${user.name}'s profile image`" />
+      <img :src="user.image" :alt="`${user.name}'s profile image`">
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  mounted() {
+  data () {
+    return {
+      users: null
+    }
+  },
+  mounted () {
     this.$axios
       .get('/users')
       .then(({ data }) => {
         this.users = data
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err)
       })
-  },
-  data() {
-    return {
-      users: null
-    }
   }
 }
 </script>

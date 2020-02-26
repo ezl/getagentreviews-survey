@@ -4,7 +4,7 @@
     :button-c-t-a="saveReview"
   >
     <template slot="title">
-      How was your experience with <b v-if="$store.state.reviews.agent">{{ $store.state.reviews.agent.users.name }}</b>?
+      How was your experience with <b v-if="$store.state.reviews.agent">{{ $store.state.reviews.agent }}</b>?
     </template>
     <template slot="subtitle">
       We won't publish your responses until after you confirm his review here.

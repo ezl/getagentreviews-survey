@@ -77,11 +77,11 @@ this query translates to:
   }
 }
 */
-@mixin query($size, $range: 0, $identifier: "up") {
+@mixin query($size: 0, $range, $identifier: "up") {
   @if ($identifier == "down") {
       //
     @if ($range != 0) {
-      @media (max-width: $size and (min-width: $range)) {
+      @media (max-width: $size) and (min-width: $range) {
         @content;
       }
     }
@@ -90,7 +90,7 @@ this query translates to:
     }
   } @else {
     @if ($range != 0) {
-      @media (min-width: $size and (max-width: $range)) {
+      @media (min-width: $size) and (max-width: $range) {
         @content;
       }
     }

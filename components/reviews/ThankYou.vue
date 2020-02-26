@@ -20,7 +20,7 @@
         </template><br>
         Feedback: {{ $store.state.reviews.feedback }}<br>
         User: {{ $store.state.auth.email.email }}<br>
-        Agent: {{ $store.state.reviews.agent.users.name }}
+        Agent: {{ $store.state.reviews.agent.name }}
       </template>
     </ReviewsContent>
   </div>

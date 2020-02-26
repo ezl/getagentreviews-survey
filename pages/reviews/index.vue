@@ -15,13 +15,13 @@ export default {
   components: {
     Ratings
   },
+  layout: 'default',
   computed: {
     loaded () {
       return this.$store.state.reviews.chosen && this.$store.state.auth.email && this.$store.state.reviews.agent
     }
   },
   mounted () {
-    // console.log(this.$url)
     const checkParamsExist = window.location.search.slice(1)
     if (checkParamsExist) {
       const params = checkParamsExist
