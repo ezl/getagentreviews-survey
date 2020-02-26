@@ -91,9 +91,10 @@
           type="text"
         >
 
-        <button class="button button--purple w-100">
+        <button :class="loading ? 'button--disabled' : 'button--purple'" class="button w-100">
           Sign Up
         </button>
+        <span v-if="loading">Registering your account...</span>
       </form>
       <span class="mt-10">Already have an account? <nuxt-link
         class="ml-4"
@@ -120,7 +121,8 @@ export default {
       password: '',
       passwordConfirmation: '',
       errors: null,
-      showPass: false
+      showPass: false,
+      loading: false
     }
   },
   computed: {
@@ -142,6 +144,7 @@ export default {
   },
   methods: {
     addUser () {
+      this.loading = true
       // return
       this.$axios
         .post('/users', this.batch, {
@@ -151,10 +154,14 @@ export default {
         })
         .then(({ data }) => {
           console.log(data)
+          alert(`You've been registed ezl, go to http://star-rating.netlify.com/${data.id} to see your user and go to /profile to edit your profile!`)
+          this.loading = false
         })
         .catch((err) => {
           console.log(err.response)
+          alert('errors! check console for now!')
           this.errors = err.response.data
+          this.loading = false
         })
     },
     toggleShowPassword () {
