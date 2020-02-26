@@ -5,29 +5,28 @@
   .text-purple {
     color: $purple;
   }
-}
-.ratings__star {
-  i {
-    font-size: 35px;
-    color: $purple;
-    cursor: pointer;
+  .ratings__star {
+    i {
+      font-size: 35px;
+      color: $purple;
+      cursor: pointer;
+    }
   }
-}
-.fas {
-  transition: transform $default-timing;
-  &:hover {
-    transform: translateY(-5px);
+  .fas {
+    transition: transform $default-timing;
+    &:hover {
+      transform: translateY(-5px);
+    }
   }
-}
-.ratings__star-text {
-  font-size: 16px;
-  color: rgb(173, 170, 170);
-}
-.ratings__star-is-chosen {
-  opacity: 0.9;
-  &:hover {
-    opacity: 1;
-    transform: translateY(0);
+  .ratings__star-text {
+    font-size: 16px;
+    color: rgb(173, 170, 170);
   }
-  
+  .ratings__star-is-chosen {
+    opacity: 0.9;
+    &:hover {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }

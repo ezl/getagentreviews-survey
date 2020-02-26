@@ -1,5 +1,5 @@
 <template>
-  <div class="auth-screen d-flex justify-end align-center">
+  <div class="auth-screen d-flex align-center">
     <div class="auth-screen__container">
       <slot />
     </div>
@@ -13,10 +13,16 @@ export default {}
 <style lang="scss">
 @import '~/styles/';
 .auth-screen {
-    // background-color: $purple;
-    height: 100%;
+  // background-color: $purple;
+  height: 100%;
+  justify-content: center;
+  @include xlarge('up') {
+    justify-content: flex-end;
+  }
 }
 .auth-screen__container {
-  margin-right: 100px;
+  @include xlarge('up') {
+    margin-right: 100px;
+  }
 }
 </style>

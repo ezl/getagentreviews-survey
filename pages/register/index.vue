@@ -56,25 +56,32 @@
           placeholder="Enter Phone Number"
         >
         <label for="password">Password</label>
-        <input
-          ref="password"
-          v-model="password"
-          placeholder="Enter Your Password"
-          type="password"
-          class="default-input"
-          name="password"
-        >
+        <div class="register__password">
+          <span><i class="fas fa-eye" @click="toggleShowPassword" /></span>
+
+          <input
+            ref="password"
+            v-model="password"
+            placeholder="Enter Your Password"
+            type="password"
+            class="default-input"
+            name="password"
+          >
+        </div>
         <label for="password_confirm">
           Password Confirmation
         </label>
-        <input
-          ref="passwordConfirm"
-          v-model="passwordConfirmation"
-          placeholder="Confirm Your Password"
-          type="text"
-          class="default-input"
-          name="password-confirm"
-        >
+        <div class="register__password">
+          <span><i class="fas fa-eye" @click="toggleShowPassword" /></span>
+          <input
+            ref="passwordConfirm"
+            v-model="passwordConfirmation"
+            placeholder="Confirm Your Password"
+            type="password"
+            class="default-input"
+            name="password-confirm"
+          >
+        </div>
         <label for="company">Company</label>
         <input
           v-model="company"
@@ -88,7 +95,10 @@
           Sign Up
         </button>
       </form>
-      <span class="mt-10">Already have an account? <nuxt-link class="ml-4" to="/login">Sign in</nuxt-link></span>
+      <span class="mt-10">Already have an account? <nuxt-link
+        class="ml-4"
+        to="/login"
+      >Sign in</nuxt-link></span>
     </div>
   </AuthScreen>
 </template>
@@ -109,7 +119,8 @@ export default {
       company: '',
       password: '',
       passwordConfirmation: '',
-      errors: null
+      errors: null,
+      showPass: false
     }
   },
   computed: {
@@ -120,7 +131,7 @@ export default {
       const fd = new FormData()
       fd.append('name', this.name)
       fd.append('email', this.email)
-      fd.append('phone_number', this.number)
+      fd.append('number', this.number)
       fd.append('description', this.description)
       fd.append('email_description', this.email_description)
       fd.append('password', this.password)
@@ -145,12 +156,22 @@ export default {
           console.log(err.response)
           this.errors = err.response.data
         })
+    },
+    toggleShowPassword () {
+      this.showPass = !this.showPass
+      if (this.showPass) {
+        this.$refs.password.type = 'text'
+        this.$refs.passwordConfirm.type = 'text'
+      } else {
+        this.$refs.password.type = 'password'
+        this.$refs.passwordConfirm.type = 'password'
+      }
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 input {
   margin-top: 5px;
   margin-bottom: 10px;
@@ -158,5 +179,21 @@ input {
 }
 .register {
   width: 300px;
+}
+.register__password {
+  position: relative;
+  span {
+    position: absolute;
+    top: 20%;
+    right: 3%;
+  }
+  i {
+    opacity: 0.85;
+    transition: opacity 0.25s;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 </style>
