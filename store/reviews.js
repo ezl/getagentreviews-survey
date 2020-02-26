@@ -9,45 +9,45 @@ const state = () => ({
 })
 
 const actions = {
-  getAgent({ commit }, id) {
+  getAgent ({ commit }, id) {
     this.$axios
-      .get(`/agents/${id}`)
+      .get(`/users/${id}`)
       .then(({ data }) => {
         console.log(data)
         commit('setAgent', data)
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err)
       })
   }
 }
 
 const mutations = {
-  setChosen(state, chosen) {
+  setChosen (state, chosen) {
     state.chosen = chosen
   },
-  setRated(state, bool) {
+  setRated (state, bool) {
     if (bool) {
       state.rated = bool
     }
     state.rated = !state.rated
   },
-  setLeftFeedBackLocal(state, bool) {
+  setLeftFeedBackLocal (state, bool) {
     if (bool) {
       state.leftFeedBackLocal = bool
     }
     state.leftFeedBackLocal = !state.leftFeedBackLocal
   },
-  setLeftFeedBackExternal(state, bool) {
+  setLeftFeedBackExternal (state, bool) {
     if (bool) {
       state.leftFeedBackExternal = bool
     }
     state.leftFeedBackExternal = !state.leftFeedBackExternal
   },
-  setFeedback(state, feedback) {
+  setFeedback (state, feedback) {
     state.feedback = feedback
   },
-  setAgent(state, agent) {
+  setAgent (state, agent) {
     console.log(agent)
     state.agent = agent
   }

@@ -1,3 +1,3 @@
 export const actions = {
-  async nuxtServerInit({ commit }, { req }) {}
+  async nuxtServerInit ({ commit }, { req }) {}
 }
