@@ -1,9 +1,15 @@
 <template>
   <AuthScreen>
+    <h4>Agent Reviews</h4>
+    <span class="text-purple d-block">Welcome</span>
+    <h4>Sign up for your account</h4>
     <form enctype="multipart/form-data" @submit.prevent="addUser">
       <div v-if="errors && errors.errors.name">
         <span v-for="(err, i) in errors.errors.name" :key="i">{{ err }}</span>
       </div>
+      <label for="firstname">
+        First Name
+      </label>
       <input
         v-model="firstname"
         placeholder="Enter First Name"
@@ -11,6 +17,9 @@
         class="default-input"
         name="firstname"
       >
+      <label for="lastname">
+        Last Name
+      </label>
       <input
         v-model="lastname"
         placeholder="Enter Last Name"
@@ -18,6 +27,7 @@
         class="default-input"
         name="lastname"
       >
+      <label for="email">Email</label>
       <input
         v-model="email"
         placeholder="Enter Email"
@@ -25,12 +35,16 @@
         class="default-input"
         name="email"
       >
+      <label for="number">
+        Phone Number
+      </label>
       <input
         v-model="number"
         class="default-input"
         type="tel"
         placeholder="Enter Phone Number"
       >
+      <label for="password">Password</label>
       <input
         ref="password"
         v-model="password"
@@ -39,6 +53,9 @@
         class="default-input"
         name="password"
       >
+      <label for="password_confirm">
+        Password Confirmation
+      </label>
       <input
         ref="passwordConfirm"
         v-model="passwordConfirmation"
@@ -47,6 +64,7 @@
         class="default-input"
         name="password-confirm"
       >
+      <label for="company">Company</label>
       <input
         v-model="company"
         placeholder="Enter Company Name"
@@ -55,8 +73,8 @@
         type="text"
       >
 
-      <button class="button button--success">
-        Submit
+      <button class="button button--purple w-100">
+        Sign Up
       </button>
     </form>
   </AuthScreen>
@@ -75,6 +93,7 @@ export default {
       lastname: '',
       email: '',
       number: '',
+      company: '',
       password: '',
       passwordConfirmation: '',
       errors: null
@@ -88,7 +107,7 @@ export default {
       const fd = new FormData()
       fd.append('name', this.name)
       fd.append('email', this.email)
-      fd.append('phone_number', number)
+      fd.append('phone_number', this.number)
       fd.append('description', this.description)
       fd.append('email_description', this.email_description)
       fd.append('password', this.password)
@@ -96,26 +115,6 @@ export default {
       fd.append('company', this.company)
       return fd
     }
-  },
-  mounted () {
-    const json = {
-      data: [
-        {
-          google: 'link'
-        },
-        {
-          yelp: 'link'
-        }
-      ]
-    }
-    this.$axios
-      .post('/profile/1', {
-        id: 1,
-        links: JSON.stringify(json)
-      })
-      .then(({ data }) => {
-        console.log(data)
-      })
   },
   methods: {
     addUser () {
@@ -138,4 +137,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+input {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+</style>
