@@ -23,16 +23,16 @@ export default {
     ThankYou
   },
   computed: {
-    rated() {
+    rated () {
       return this.$store.state.reviews.rated
     },
-    leftFeedBackLocal() {
+    leftFeedBackLocal () {
       return this.$store.state.reviews.leftFeedBackLocal
     },
-    feedback() {
+    feedback () {
       return this.$store.state.reviews.feedback
     },
-    leftFeedBackExternal() {
+    leftFeedBackExternal () {
       return this.$store.state.reviews.leftFeedBackExternal
     }
   }

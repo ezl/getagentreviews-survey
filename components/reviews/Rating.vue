@@ -1,7 +1,7 @@
 <template>
   <ReviewsContent
     button-title="Save Review"
-    :buttonCTA="saveReview"
+    :button-c-t-a="saveReview"
   >
     <template slot="title">
       How was your experience with <b v-if="$store.state.reviews.agent">{{ $store.state.reviews.agent.users.name }}</b>?
@@ -25,9 +25,9 @@ export default {
     RatingsStars
   },
   methods: {
-    saveReview() {
-      if(this.$store.state.reviews.chosen === 0) {
-        alert("Please leave a review to continue.")
+    saveReview () {
+      if (this.$store.state.reviews.chosen === 0) {
+        alert('Please leave a review to continue.')
         return
       }
       this.$store.commit('reviews/setRated')

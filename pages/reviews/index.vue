@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <div class="idk" style="height: 20vh;"></div>
+    <div
+      class="idk"
+      style="height: 20vh;"
+    />
     <Ratings v-if="loaded" />
     <span v-else>Loading...</span>
   </div>
@@ -12,13 +15,18 @@ export default {
   components: {
     Ratings
   },
-  mounted() {
+  computed: {
+    loaded () {
+      return this.$store.state.reviews.chosen && this.$store.state.auth.email && this.$store.state.reviews.agent
+    }
+  },
+  mounted () {
     // console.log(this.$url)
     const checkParamsExist = window.location.search.slice(1)
     if (checkParamsExist) {
       const params = checkParamsExist
         .split('&')
-        .reduce(function _reduce(/*Object*/ a, /*String*/ b) {
+        .reduce(function _reduce (/* Object */ a, /* String */ b) {
           b = b.split('=')
           a[b[0]] = decodeURIComponent(b[1])
           return a
@@ -32,11 +40,6 @@ export default {
           this.$store.dispatch('reviews/getAgent', data[2])
         }
       }
-    }
-  },
-  computed:{ 
-    loaded() {
-      return this.$store.state.reviews.chosen && this.$store.state.auth.email && this.$store.state.reviews.agent
     }
   }
 }
