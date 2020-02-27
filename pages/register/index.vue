@@ -154,7 +154,8 @@ export default {
         })
         .then(({ data }) => {
           console.log(data)
-          alert(`You've been registed ezl, go to http://theurl/users/${data.id} to see your user and go to /profile/${data.id} to edit your profile!`)
+          alert(`You've been registed ${data.name}, redirecting you to your profile!`)
+          this.$router.push(`/profile/${data.id}`)
           this.loading = false
         })
         .catch((err) => {
