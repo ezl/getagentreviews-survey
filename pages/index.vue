@@ -1,5 +1,6 @@
 <template>
 <div>
+  <p>Hi, it's Thursday</p>
   <form @submit.prevent="inquire">
   <input v-model="email" type="email" class="default-input" placeholder="enter your email">
   <button class="button button--success">Submit</button>
