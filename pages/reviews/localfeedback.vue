@@ -1,9 +1,9 @@
 <template>
   <div class="local-feedback">
-    <ReviewsContent button-title="Submit" :buttonCTA="submitFeedBack">
+    <ReviewsContent button-title="Submit" :button-c-t-a="submitFeedBack">
       <template slot="top-icon">
-        <i v-if="goodFeedBack" class="far fa-smile-beam"></i>
-        <i v-else class="far fa-frown-open"></i>
+        <i v-if="goodFeedBack" class="far fa-smile-beam" />
+        <i v-else class="far fa-frown-open" />
       </template>
       <template slot="title">
         <template v-if="goodFeedBack">
@@ -19,20 +19,16 @@
             Can you share a few words on how I could make your experience even
             better for the future?
           </span>
-          <span
-            >Your feedback is important to me and I'd like to improve your
-            situation ASAP.</span
-          >
+          <span>Your feedback is important to me and I'd like to improve your
+            situation ASAP.</span>
         </template>
         <template v-else>
           <span class="multi-line-body">
             Can you share a few words on how I could make your experience
             excellent in the future?
           </span>
-          <span
-            >Your feedback is important to me and I'll look into your situation
-            ASAP.</span
-          >
+          <span>Your feedback is important to me and I'll look into your situation
+            ASAP.</span>
         </template>
       </template>
       <template slot="body">
@@ -41,47 +37,47 @@
           class="default-input"
           name="feedback"
           cols="30"
-        ></textarea>
+        />
       </template>
       <template slot="extra-content">
-          <a class="local-feedback__link" href="#">
-              Want to leave a review online?
-          </a>
+        <a class="local-feedback__link" href="#">
+          Want to leave a review online?
+        </a>
       </template>
     </ReviewsContent>
   </div>
 </template>
 
 <script>
-import ReviewsContent from './ReviewsContent'
+import ReviewsContent from '~/components/reviews/ReviewsContent'
 
 export default {
-  data() {
+  components: {
+    ReviewsContent
+  },
+  data () {
     return {
       feedback:
         'Great agent to work with never pushy, and genuinely has your best interests in mind.'
     }
   },
-  components: {
-    ReviewsContent
-  },
   computed: {
-    goodFeedBack() {
+    goodFeedBack () {
       return this.$store.state.reviews.chosen > 3
     },
-    user() {
+    user () {
       return this.$store.state.auth.email.email
     }
   },
   methods: {
-      submitFeedBack() {
-          if(!this.feedback) {
-              alert("Please leave us feedback!")
-              return
-          }
-          this.$store.commit('reviews/setLeftFeedBackLocal')
-          this.$store.commit('reviews/setFeedback', this.feedback)
+    submitFeedBack () {
+      if (!this.feedback) {
+        alert('Please leave us feedback!')
+        return
       }
+      this.$store.commit('reviews/setLeftFeedBackLocal')
+      this.$store.commit('reviews/setFeedback', this.feedback)
+    }
   }
 }
 </script>

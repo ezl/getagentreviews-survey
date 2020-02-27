@@ -1,5 +1,6 @@
 <template>
   <div class="reviews__content">
+    <span>Agency</span>
     <div>
       <span class="reviews__top-icon">
         <slot name="top-icon" />

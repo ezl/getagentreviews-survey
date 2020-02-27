@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import ReviewsContent from './ReviewsContent'
+import ReviewsContent from '~/components/reviews/ReviewsContent'
 export default {
   components: {
     ReviewsContent

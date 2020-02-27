@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import ReviewsContent from './ReviewsContent'
-import ExternalCard from './ExternalCard'
+import ReviewsContent from '~/components/reviews/ReviewsContent'
+import ExternalCard from '~/components/reviews/ExternalCard'
 export default {
   components: {
     ReviewsContent,
