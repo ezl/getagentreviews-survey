@@ -32,6 +32,7 @@
           :alt="`${user.name}'s profile image`"
         >
         <span v-if="imgPreview" style="cursor:pointer;" href="#" @click="imgPreview = '', file = ''">Keep Old Image</span>
+        </span>
       </div>
       <label for="company">Company</label>
       <input
@@ -139,7 +140,7 @@ export default {
       this.file = e.target.files[0]
     },
     async getTestUser () {
-      const res = await this.$axios.get('/users/1')
+      const res = await this.$axios.get(`/users/${this.$route.params.id}`)
       console.log(res.data)
       this.user = res.data
       this.company = this.user.profile.company

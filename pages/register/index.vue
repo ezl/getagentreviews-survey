@@ -154,14 +154,14 @@ export default {
         })
         .then(({ data }) => {
           console.log(data)
-          alert(`You've been registed ezl, go to http://star-rating.netlify.com/${data.id} to see your user and go to /profile to edit your profile!`)
+          alert(`You've been registed ezl, go to http://theurl/users/${data.id} to see your user and go to /profile/${data.id} to edit your profile!`)
           this.loading = false
         })
         .catch((err) => {
           console.log(err.response)
+          this.loading = false
           alert('errors! check console for now!')
           this.errors = err.response.data
-          this.loading = false
         })
     },
     toggleShowPassword () {

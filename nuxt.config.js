@@ -54,7 +54,7 @@ export default {
    */
   axios: {
     // baseURL: 'https://trayvonnorthern.com/getagencyreviews-api/public/api'
-    baseURL: 'http://45.56.69.128/api'
+    baseURL: 'https://api.getagentreviews.com/api'
   },
   /*
    ** Build configuration
