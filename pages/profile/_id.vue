@@ -145,8 +145,10 @@ export default {
       this.user = res.data
       this.company = this.user.profile.company
       this.description = this.user.profile.description
-      this.googleLink = this.user.profile.links.google
-      this.yelpLink = this.user.profile.links.yelp
+      if (this.user.profile.links) {
+        this.googleLink = this.user.profile.links.google
+        this.yelpLink = this.user.profile.links.yelp
+      }
     }
   }
 }
