@@ -6,7 +6,7 @@
       :button-c-t-a="saveReview"
     >
       <template slot="title">
-        How was your experience with <b v-if="$store.state.reviews.agent">{{ $store.state.reviews.agent.name }}</b>?
+        How was your experience with <b v-if="$store.state.reviews.reviewRequest">{{ $store.state.reviews.agent.name }}</b>?
       </template>
       <template slot="subtitle">
         We won't publish your responses until after you confirm his review here.
@@ -15,12 +15,12 @@
         <RatingsStars />
       </template>
     </ReviewsContent>
-    <div class="loading d-flex justify-center align-center h-100" v-else>
+    <div v-else class="loading d-flex justify-center align-center h-100">
       <v-progress-circular
         :width="3"
         color="black"
         indeterminate
-      ></v-progress-circular>
+      />
     </div>
   </div>
 </template>
@@ -35,6 +35,11 @@ export default {
     RatingsStars
   },
   layout: 'default',
+  computed: {
+    loaded () {
+      return this.$store.state.auth.email && this.$store.state.reviews.agent
+    }
+  },
   mounted () {
     this.retrieveData()
   },
@@ -44,10 +49,10 @@ export default {
         alert('Please leave a review to continue.')
         return
       }
-      this.$store.commit('reviews/setRated')
+      this.$store.dispatch('reviews/stepComplete', { star_rating_completed: new Date(), id: 1, star_rating: this.$store.state.reviews.chosen })
       this.$router.push('reviews/localfeedback')
     },
-    retrieveData () {
+    async retrieveData () {
       const checkParamsExist = window.location.search.slice(1)
       if (checkParamsExist) {
         const params = checkParamsExist
@@ -59,6 +64,9 @@ export default {
           }, {})
         console.log(params)
         if (params) {
+          await this.$store.dispatch('reviews/getReview', 1)
+        }
+        if (params) {
           const data = params.rating.split('-')
           if (data.length) {
             this.$store.commit('reviews/setChosen', data[0])
@@ -68,13 +76,12 @@ export default {
         }
       }
     }
-  },
-  computed: {
-    loaded () {
-      return this.$store.state.auth.email && this.$store.state.reviews.agent
-    }
   }
 }
 </script>
 
-<style></style>
+<style>
+.loading {
+  height: 100vh;
+}
+</style>
