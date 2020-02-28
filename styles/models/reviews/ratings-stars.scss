@@ -2,6 +2,9 @@
   justify-content: space-between;
   width: 85%;
   height: 150px;
+  @include medium("down") {
+    margin: 0 auto;
+  }
   .text-purple {
     color: $purple;
   }

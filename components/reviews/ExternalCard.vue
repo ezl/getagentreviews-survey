@@ -1,7 +1,6 @@
 <template>
-<!-- leftFeedBackExternal maybe shouldn't trigger until use clicks a next button? That way they can set feedback on multiple external websites -->
   <div
-    @click="$store.commit('reviews/setLeftFeedBackExternal')"
+    @click="externalSubmit"
     class="external-feedback__card center-flex-v-h"
   >
     <slot />
@@ -9,9 +8,20 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    location: {
+      type: String,
+      default: ''
+    }
+  },
+  methods: {
+    externalSubmit () {
+      this.$store.commit('reviews/setLeftFeedBackExternal', this.location)
+    }
+  }
+}
 </script>
 
 <style lang="scss">
-
 </style>

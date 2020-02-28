@@ -3,51 +3,57 @@ const state = () => ({
   rated: false,
   leftFeedBackLocal: false,
   feedback: '',
-  leftFeedBackExternal: false,
+  leftFeedBackExternal: [],
   externalFeedBack: '',
   agent: null
 })
 
 const actions = {
-  getAgent ({ commit }, id) {
+  getAgent({ commit }, id) {
     this.$axios
       .get(`/users/${id}`)
       .then(({ data }) => {
         console.log(data)
         commit('setAgent', data)
       })
-      .catch((err) => {
+      .catch(err => {
         console.error(err)
       })
   }
 }
 
 const mutations = {
-  setChosen (state, chosen) {
+  setChosen(state, chosen) {
     state.chosen = chosen
   },
-  setRated (state, bool) {
+  setRated(state, bool) {
     if (bool) {
       state.rated = bool
     }
     state.rated = !state.rated
   },
-  setLeftFeedBackLocal (state, bool) {
+  setLeftFeedBackLocal(state, bool) {
     if (bool) {
       state.leftFeedBackLocal = bool
     }
     state.leftFeedBackLocal = !state.leftFeedBackLocal
   },
-  setLeftFeedBackExternal (state, bool) {
-    if (bool) {
-      state.leftFeedBackExternal = bool
+  setLeftFeedBackExternal(state, ext) {
+    if (ext) {
+      const exists = state.leftFeedBackExternal.find(each => each === ext)
+      if (exists) {
+        alert('You\'ve already left a review here.')
+        return
+      }
+      state.leftFeedBackExternal = [...state.leftFeedBackExternal, ext]
+    } else {
+      state.leftFeedBackExternal = []
     }
-    state.leftFeedBackExternal = !state.leftFeedBackExternal
   },
-  setFeedback (state, feedback) {
+  setFeedback(state, feedback) {
     state.feedback = feedback
   },
-  setAgent (state, agent) {
+  setAgent(state, agent) {
     console.log(agent)
     state.agent = agent
   }

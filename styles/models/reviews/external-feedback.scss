@@ -16,6 +16,9 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+    .external-feedback__card {
+      margin: 0 4px;
+    }
     @include small("down") {
       justify-content: center;
       flex-wrap: wrap;

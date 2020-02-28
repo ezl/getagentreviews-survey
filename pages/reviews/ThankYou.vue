@@ -1,11 +1,11 @@
 <template>
   <div class="thank-you">
-    <ReviewsContent :include-button="false">
+    <ReviewsContent :include-title="false" :include-button="false">
       <template slot="top-icon">
         <i class="far fa-thumbs-up" />
       </template>
       <template slot="title">
-        Thank you fo your feedback.
+        Thank you for your feedback.
       </template>
       <template slot="subtitle">
         <span class="multi-line-body">I'll read what you've written and work to incorporate your feedback</span>
@@ -20,7 +20,8 @@
         </template><br>
         Feedback: {{ $store.state.reviews.feedback }}<br>
         User: {{ $store.state.auth.email.email }}<br>
-        Agent: {{ $store.state.reviews.agent.name }}
+        Agent: {{ $store.state.reviews.agent.name }}<br>
+        Left Feedback on: <span :key="places" v-for="places in $store.state.reviews.leftFeedBackExternal">{{ places }}<template v-if="$store.state.reviews.leftFeedBackExternal.length > 1">, </template></span>
       </template>
     </ReviewsContent>
   </div>

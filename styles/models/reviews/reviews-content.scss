@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  right: 10%;
   margin-top: 50px;
   span {
     margin-top: 25px;
@@ -24,4 +23,9 @@
 }
 .reviews__top-icon {
   font-size: 40px;
+}
+
+.reviews__content__body {
+  right: 10%;
+  position: relative;
 }

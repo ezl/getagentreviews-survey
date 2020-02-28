@@ -77,6 +77,7 @@ export default {
       }
       this.$store.commit('reviews/setLeftFeedBackLocal')
       this.$store.commit('reviews/setFeedback', this.feedback)
+      this.$router.push('/reviews/externalfeedback')
     }
   }
 }

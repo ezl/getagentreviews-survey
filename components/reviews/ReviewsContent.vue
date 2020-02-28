@@ -1,7 +1,9 @@
 <template>
   <div class="reviews__content">
-    <span>Agency</span>
-    <div>
+    <div v-if="includeTitle" class="reviews__content-title-image">
+    <img src="@/assets/title.png" alt="title">
+    </div>
+    <div class="reviews__content__body">
       <span class="reviews__top-icon">
         <slot name="top-icon" />
       </span>
@@ -29,6 +31,10 @@ export default {
       type: Boolean,
       default: true
     },
+    includeTitle: {
+      type: Boolean,
+      default: true
+    },
     buttonCTA: {
       type: Function,
       default: () => {}
@@ -37,6 +43,14 @@ export default {
 }
 </script>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
+.reviews__content-title-image {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 35px;
+  img {
+    width: 160px;
+  }
+}
 </style>

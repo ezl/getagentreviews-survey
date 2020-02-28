@@ -1,18 +1,28 @@
 <template>
-  <ReviewsContent
-    button-title="Save Review"
-    :button-c-t-a="saveReview"
-  >
-    <template slot="title">
-      How was your experience with <b v-if="$store.state.reviews.agent">{{ $store.state.reviews.agent }}</b>?
-    </template>
-    <template slot="subtitle">
-      We won't publish your responses until after you confirm his review here.
-    </template>
-    <template slot="body">
-      <RatingsStars />
-    </template>
-  </ReviewsContent>
+  <div class="reviews">
+    <ReviewsContent
+      v-if="loaded"
+      button-title="Save Review"
+      :button-c-t-a="saveReview"
+    >
+      <template slot="title">
+        How was your experience with <b v-if="$store.state.reviews.agent">{{ $store.state.reviews.agent.name }}</b>?
+      </template>
+      <template slot="subtitle">
+        We won't publish your responses until after you confirm his review here.
+      </template>
+      <template slot="body">
+        <RatingsStars />
+      </template>
+    </ReviewsContent>
+    <div class="loading d-flex justify-center align-center h-100" v-else>
+      <v-progress-circular
+        :width="3"
+        color="black"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -24,6 +34,7 @@ export default {
     ReviewsContent,
     RatingsStars
   },
+  layout: 'default',
   mounted () {
     this.retrieveData()
   },
@@ -34,6 +45,7 @@ export default {
         return
       }
       this.$store.commit('reviews/setRated')
+      this.$router.push('reviews/localfeedback')
     },
     retrieveData () {
       const checkParamsExist = window.location.search.slice(1)
@@ -55,6 +67,11 @@ export default {
           }
         }
       }
+    }
+  },
+  computed: {
+    loaded () {
+      return this.$store.state.auth.email && this.$store.state.reviews.agent
     }
   }
 }

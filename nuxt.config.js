@@ -53,7 +53,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    // baseURL: 'https://trayvonnorthern.com/getagencyreviews-api/public/api'
+    // baseURL: 'http://localhost:805/api'
     baseURL: 'https://api.getagentreviews.com/api'
   },
   /*

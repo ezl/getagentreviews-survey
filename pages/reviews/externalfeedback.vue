@@ -18,7 +18,7 @@
       <template slot="body">
         <span class="external-feedback__leave-review">Leave a review on:</span>
         <div class="google">
-          <ExternalCard>
+          <ExternalCard location="google">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Google_wordmark.svg/800px-Google_wordmark.svg.png"
               alt="google"
@@ -29,25 +29,26 @@
       <template slot="extra-content">
         <span class="d-block">I don't have google but I'd be happy to leave a review on:</span>
         <div class="external-feedback__others">
-          <ExternalCard>
+          <ExternalCard location="zillow">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Zillow_logo19.png"
               alt="zillow"
             >
           </ExternalCard>
-          <ExternalCard>
+          <ExternalCard location="yelp">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Yelp_Logo.svg/1280px-Yelp_Logo.svg.png"
               alt="yelp"
             >
           </ExternalCard>
-          <ExternalCard>
+          <ExternalCard location="facebook">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/0/09/Facebook%2C_Inc._Logo_2019.png"
               alt="facebook"
             >
           </ExternalCard>
         </div>
+        <button v-if="$store.state.reviews.leftFeedBackExternal.length" class="button button--success mt-4" @click="$router.push('/reviews/thankyou')">Done</button>
       </template>
     </ReviewsContent>
   </div>
