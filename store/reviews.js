@@ -36,7 +36,7 @@ const actions = {
   async stepComplete ({ commit }, payload) {
     await this.$axios.put('/reviewrequest/' + payload.id, payload)
       .then(({ data }) => {
-        console.log('new request', state)
+        commit('setReviewRequest', data)
         if (payload.route) {
           this.$router.push(payload.route)
         }
