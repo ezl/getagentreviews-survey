@@ -21,30 +21,25 @@ const actions = {
         console.error(err)
       })
   },
-  getReview ({ commit, dispatch }, id) {
-    this.$axios.get(`/reviewrequest/${id}`)
+  async getReview ({ commit, dispatch }, id) {
+    await this.$axios.get(`/reviewrequest/${id}`)
       .then(({ data }) => {
         console.log('review', data)
         commit('setReviewRequest', data)
         if (!data.link_clicked) {
           // if link hasn't been clicked yet set it to clicked on the backend
-          dispatch('stepComplete', { link_clicked: new Date() })
-        } else if (data.star_rating_completed) {
-          if (data.feedback_completed) {
-            if (data.external_review_completed) {
-              this.$router.push('/reviews/thankyou')
-            }
-            this.$router.push('/reviews/externalfeedback')
-          }
-          this.$router.push('/reviews/localfeedback')
+          dispatch('stepComplete', { link_clicked: new Date(), id: data.id })
         }
       })
       .catch(err => console.log(err))
   },
-  stepComplete ({ commit }, payload) {
-    this.$axios.put('/reviewrequest/' + payload.id, payload)
+  async stepComplete ({ commit }, payload) {
+    await this.$axios.put('/reviewrequest/' + payload.id, payload)
       .then(({ data }) => {
-        console.log(data)
+        console.log('new request', state)
+        if (payload.route) {
+          this.$router.push(payload.route)
+        }
       })
       .catch((err) => {
         console.log(err)

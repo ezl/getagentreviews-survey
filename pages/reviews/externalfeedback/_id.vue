@@ -48,7 +48,9 @@
             >
           </ExternalCard>
         </div>
-        <button v-if="$store.state.reviews.leftFeedBackExternal.length" class="button button--success mt-4" @click="$router.push('/reviews/thankyou')">Done</button>
+        <button v-if="$store.state.reviews.leftFeedBackExternal.length" class="button button--success mt-4" @click="$router.push('/reviews/thankyou')">
+          Done
+        </button>
       </template>
     </ReviewsContent>
   </div>
@@ -61,6 +63,16 @@ export default {
   components: {
     ReviewsContent,
     ExternalCard
+  },
+  async middleware ({ store, redirect, params }) {
+    if (params) {
+      if (!store.state.reviews.reviewRequest) {
+        await store.dispatch('reviews/getReview', params.id)
+      }
+      if (store.state.reviews.reviewRequest.external_review_completed) {
+        return redirect('/reviews/thankyou/' + store.state.reviews.reviewRequest.id)
+      }
+    }
   }
 }
 </script>

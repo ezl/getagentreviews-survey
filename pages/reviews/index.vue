@@ -6,7 +6,7 @@
       :button-c-t-a="saveReview"
     >
       <template slot="title">
-        How was your experience with <b v-if="$store.state.reviews.reviewRequest">{{ $store.state.reviews.agent.name }}</b>?
+        How was your experience with <b v-if="$store.state.reviews.reviewRequest">{{ $store.state.reviews.reviewRequest.agent.name }}</b>?
       </template>
       <template slot="subtitle">
         We won't publish your responses until after you confirm his review here.
@@ -35,46 +35,44 @@ export default {
     RatingsStars
   },
   layout: 'default',
-  computed: {
-    loaded () {
-      return this.$store.state.auth.email && this.$store.state.reviews.agent
+  async middleware ({ store, redirect }) {
+    const checkParamsExist = window.location.search.slice(1)
+
+    if (checkParamsExist) {
+      const params = checkParamsExist
+        .split('&')
+        .reduce(function _reduce (/* Object */ a, /* String */ b) {
+          b = b.split('=')
+          a[b[0]] = decodeURIComponent(b[1])
+          return a
+        }, {})
+
+      if (params) {
+        const data = params.rating.split('-')
+        if (params) {
+          await store.dispatch('reviews/getReview', data[1])
+        }
+        if (store.state.reviews.reviewRequest.star_rating_completed) {
+          return redirect('/reviews/localfeedback/' + store.state.reviews.reviewRequest.id)
+        }
+        if (data.length) {
+          store.commit('reviews/setChosen', data[0])
+        }
+      }
     }
   },
-  mounted () {
-    this.retrieveData()
+  computed: {
+    loaded () {
+      return this.$store.state.reviews.reviewRequest
+    }
   },
   methods: {
-    saveReview () {
+    async saveReview () {
       if (this.$store.state.reviews.chosen === 0) {
         alert('Please leave a review to continue.')
         return
       }
-      this.$store.dispatch('reviews/stepComplete', { star_rating_completed: new Date(), id: 1, star_rating: this.$store.state.reviews.chosen })
-      this.$router.push('reviews/localfeedback')
-    },
-    async retrieveData () {
-      const checkParamsExist = window.location.search.slice(1)
-      if (checkParamsExist) {
-        const params = checkParamsExist
-          .split('&')
-          .reduce(function _reduce (/* Object */ a, /* String */ b) {
-            b = b.split('=')
-            a[b[0]] = decodeURIComponent(b[1])
-            return a
-          }, {})
-        console.log(params)
-        if (params) {
-          await this.$store.dispatch('reviews/getReview', 1)
-        }
-        if (params) {
-          const data = params.rating.split('-')
-          if (data.length) {
-            this.$store.commit('reviews/setChosen', data[0])
-            this.$store.dispatch('auth/getEmail', data[1])
-            this.$store.dispatch('reviews/getAgent', data[2])
-          }
-        }
-      }
+      await this.$store.dispatch('reviews/stepComplete', { star_rating_completed: new Date(), id: this.$store.state.reviews.reviewRequest.id, star_rating: this.$store.state.reviews.chosen, route: 'reviews/localfeedback/1' })
     }
   }
 }

@@ -1,16 +1,25 @@
 <template>
   <div class="local-feedback">
-    <ReviewsContent button-title="Submit" :button-c-t-a="submitFeedBack">
+    <ReviewsContent
+      button-title="Submit"
+      :button-c-t-a="submitFeedBack"
+    >
       <template slot="top-icon">
-        <i v-if="goodFeedBack" class="far fa-smile-beam" />
-        <i v-else class="far fa-frown-open" />
+        <i
+          v-if="goodFeedBack"
+          class="far fa-smile-beam"
+        />
+        <i
+          v-else
+          class="far fa-frown-open"
+        />
       </template>
       <template slot="title">
         <template v-if="goodFeedBack">
-          <b>{{ user }}</b>, we are happy we've hit the mark
+          <b>{{ $store.state.reviews.reviewRequest.agent.name }}</b>, we are happy we've hit the mark
         </template>
         <template v-else>
-          <b>{{ user }}</b>, we are sorry to hear that we missed the mark
+          <b>{{ $store.state.reviews.reviewRequest.agent.name }}</b>, we are sorry to hear that we missed the mark
         </template>
       </template>
       <template slot="subtitle">
@@ -55,6 +64,16 @@ export default {
   components: {
     ReviewsContent
   },
+  async middleware ({ store, redirect, params }) {
+    if (params) {
+      if (!store.state.reviews.reviewRequest) {
+        await store.dispatch('reviews/getReview', params.id)
+      }
+      if (store.state.reviews.reviewRequest.feedback_completed) {
+        return redirect('/reviews/externalfeedback/' + store.state.reviews.reviewRequest.id)
+      }
+    }
+  },
   data () {
     return {
       feedback:
@@ -66,7 +85,7 @@ export default {
       return this.$store.state.reviews.chosen > 3
     },
     user () {
-      return this.$store.state.auth.email.email
+      return this.$store.state.reviewRequest && this.$store.state.reviews.reviewRequest.agent.name
     }
   },
   methods: {
@@ -75,14 +94,14 @@ export default {
         alert('Please leave us feedback!')
         return
       }
-      this.$store.commit('reviews/setLeftFeedBackLocal')
-      this.$store.commit('reviews/setFeedback', this.feedback)
-      this.$router.push('/reviews/externalfeedback')
+      // this.$store.commit('reviews/setLeftFeedBackLocal')
+      // this.$store.commit('reviews/setFeedback', this.feedback)
+      // this.$router.push('/reviews/externalfeedback/' + this.$route.params.id)
+      this.$store.dispatch('reviews/stepComplete', { id: this.$route.params.id, feedback_completed: new Date(), feedback: this.feedback, route: '/reviews/externalfeedback/' + this.$store.state.reviews.reviewRequest.id })
     }
   }
 }
 </script>
 
 <style lang="scss">
-
 </style>
