@@ -1,9 +1,9 @@
 <template>
   <AuthScreen>
     <div class="register">
-      <h4 class="text-center">
-        Agent Reviews
-      </h4>
+      <div class="text-center">
+        <img src="@/assets/title.png" alt="title">
+      </div>
       <span class="text-purple d-block text-center">Welcome</span>
       <h4 class="text-center">
         Sign up for your account
@@ -56,7 +56,7 @@
           placeholder="Enter Phone Number"
         >
         <label for="password">Password</label>
-        <div class="register__password">
+        <div class="form__password">
           <span><i class="fas fa-eye" @click="toggleShowPassword" /></span>
 
           <input
@@ -71,7 +71,7 @@
         <label for="password_confirm">
           Password Confirmation
         </label>
-        <div class="register__password">
+        <div class="form__password">
           <span><i class="fas fa-eye" @click="toggleShowPassword" /></span>
           <input
             ref="passwordConfirm"
@@ -111,6 +111,7 @@ export default {
     AuthScreen
   },
   layout: 'default',
+  middleware: 'guest',
   data () {
     return {
       firstname: '',
@@ -180,6 +181,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~/styles/';
 input {
   margin-top: 5px;
   margin-bottom: 10px;
@@ -188,20 +190,9 @@ input {
 .register {
   width: 300px;
 }
-.register__password {
-  position: relative;
-  span {
-    position: absolute;
-    top: 20%;
-    right: 3%;
-  }
-  i {
-    opacity: 0.85;
-    transition: opacity 0.25s;
-    cursor: pointer;
-    &:hover {
-      opacity: 1;
-    }
-  }
+
+img {
+    width: 130px;
 }
+
 </style>

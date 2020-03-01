@@ -1,10 +1,9 @@
 <template>
   <div class="profile d-flex justify-center align-center h-100">
-    <div v-if="user" class="d-flex flex-column align-center">
-      <span class="d-block">
+    <div v-if="user" class="d-flex flex-column align-center align-content-center">
+      <b class="d-block">
         {{ user.name }}
-        {{ this.$route.params }}
-      </span>
+      </b>
 
       <label
         class="default-file-upload"
@@ -74,7 +73,7 @@
 
 <script>
 export default {
-  layout: 'default',
+  layout: 'authed',
   data () {
     return {
       company: '',
@@ -83,8 +82,7 @@ export default {
       email_description: '',
       googleLink: '',
       yelpLink: '',
-      file: '',
-      user: ''
+      file: ''
     }
   },
   computed: {
@@ -93,10 +91,25 @@ export default {
         google: this.googleLink,
         yelp: this.yelpLink
       }
+    },
+    user () {
+      return this.$store.state.auth.user
     }
   },
+  middleware: 'fakepersist',
   mounted () {
-    this.getTestUser()
+    // temporary
+    const userObj = this.$store.state.auth.user && this.$store.state.auth.user.profile
+    if (!userObj && localStorage.getItem('auth_token')) {
+      this.$store.dispatch('auth/getUser', localStorage.getItem('auth_token'))
+    } else if (userObj) {
+      this.company = userObj.company
+      this.description = userObj.description
+      this.googleLink = userObj.links && userObj.links.google
+      this.yelpLink = userObj.links && userObj.links.yelp
+    } else {
+      this.$router.push('/login')
+    }
   },
   methods: {
     updateProfile () {
@@ -137,15 +150,6 @@ export default {
       })
 
       this.file = e.target.files[0]
-    },
-    async getTestUser () {
-      const res = await this.$axios.get('/users/1')
-      console.log(res.data)
-      this.user = res.data
-      this.company = this.user.profile.company
-      this.description = this.user.profile.description
-      this.googleLink = this.user.profile.links.google
-      this.yelpLink = this.user.profile.links.yelp
     }
   }
 }

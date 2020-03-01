@@ -1,11 +1,16 @@
 const state = () => ({
   user: null,
-  email: null
+  email: null,
+  loading: false
 })
 
 const actions = {
-  getUser ({ commit }, id) {
-    this.$axios.get(`/users/${id}`)
+  async getUser ({ commit }, token) {
+    await this.$axios.get('/user', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then(({ data }) => {
         console.log(data)
         commit('setUser', data)
@@ -14,14 +19,21 @@ const actions = {
         console.error(err)
       })
   },
-  getEmail ({ commit }, id) {
-    this.$axios.get(`/emails/${id}`)
+  logout ({ commit }, token) {
+    commit('setLoading', true)
+    console.log(token)
+    this.$axios.post('/users/logout', {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then(({ data }) => {
-        console.log(data)
-        commit('setEmail', data)
+        this.$router.push('/login')
+        commit('setUser', null)
+        commit('setLoading', false)
       })
       .catch((err) => {
-        console.error(err)
+        console.log(err)
       })
   }
 }
@@ -30,10 +42,9 @@ const mutations = {
   setUser (state, user) {
     state.user = user
   },
-  setEmail (state, email) {
-    state.email = email
+  setLoading (state, bool) {
+    state.loading = bool
   }
-
 }
 
 export default {

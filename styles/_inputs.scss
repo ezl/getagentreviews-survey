@@ -40,3 +40,19 @@ textarea {
   }
 }
 
+.form__password {
+  position: relative;
+  span {
+    position: absolute;
+    top: 20%;
+    right: 3%;
+  }
+  i {
+    opacity: 0.85;
+    transition: opacity 0.25s;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

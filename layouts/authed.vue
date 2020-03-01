@@ -1,11 +1,22 @@
 <template>
-  <div class="authed">
-    <nuxt />
-  </div>
+  <v-app>
+    <div class="authed">
+      <Navbar />
+      <nuxt />
+      <Footer />
+    </div>
+  </v-app>
 </template>
 
 <script>
-export default {}
+import Navbar from '~/components/layout/Navbar'
+import Footer from '~/components/layout/Footer'
+export default {
+  components: {
+    Navbar,
+    Footer
+  }
+}
 </script>
 
 <style scoped></style>
