@@ -72,7 +72,7 @@ export default {
         alert('Please leave a review to continue.')
         return
       }
-      await this.$store.dispatch('reviews/stepComplete', { star_rating_completed: new Date(), id: this.$store.state.reviews.reviewRequest.id, star_rating: this.$store.state.reviews.chosen, route: 'reviews/localfeedback/' + this.$store.state.reviews.reviewRequest.id })
+      await this.$store.dispatch('reviews/stepComplete', { star_rating_completed: new Date(), id: this.$store.state.reviews.reviewRequest.id, star_rating: this.$store.state.reviews.chosen, route: '/reviews/localfeedback/' + this.$store.state.reviews.reviewRequest.id })
     }
   }
 }
