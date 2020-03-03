@@ -155,8 +155,8 @@ export default {
         })
         .then(({ data }) => {
           console.log(data)
-          alert(`You've been registed ${data.name}, redirecting you to your profile!`)
-          this.$router.push(`/profile/${data.id}`)
+          alert(`You've been registed ${data.name}, redirecting you to login!`)
+          this.$router.push('/login')
           this.loading = false
         })
         .catch((err) => {
