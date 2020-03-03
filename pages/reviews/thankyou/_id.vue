@@ -38,8 +38,8 @@ export default {
       if (!store.state.reviews.reviewRequest) {
         await store.dispatch('reviews/getReview', params.id)
       }
-      if (!store.state.reviews.reviewRequest.external_review_completed) {
-        return redirect('/404' + store.state.reviews.reviewRequest.id)
+      if (!store.state.reviews.reviewRequest.external_review_completed && store.state.reviews.reviewRequest.star_rating > 3) {
+        return redirect('/reviews/externalfeedback/' + store.state.reviews.reviewRequest.id)
       }
     }
   }
