@@ -28,4 +28,7 @@
 .reviews__content__body {
   right: 10%;
   position: relative;
+  @include medium("down") {
+    right: 0;
+  }
 }
