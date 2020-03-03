@@ -155,10 +155,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '~/styles';
 img {
   display: block;
   max-width: 60%;
   margin: 3px auto;
+}
+.button--purple {
+  @include small('down') {
+    margin-bottom: 180px;
+  }
 }
 </style>
