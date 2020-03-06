@@ -49,15 +49,16 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    ['cookie-universal-nuxt', { alias: 'cookiz', parseJSON: false }]
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'http://localhost:805/api'
-    // baseURL: 'https://api.getagentreviews.com/api'
+    // baseURL: 'http://localhost:805/api'
+    baseURL: 'https://api.getagentreviews.com/api'
   },
   /*
    ** Build configuration

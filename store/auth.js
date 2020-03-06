@@ -6,6 +6,7 @@ const state = () => ({
 
 const actions = {
   async getUser ({ commit }, token) {
+    console.log('happened')
     await this.$axios.get('/user', {
       headers: {
         Authorization: `Bearer ${token}`
@@ -17,6 +18,7 @@ const actions = {
       })
       .catch((err) => {
         console.error(err)
+        commit('setUser', null)
       })
   },
   logout ({ commit }, token) {

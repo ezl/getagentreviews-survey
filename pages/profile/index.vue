@@ -1,15 +1,15 @@
 <template>
   <div class="profile d-flex justify-center align-center h-100">
-    <div v-if="user" class="d-flex flex-column align-center align-content-center">
+    <div class="d-flex flex-column align-center align-content-center">
       <b class="d-block">
-        {{ user.name }}
+        {{ user && user.name }}
       </b>
 
       <label
         class="default-file-upload"
         for="image"
       >
-        <template v-if="!user.profile.image">Upload Image</template>
+        <template v-if="user && !user.profile.image">Upload Image</template>
         <template v-else>Change Image</template>
         <input
           id="image"
@@ -26,11 +26,16 @@
           alt=""
         >
         <img
-          v-if="user.profile.image && !imgPreview"
-          :src="user.profile.image"
+          v-if="user && user.profile.image && !imgPreview"
+          :src="user && user.profile.image"
           :alt="`${user.name}'s profile image`"
         >
-        <span v-if="imgPreview" style="cursor:pointer;" href="#" @click="imgPreview = '', file = ''">Keep Old Image</span>
+        <span
+          v-if="imgPreview"
+          style="cursor:pointer;"
+          href="#"
+          @click="imgPreview = '', file = ''"
+        >Keep Old Image</span>
       </div>
       <label for="company">Company</label>
       <input
@@ -64,7 +69,10 @@
         class="default-input"
         name="yelp"
       >
-      <button class="button button--purple mt-4" @click="updateProfile">
+      <button
+        class="button button--purple mt-4"
+        @click="updateProfile"
+      >
         Update
       </button>
     </div>
@@ -96,19 +104,14 @@ export default {
       return this.$store.state.auth.user
     }
   },
-  middleware: 'fakepersist',
+  middleware: 'authed',
   mounted () {
-    // temporary
     const userObj = this.$store.state.auth.user && this.$store.state.auth.user.profile
-    if (!userObj && localStorage.getItem('auth_token')) {
-      this.$store.dispatch('auth/getUser', localStorage.getItem('auth_token'))
-    } else if (userObj) {
+    if (userObj) {
       this.company = userObj.company
       this.description = userObj.description
       this.googleLink = userObj.links && userObj.links.google
       this.yelpLink = userObj.links && userObj.links.yelp
-    } else {
-      this.$router.push('/login')
     }
   },
   methods: {

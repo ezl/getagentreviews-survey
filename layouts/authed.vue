@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div class="authed">
-      <Navbar />
+      <Navbar :routes="routes()" />
       <nuxt />
       <Footer />
     </div>
@@ -15,6 +15,17 @@ export default {
   components: {
     Navbar,
     Footer
+  },
+  methods: {
+    routes () {
+      return [
+        { name: 'Profile', action: '/profile' }
+      ]
+    },
+    logout () {
+      alert('happeend')
+      return this.$store.dispatch('auth/logout', this.$cookiz.get('auth-token'))
+    }
   }
 }
 </script>

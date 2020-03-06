@@ -103,7 +103,8 @@ export default {
           console.log(data)
           this.loading = false
           this.$store.commit('auth/setUser', data.user)
-          localStorage.setItem('auth_token', data.token)
+          // localStorage.setItem('auth_token', data.token)
+          this.$cookiz.set('auth-token', data.token)
           this.$router.push('/')
         })
         .catch((err) => {

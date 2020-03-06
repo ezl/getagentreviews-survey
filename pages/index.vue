@@ -49,9 +49,8 @@ export default {
       clients: []
     }
   },
-  middleware: 'fakepersist',
   // temporary
-  layout ({ store }) { return localStorage.getItem('auth_token') ? 'authed' : 'guest' },
+  layout ({ store }) { return store.state.auth.user ? 'authed' : 'guest' },
   methods: {
     inquire (name, email) {
       this.$axios.post('/reviewrequest', {
