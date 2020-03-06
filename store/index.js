@@ -8,11 +8,14 @@ const mutations = {
   }
 }
 
-// const actions = {
-//   async nuxtServerInit ({ commit }, { req }) {}
-// }
+const actions = {
+  async nuxtServerInit ({ commit }, { req }) {
+    await alert('this worked')
+  }
+}
 
 export default {
   state,
-  mutations
+  mutations,
+  actions
 }
