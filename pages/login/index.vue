@@ -9,58 +9,67 @@
         <h4 class="text-center">
           Sign into your account
         </h4>
-        <b v-if="errors && typeof errors === 'string'" class="text-center w-100 d-block mx-0 mt-2">{{ errors }}</b>
-        <form @submit.prevent="login">
-          <label for="email">
-            Email
-          </label>
-          <input
-            v-model="email"
-            placeholder="Enter Your Email"
-            type="text"
-            class="default-input"
-            name="email"
-          >
-          <template v-if="errors && errors.email">
-            <b v-for="err in errors.email" :key="err" class="d-block">
-              {{ err }}
-            </b>
-          </template>
-          <label for="password">Password</label>
-          <div class="form__password">
-            <span><i
-              class="fas fa-eye"
-              @click="toggleShowPassword"
-            /></span>
-
-            <input
-              ref="password"
-              v-model="password"
-              placeholder="Enter Your Password"
-              type="password"
-              class="default-input"
-              name="password"
-            >
-            <template v-if="errors && errors.password">
-              <b v-for="err in errors.password" :key="err" class="d-block">
+        <b v-if="serverErrors && typeof serverErrors === 'string'" class="text-center w-100 d-block mx-0 mt-2">{{ serverErrors }}</b>
+        <ValidationObserver v-slot="{ handleSubmit }">
+          <form @submit.prevent="submitted = true, handleSubmit(login)">
+            <label for="email">
+              Email
+            </label>
+            <ValidationProvider v-slot="{ errors }" rules="email|required">
+              <input
+                v-model="email"
+                placeholder="Enter Your Email"
+                type="text"
+                class="default-input"
+                name="email"
+                data-vv-validate-on="submit"
+              >
+              <ValidationBox v-if="submitted" :message="errors[0]" />
+            </ValidationProvider>
+            <template v-if="serverErrors && serverErrors.email">
+              <b v-for="err in serverErrors.email" :key="err" class="d-block">
                 {{ err }}
               </b>
             </template>
-          </div>
-          <div class="d-flex align-center justify-space-between login__options">
-            <v-checkbox
-              v-model="remember"
-              label="Remember Me"
-            />
-            <nuxt-link to="/forgot">
-              Forgot Password?
-            </nuxt-link>
-          </div>
-          <button :class="loading ? 'button--disabled' : 'button--purple'" class="button w-100 mt-5">
-            Sign In
-          </button>
-          <span v-if="loading">Logging you in...</span>
-        </form>
+            <label for="password">Password</label>
+            <div class="form__password">
+              <span><i
+                class="fas fa-eye"
+                @click="toggleShowPassword"
+              /></span>
+              <ValidationProvider v-slot="{ errors }" rules="required">
+                <input
+                  ref="password"
+                  v-model="password"
+                  placeholder="Enter Your Password"
+                  type="password"
+                  class="default-input"
+                  name="password"
+                >
+                <ValidationBox :message="errors[0]" />
+              </ValidationProvider>
+              <template v-if="serverErrors && serverErrors.password">
+                <b v-for="err in serverErrors.password" :key="err" class="d-block">
+                  {{ err }}
+                </b>
+              </template>
+            </div>
+
+            <div class="d-flex align-center justify-space-between login__options">
+              <v-checkbox
+                v-model="remember"
+                label="Remember Me"
+              />
+              <nuxt-link to="/forgot">
+                Forgot Password?
+              </nuxt-link>
+            </div>
+            <button :class="loading ? 'button--disabled' : 'button--purple'" class="button w-100 mt-5">
+              Sign In
+            </button>
+            <span v-if="loading">Logging you in...</span>
+          </form>
+        </ValidationObserver>
         <span class="mt-10">Don't have an acount? <nuxt-link
           class="ml-4"
           to="/register"
@@ -71,11 +80,16 @@
 </template>
 
 <script>
+import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import AuthScreen from '~/components/auth/AuthScreen'
+import ValidationBox from '~/components/misc/ValidationBox'
 
 export default {
   components: {
-    AuthScreen
+    AuthScreen,
+    ValidationProvider,
+    ValidationBox,
+    ValidationObserver
   },
   layout: 'default',
   middleware: 'guest',
@@ -86,7 +100,9 @@ export default {
       remember: false,
       loading: false,
       showPass: false,
-      errors: null
+      serverErrors: '',
+      submitted: false
+
     }
   },
   methods: {
@@ -110,10 +126,10 @@ export default {
         .catch((err) => {
           if (err.response.status === 422) {
             console.log(err.response.data)
-            this.errors = err.response.data.errors
+            this.serverErrors = err.response.data.errors
           }
           if (err.response.status === 401) {
-            this.errors = err.response.data
+            this.serverErrors = err.response.data
             console.log(err.response.data)
           }
           this.loading = false

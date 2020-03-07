@@ -39,7 +39,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/url.js'],
+  plugins: ['~/plugins/url.js', '~/plugins/vee-validate'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -57,8 +57,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    // baseURL: 'http://localhost:805/api'
-    baseURL: 'https://api.getagentreviews.com/api'
+    baseURL: 'http://localhost:805/api'
+    // baseURL: 'https://api.getagentreviews.com/api'
   },
   /*
    ** Build configuration
@@ -67,6 +67,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    transpile: ['vee-validate/dist/rules'],
     extend (config, ctx) {}
   }
 }
