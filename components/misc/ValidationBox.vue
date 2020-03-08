@@ -23,5 +23,6 @@ export default {
   background-color: #fff3cd;
   display: inline-block;
   padding: 8px;
+  font-size: 12px;
 }
 </style>

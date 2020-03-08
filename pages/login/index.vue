@@ -27,9 +27,7 @@
               <ValidationBox v-if="submitted" :message="errors[0]" />
             </ValidationProvider>
             <template v-if="serverErrors && serverErrors.email">
-              <b v-for="err in serverErrors.email" :key="err" class="d-block">
-                {{ err }}
-              </b>
+              <ValidationBox v-for="err in serverErrors.email" :key="err" :message="err" />
             </template>
             <label for="password">Password</label>
             <div class="form__password">
@@ -37,7 +35,7 @@
                 class="fas fa-eye"
                 @click="toggleShowPassword"
               /></span>
-              <ValidationProvider v-slot="{ errors }" rules="required">
+              <ValidationProvider v-slot="{ errors }" rules="required|min:8">
                 <input
                   ref="password"
                   v-model="password"
@@ -49,9 +47,9 @@
                 <ValidationBox :message="errors[0]" />
               </ValidationProvider>
               <template v-if="serverErrors && serverErrors.password">
-                <b v-for="err in serverErrors.password" :key="err" class="d-block">
-                  {{ err }}
-                </b>
+                <div v-for="err in serverErrors.password" :key="err">
+                  <ValidationBox :message="err" />
+                </div>
               </template>
             </div>
 
