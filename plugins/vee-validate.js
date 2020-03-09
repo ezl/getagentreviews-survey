@@ -14,7 +14,7 @@ extend('email', {
   ...rules.email,
   message: 'Please enter a valid email.'
 })
-extend('min:8', {
+extend('min', {
   ...rules.min,
   message: 'This field must be 8 characters'
 })
