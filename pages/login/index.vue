@@ -9,26 +9,23 @@
         <h4 class="text-center">
           Sign into your account
         </h4>
-        <b v-if="serverErrors && typeof serverErrors === 'string'" class="text-center w-100 d-block mx-0 mt-2">{{ serverErrors }}</b>
+        <div v-if="serverErrors && typeof serverErrors === 'string'" class="text-center">
+          <ValidationBox :message="serverErrors" />
+        </div>
+
         <ValidationObserver v-slot="{ handleSubmit }">
           <form @submit.prevent="submitted = true, handleSubmit(login)">
-            <label for="email">
-              Email
-            </label>
             <ValidationProvider v-slot="{ errors }" rules="email|required">
-              <input
-                v-model="email"
-                placeholder="Enter Your Email"
-                type="text"
-                class="default-input"
-                name="email"
-                data-vv-validate-on="submit"
-              >
+              <ValidationInput 
+              v-model="email" 
+              placeholder="Enter Your Email" 
+              input-type="email" 
+              name="email" 
+              label="Email" 
+              error-property="email" 
+              :serverErrors="serverErrors" />
               <ValidationBox v-if="submitted" :message="errors[0]" />
             </ValidationProvider>
-            <template v-if="serverErrors && serverErrors.email">
-              <ValidationBox v-for="err in serverErrors.email" :key="err" :message="err" />
-            </template>
             <label for="password">Password</label>
             <div class="form__password">
               <span><i
@@ -81,13 +78,15 @@
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import AuthScreen from '~/components/auth/AuthScreen'
 import ValidationBox from '~/components/misc/ValidationBox'
+import ValidationInput from '~/components/common/ValidationInput'
 
 export default {
   components: {
     AuthScreen,
     ValidationProvider,
     ValidationBox,
-    ValidationObserver
+    ValidationObserver,
+    ValidationInput
   },
   layout: 'default',
   middleware: 'guest',
