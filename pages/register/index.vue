@@ -6,96 +6,112 @@
       </div>
       <span class="text-purple d-block text-center">Welcome</span>
       <h4 class="text-center">
-        Sign up for your account
+        Sign up for your account {{ $store.state.auth.loading }}
       </h4>
-      <form
-        enctype="multipart/form-data"
-        @submit.prevent="addUser"
-      >
-        <div v-if="errors && errors.errors.name">
-          <span
-            v-for="(err, i) in errors.errors.name"
-            :key="i"
-          >{{ err }}</span>
-        </div>
-        <label for="firstname">
-          First Name
-        </label>
-        <input
-          v-model="firstname"
-          placeholder="Enter First Name"
-          type="text"
-          class="default-input"
-          name="firstname"
+      <ValidationObserver v-slot="{ handleSubmit, invalid }">
+        <form
+          enctype="multipart/form-data"
+          @submit.prevent="handleSubmit(register)"
         >
-        <label for="lastname">
-          Last Name
-        </label>
-        <input
-          v-model="lastname"
-          placeholder="Enter Last Name"
-          type="text"
-          class="default-input"
-          name="lastname"
-        >
-        <label for="email">Email</label>
-        <input
-          v-model="email"
-          placeholder="Enter Email"
-          type="text"
-          class="default-input"
-          name="email"
-        >
-        <label for="number">
-          Phone Number
-        </label>
-        <input
-          v-model="number"
-          class="default-input"
-          type="tel"
-          placeholder="Enter Phone Number"
-        >
-        <label for="password">Password</label>
-        <div class="form__password">
-          <span><i class="fas fa-eye" @click="toggleShowPassword" /></span>
-
+          <ValidationProvider v-slot="{ errors }" rules="required">
+            <ValidationInput
+              v-model="firstname"
+              placeholder="Enter Your First Name"
+              input-type="text"
+              name="firstname"
+              label="First Name"
+              error-property="name"
+              :server-errors="serverErrors"
+            />
+            <ValidationBox v-if="submitted" :message="errors[0]" />
+          </ValidationProvider>
+          <ValidationProvider v-slot="{ errors }" rules="required">
+            <ValidationInput
+              v-model="lastname"
+              placeholder="Enter Your Last Name"
+              input-type="text"
+              name="lastname"
+              label="Last Name"
+              error-property="name"
+              :server-errors="serverErrors"
+            />
+            <ValidationBox v-if="submitted" :message="errors[0]" />
+          </ValidationProvider>
+          <ValidationProvider v-slot="{ errors }" rules="email|required">
+            <ValidationInput
+              v-model="email"
+              placeholder="Enter Your Email"
+              input-type="email"
+              name="email"
+              label="Email"
+              error-property="email"
+              :server-errors="serverErrors"
+            />
+            <ValidationBox v-if="submitted" :message="errors[0]" />
+          </ValidationProvider>
+          <ValidationProvider v-slot="{ errors }" rules="required|phone">
+            <ValidationInput
+              v-model="number"
+              placeholder="Enter Your Phone Number"
+              input-type="tel"
+              name="phonenumber"
+              label="Phone Number"
+              error-property="number"
+              :server-errors="serverErrors"
+            />
+            <ValidationBox v-if="submitted" :message="errors[0]" />
+          </ValidationProvider>
+          <label for="number">
+            Phone Number
+          </label>
           <input
-            ref="password"
-            v-model="password"
-            placeholder="Enter Your Password"
-            type="password"
+            v-model="number"
             class="default-input"
-            name="password"
+            type="tel"
+            placeholder="Enter Phone Number"
           >
-        </div>
-        <label for="password_confirm">
-          Password Confirmation
-        </label>
-        <div class="form__password">
-          <span><i class="fas fa-eye" @click="toggleShowPassword" /></span>
-          <input
-            ref="passwordConfirm"
-            v-model="passwordConfirmation"
-            placeholder="Confirm Your Password"
-            type="password"
-            class="default-input"
-            name="password-confirm"
-          >
-        </div>
-        <label for="company">Company</label>
-        <input
-          v-model="company"
-          placeholder="Enter Company Name"
-          name="company"
-          class="default-input"
-          type="text"
-        >
+          <label for="password">Password</label>
+          <div class="form__password">
+            <span><i class="fas fa-eye" @click="toggleShowPassword" /></span>
 
-        <button :class="loading ? 'button--disabled' : 'button--purple'" class="button w-100">
-          Sign Up
-        </button>
-        <span v-if="loading">Registering your account...</span>
-      </form>
+            <input
+              ref="password"
+              v-model="password"
+              placeholder="Enter Your Password"
+              type="password"
+              class="default-input"
+              name="password"
+            >
+          </div>
+          <label for="password_confirm">
+            Password Confirmation
+          </label>
+          <div class="form__password">
+            <span><i class="fas fa-eye" @click="toggleShowPassword" /></span>
+            <input
+              ref="passwordConfirm"
+              v-model="passwordConfirmation"
+              placeholder="Confirm Your Password"
+              type="password"
+              class="default-input"
+              name="password-confirm"
+            >
+          </div>
+          <label for="company">Company</label>
+          <input
+            v-model="company"
+            placeholder="Enter Company Name"
+            name="company"
+            class="default-input"
+            type="text"
+          >
+
+          <button :class="loading || invalid ? 'button--disabled' : 'button--purple'" class="button w-100">
+            Sign Up
+          </button>
+          <span v-if="loading">Registering your account...</span>
+        </form>
+      </ValidationObserver>
       <span class="mt-10">Already have an account? <nuxt-link
         class="ml-4"
         to="/login"
@@ -105,10 +121,17 @@
 </template>
 
 <script>
+import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import AuthScreen from '~/components/auth/AuthScreen'
+import ValidationBox from '~/components/misc/ValidationBox'
+import ValidationInput from '~/components/common/ValidationInput'
 export default {
   components: {
-    AuthScreen
+    AuthScreen,
+    ValidationProvider,
+    ValidationBox,
+    ValidationObserver,
+    ValidationInput
   },
   layout: 'default',
   middleware: 'guest',
@@ -121,14 +144,19 @@ export default {
       company: '',
       password: '',
       passwordConfirmation: '',
-      errors: null,
       showPass: false,
-      loading: false
+      submitted: false
     }
   },
   computed: {
     name () {
       return this.firstname + ' ' + this.lastname
+    },
+    loading () {
+      return this.$store.state.auth.loading
+    },
+    serverErrors () {
+      return this.$store.state.auth.serverErrors
     },
     batch () {
       const fd = new FormData()
@@ -144,27 +172,9 @@ export default {
     }
   },
   methods: {
-    addUser () {
-      this.loading = true
-      // return
-      this.$axios
-        .post('/users', this.batch, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-        .then(({ data }) => {
-          console.log(data)
-          alert(`You've been registed ${data.name}, redirecting you to login!`)
-          this.$router.push('/login')
-          this.loading = false
-        })
-        .catch((err) => {
-          console.log(err.response)
-          this.loading = false
-          alert('errors! check console for now!')
-          this.errors = err.response.data
-        })
+    register () {
+      this.submitted = true
+      this.$store.dispatch('auth/register', this.batch)
     },
     toggleShowPassword () {
       this.showPass = !this.showPass

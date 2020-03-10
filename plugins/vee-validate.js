@@ -18,3 +18,17 @@ extend('min', {
   ...rules.min,
   message: 'This field must be 8 characters'
 })
+
+const phone = {
+  getMessage (field) {
+    return `The ${field} must be a valid phone number`
+  },
+  validate (value) {
+    // Custom regex for a phone number
+    const MOBILEREG = /^((1[3578][0-9])+\d{8})$/
+
+    // Check for either of these to return true
+    return MOBILEREG.test(value)
+  }
+}
+extend('phone', phone)
