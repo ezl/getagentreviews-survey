@@ -9,46 +9,36 @@
         <h4 class="text-center">
           Sign into your account
         </h4>
-        <div v-if="serverErrors && typeof serverErrors === 'string'" class="text-center">
+        <div v-if="serverErrors.length && typeof serverErrors === 'string'" class="text-center">
           <ValidationBox :message="serverErrors" />
         </div>
 
         <ValidationObserver v-slot="{ handleSubmit }">
           <form @submit.prevent="submitted = true, handleSubmit(login)">
             <ValidationProvider v-slot="{ errors }" rules="email|required">
-              <ValidationInput 
-              v-model="email" 
-              placeholder="Enter Your Email" 
-              input-type="email" 
-              name="email" 
-              label="Email" 
-              error-property="email" 
-              :serverErrors="serverErrors" />
+              <ValidationInput
+                v-model="email"
+                placeholder="Enter Your Email"
+                input-type="email"
+                name="email"
+                label="Email"
+                error-property="email"
+                :server-errors="serverErrors"
+              />
               <ValidationBox v-if="submitted" :message="errors[0]" />
             </ValidationProvider>
-            <label for="password">Password</label>
-            <div class="form__password">
-              <span><i
-                class="fas fa-eye"
-                @click="toggleShowPassword"
-              /></span>
-              <ValidationProvider v-slot="{ errors }" rules="required|min:8">
-                <input
-                  ref="password"
-                  v-model="password"
-                  placeholder="Enter Your Password"
-                  type="password"
-                  class="default-input"
-                  name="password"
-                >
-                <ValidationBox :message="errors[0]" />
-              </ValidationProvider>
-              <template v-if="serverErrors && serverErrors.password">
-                <div v-for="err in serverErrors.password" :key="err">
-                  <ValidationBox :message="err" />
-                </div>
-              </template>
-            </div>
+            <ValidationProvider v-slot="{ errors }" rules="required|min:8">
+              <ValidationInput
+                v-model="password"
+                placeholder="Enter Your Password"
+                input-type="password"
+                name="password"
+                label="Password"
+                error-property="password"
+                :server-errors="serverErrors"
+              />
+              <ValidationBox v-if="submitted" :message="errors[0]" />
+            </ValidationProvider>
 
             <div class="d-flex align-center justify-space-between login__options">
               <v-checkbox
@@ -97,7 +87,7 @@ export default {
       remember: false,
       loading: false,
       showPass: false,
-      serverErrors: '',
+      serverErrors: [],
       submitted: false
 
     }
