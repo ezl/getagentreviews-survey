@@ -89,6 +89,6 @@ export default {
 input {
   margin-top: 5px;
   margin-bottom: 10px;
-  width: 280px;
+  width: 300px;
 }
 </style>

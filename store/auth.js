@@ -2,7 +2,8 @@ const state = () => ({
   user: null,
   email: null,
   loading: false,
-  serverErrors: []
+  serverErrors: [],
+  tempEmail: ''
 })
 
 const actions = {
@@ -54,10 +55,11 @@ const actions = {
         }
       })
       .then(({ data }) => {
-        console.log(data)
+        // console.log(data)
         alert(`You've been registed ${data.name}, redirecting you to login!`)
         this.$router.push('/login')
         commit('setLoading', false)
+        commit('setTempEmail', data.email)
       })
       .catch((err) => {
         console.log(err.response)
@@ -74,6 +76,9 @@ const mutations = {
   },
   setLoading (state, bool) {
     state.loading = bool
+  },
+  setTempEmail (state, email) {
+    state.tempEmail = email
   }
 }
 

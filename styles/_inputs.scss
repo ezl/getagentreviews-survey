@@ -42,10 +42,17 @@ textarea {
 
 .form__password {
   position: relative;
-  .fas.fa-eye {
+  span {
+    // position: relative;
     position: absolute;
-    top: 60%;
-    right: 3%;
+    display: block;
+    width: 100%;
+    // height: 100%;
+    top: 53%;
+    left: 89%;
+  }
+  .fas.fa-eye {
+    // right: 3%;
   }
   i {
     opacity: 0.85;

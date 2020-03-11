@@ -6,7 +6,7 @@
       </div>
       <span class="text-purple d-block text-center">Welcome</span>
       <h4 class="text-center">
-        Sign up for your account {{ $store.state.auth.loading }}
+        Sign up for your account
       </h4>
       <ValidationObserver v-slot="{ handleSubmit, invalid }">
         <form
@@ -19,7 +19,7 @@
               placeholder="Enter Your First Name"
               input-type="text"
               name="firstname"
-              label="First Name"
+              label="First Name*"
               error-property="name"
               :server-errors="serverErrors"
             />
@@ -31,7 +31,7 @@
               placeholder="Enter Your Last Name"
               input-type="text"
               name="lastname"
-              label="Last Name"
+              label="Last Name*"
               error-property="name"
               :server-errors="serverErrors"
             />
@@ -43,7 +43,7 @@
               placeholder="Enter Your Email"
               input-type="email"
               name="email"
-              label="Email"
+              label="Email*"
               error-property="email"
               :server-errors="serverErrors"
             />
@@ -52,59 +52,51 @@
           <ValidationProvider v-slot="{ errors }" rules="required|phone">
             <ValidationInput
               v-model="number"
-              placeholder="Enter Your Phone Number"
+              placeholder="Ex. +13198832832"
               input-type="tel"
               name="phonenumber"
-              label="Phone Number"
+              label="Phone Number*"
               error-property="number"
               :server-errors="serverErrors"
             />
             <ValidationBox v-if="submitted" :message="errors[0]" />
           </ValidationProvider>
-          <label for="number">
-            Phone Number
-          </label>
-          <input
-            v-model="number"
-            class="default-input"
-            type="tel"
-            placeholder="Enter Phone Number"
-          >
-          <label for="password">Password</label>
-          <div class="form__password">
-            <span><i class="fas fa-eye" @click="toggleShowPassword" /></span>
-
-            <input
-              ref="password"
+          <ValidationProvider v-slot="{ errors }" rules="required|min:8">
+            <ValidationInput
               v-model="password"
-              placeholder="Enter Your Password"
-              type="password"
-              class="default-input"
+              placeholder="Password(8 Characters Min.)"
+              input-type="password"
               name="password"
-            >
-          </div>
-          <label for="password_confirm">
-            Password Confirmation
-          </label>
-          <div class="form__password">
-            <span><i class="fas fa-eye" @click="toggleShowPassword" /></span>
-            <input
-              ref="passwordConfirm"
+              label="Password"
+              error-property="password"
+              :server-errors="serverErrors"
+            />
+            <ValidationBox v-if="submitted" :message="errors[0]" />
+          </ValidationProvider>
+          <ValidationProvider v-slot="{ errors }" rules="required|min:8">
+            <ValidationInput
               v-model="passwordConfirmation"
               placeholder="Confirm Your Password"
-              type="password"
-              class="default-input"
+              input-type="password"
               name="password-confirm"
-            >
-          </div>
-          <label for="company">Company</label>
-          <input
-            v-model="company"
-            placeholder="Enter Company Name"
-            name="company"
-            class="default-input"
-            type="text"
-          >
+              label="Password Confirmation"
+              error-property="password"
+              :server-errors="serverErrors"
+            />
+            <ValidationBox v-if="submitted" :message="errors[0]" />
+          </ValidationProvider>
+          <ValidationProvider v-slot="{ errors }" rules="required">
+            <ValidationInput
+              v-model="company"
+              placeholder="Enter Company Name"
+              input-type="text"
+              name="company"
+              label="Company"
+              error-property="company"
+              :server-errors="serverErrors"
+            />
+            <ValidationBox v-if="submitted" :message="errors[0]" />
+          </ValidationProvider>
 
           <button :class="loading || invalid ? 'button--disabled' : 'button--purple'" class="button w-100">
             Sign Up
@@ -199,6 +191,11 @@ input {
 }
 .register {
   width: 300px;
+.form__password {
+  .fas.fa-eye {
+    right: 8% !important;
+  }
+}
 }
 
 img {

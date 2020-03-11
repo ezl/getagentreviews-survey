@@ -24,11 +24,12 @@ const phone = {
     return `The ${field} must be a valid phone number`
   },
   validate (value) {
-    // Custom regex for a phone number
-    const MOBILEREG = /^((1[3578][0-9])+\d{8})$/
-
+    const PhoneNumber = require('awesome-phonenumber')
+    const pn = new PhoneNumber(value)
+    const otherFormat = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/
+    const isPhone = otherFormat.test(value)
     // Check for either of these to return true
-    return MOBILEREG.test(value)
+    return pn.isValid() || isPhone
   }
 }
 extend('phone', phone)
