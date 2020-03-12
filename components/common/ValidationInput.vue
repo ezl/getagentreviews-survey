@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="containerBinds()">
+    <div :ref="focus && 'focus'" :class="containerBinds()">
       <label
         v-if="includeLabel"
         :for="name"
@@ -85,6 +85,10 @@ export default {
     includeLabel: {
       type: Boolean,
       default: true
+    },
+    focus: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -92,9 +96,19 @@ export default {
       passwordInput: false
     }
   },
+  watch: {
+    focus (newFocus, oldFocus) {
+      if (newFocus === true) {
+        this.focusInput()
+      }
+    }
+  },
   mounted () {
     if (this.inputType === 'password') {
       this.passwordInput = true
+    }
+    if (this.focus) {
+      this.$refs.focus.children[1].focus()
     }
   },
   methods: {
@@ -115,6 +129,11 @@ export default {
         classes = [...classes, this.containerClasses]
       }
       return classes.join(' ')
+    },
+    focusInput () {
+      this.$nextTick(() => {
+        this.$refs.focus.children[1].focus()
+      })
     }
   }
 }
