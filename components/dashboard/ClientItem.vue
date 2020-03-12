@@ -11,38 +11,28 @@
             <v-list-item-title v-if="!names.includes(client.name)" @click="$store.commit('clients/fieldAction', {action: 'edit', item: 'names', data: client.name})">
               {{ client.name }}
             </v-list-item-title>
-            <ValidationObserver v-else v-slot="{ handleSubmit }">
-              <form @submit.prevent="handleSubmit(() => {updateClient('name', name) })">
-                <ValidationProvider rules="required">
-                  <ValidationInput
-                    v-model="name"
-                    input-type="text"
-                    name="client-email-name"
-                    :default-input-styling="false"
-                    input-classes="w-100 d-i-block"
-                    :focus="true"
-                  />
-                </ValidationProvider>
-              </form>
-            </ValidationObserver>
+            <ClientEditable
+              v-else
+              :initial-data="client.name"
+              update-field="name"
+              update-item="names"
+              :client="client"
+              input-type="text"
+              rules="required"
+            />
             <v-list-item-subtitle v-if="!emails.includes(client.email)" class="editable" @click="$store.commit('clients/fieldAction', {action: 'edit', item: 'emails', data: client.email})">
               {{ client.email }}
             </v-list-item-subtitle>
-            <ValidationObserver v-else v-slot="{ handleSubmit }">
-              <form @submit.prevent="handleSubmit(() => {updateClient('email', email) })">
-                <ValidationProvider rules="required|email">
-                  <ValidationInput
-                    v-model="email"
-                    input-type="text"
-                    name="client-email-edit"
-                    :default-input-styling="false"
-                    input-styles="color: rgba(0, 0, 0, 0.6); font-size: 0.875rem;"
-                    input-classes="w-100 d-i-block"
-                    :focus="true"
-                  />
-                </ValidationProvider>
-              </form>
-            </ValidationObserver>
+            <ClientEditable
+              v-else
+              :initial-data="client.email"
+              update-field="email"
+              update-item="emails"
+              :client="client"
+              input-type="email"
+              rules="required|email"
+              styles="color: rgba(0, 0, 0, 0.6); font-size: 0.875rem;"
+            />
           </v-list-item-content>
         </v-list-item>
       </v-card>
@@ -56,13 +46,10 @@
 </template>
 
 <script>
-import { ValidationProvider, ValidationObserver } from 'vee-validate'
-import ValidationInput from '~/components/common/ValidationInput'
+import ClientEditable from './ClientEditable'
 export default {
   components: {
-    ValidationProvider,
-    ValidationObserver,
-    ValidationInput
+    ClientEditable
   },
   props: {
     client: {
@@ -104,14 +91,7 @@ export default {
       }
     },
     remove (passedClient) {
-      this.clients = this.clients.filter(client => client !== passedClient)
-    },
-    updateClient (item, data) {
-      this.$store.dispatch('clients/updateClient', {
-        current: this.client,
-        item,
-        data
-      })
+      this.$store.dispatch('clients/remove', passedClient)
     }
   }
 }

@@ -17,13 +17,12 @@ const actions = {
     const newClientList = [...state.all, client]
     commit('setClients', { clients: newClientList })
   },
-  removeClient ({ commit, state }, client) {
+  remove ({ commit, state }, client) {
     const newClientList = state.all.filter(c => c !== client)
-    commit('setClients', newClientList)
+    commit('setClients', { clients: newClientList })
   },
   updateClient ({ commit, state }, client) {
     const index = state.all.indexOf(client.current)
-    console.log(`index ${index} current ${client.current} data ${client.data}`)
     commit('setClients', {
       action: 'editing',
       client: client.current,
