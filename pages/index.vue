@@ -4,7 +4,8 @@
       <ClientForm>
         <template slot="client-items">
           <div v-for="(client, key) in clients" :key="key">
-            <ClientItem :key="key" :client="client" />
+            <ClientItem :key="key" :client="client" />\
+            {{ clients }}
           </div>
         </template>
       </ClientForm>

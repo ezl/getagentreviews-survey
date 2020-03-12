@@ -7,6 +7,7 @@ const state = () => ({
 
 const actions = {
   addClient ({ commit, state }, client) {
+    console.log(client)
     commit('setMessage', '')
     const exists = state.all.find(c => c.email === client.email)
     if (exists) {
@@ -14,33 +15,48 @@ const actions = {
       return
     }
     const newClientList = [...state.all, client]
-    commit('setClients', newClientList)
+    commit('setClients', { clients: newClientList })
   },
   removeClient ({ commit, state }, client) {
     const newClientList = state.all.filter(c => c !== client)
     commit('setClients', newClientList)
   },
   updateClient ({ commit, state }, client) {
-    let tempClient = state.all.find(c => c === client)
-    const index = state.all.indexOf(tempClient)
-    tempClient = client.item
-    const newClientList = state.all[index] = tempClient
-    commit('setClients', newClientList)
+    const index = state.all.indexOf(client.current)
+    console.log(`index ${index} current ${client.current} data ${client.data}`)
+    commit('setClients', {
+      action: 'editing',
+      client: client.current,
+      data: client.data,
+      index,
+      item: client.item
+    })
   }
 }
 
 const mutations = {
-  setClients (state, clients) {
+  setClients (state, { action, item, index, data, clients }) {
+    if (action && action === 'editing') {
+      if (item === 'email') {
+        const exists = state.all.find(c => c.email === data)
+        if (exists) {
+          alert('That email aleady exists')
+          return
+        }
+      }
+      state.all[index][item] = data
+      return
+    }
     state.all = clients
   },
   setMessage (state, message) {
     state.message = message
   },
-  fieldAction (state, { action, item, name }) {
+  fieldAction (state, { action, item, data }) {
     if (action === 'edit') {
-      state[item] = [...state[item], name]
+      state[item] = [...state[item], data]
     } else {
-      state[item] = state[item].filter(c => c !== name)
+      state[item] = state[item].filter(c => c !== data)
     }
   }
 }

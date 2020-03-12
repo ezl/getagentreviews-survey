@@ -16,11 +16,9 @@
         :value="value"
         :placeholder="placeholder"
         :type="inputType"
-        class="default-input"
         :name="name"
-        data-vv-validate-on="submit"
         :style="inputStyles && inputStyles"
-        :class="inputClasses && inputClasses"
+        :class="classBinds()"
         @input="$emit('input', $event.target.value)"
       >
       <template v-if="serverErrors && Array.isArray(serverErrors) && serverErrors[errorProperty]">
@@ -89,6 +87,10 @@ export default {
     focus: {
       type: Boolean,
       default: false
+    },
+    defaultInputStyling: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -134,6 +136,16 @@ export default {
       this.$nextTick(() => {
         this.$refs.focus.children[1].focus()
       })
+    },
+    classBinds () {
+      let classes = []
+      if (this.defaultInputStyling) {
+        classes = [...classes, 'default-input']
+      }
+      if (this.inputClasses) {
+        classes = [...classes, this.inputClasses]
+      }
+      return classes
     }
   }
 }
