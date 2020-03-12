@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div :class="inputType === 'password' && 'form__password'">
-      <label :for="name">
+    <div :class="containerBinds()">
+      <label
+        v-if="includeLabel"
+        :for="name"
+      >
         {{ label }}
       </label>
       <span v-if="inputType === 'password'"><i
@@ -16,6 +19,8 @@
         class="default-input"
         :name="name"
         data-vv-validate-on="submit"
+        :style="inputStyles && inputStyles"
+        :class="inputClasses && inputClasses"
         @input="$emit('input', $event.target.value)"
       >
       <template v-if="serverErrors && Array.isArray(serverErrors) && serverErrors[errorProperty]">
@@ -60,6 +65,26 @@ export default {
     errorProperty: {
       type: String,
       default: ''
+    },
+    inputStyles: {
+      type: String,
+      default: ''
+    },
+    inputClasses: {
+      type: String,
+      default: ''
+    },
+    containerStyles: {
+      type: String,
+      default: ''
+    },
+    containerClasses: {
+      type: String,
+      default: ''
+    },
+    includeLabel: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -80,6 +105,16 @@ export default {
       } else {
         this.$refs.password.type = 'password'
       }
+    },
+    containerBinds () {
+      let classes = []
+      if (this.inputType === 'password') {
+        classes = [...classes, 'form__password']
+      }
+      if (this.containerClasses) {
+        classes = [...classes, this.containerClasses]
+      }
+      return classes.join(' ')
     }
   }
 }
