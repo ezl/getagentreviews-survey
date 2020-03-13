@@ -32,4 +32,16 @@ const phone = {
     return pn.isValid() || isPhone
   }
 }
+const url = {
+  getMessage (field) {
+    return 'The link must be a valid link'
+  },
+  validate (value) {
+    const urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
+    const isURL = urlRegex.test(value)
+    // Check for either of these to return true
+    return isURL
+  }
+}
 extend('phone', phone)
+extend('url', url)
