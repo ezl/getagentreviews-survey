@@ -1,6 +1,6 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit }">
-    <form @submit.prevent="handleSubmit(() => {updateClient(updateField, updateData) })">
+  <ValidationObserver v-slot="{ handleSubmit }" ref="form">
+    <form v-click-outside="submit" @submit.prevent="handleSubmit(() => {updateClient(updateField, updateData) })">
       <ValidationProvider :rules="rules">
         <ValidationInput
           v-model="updateData"
@@ -9,7 +9,7 @@
           :default-input-styling="false"
           :input-classes="`w-100 ${classes}`"
           :input-styles="styles"
-          :focus="true"
+          :focus="invalid && true"
         />
       </ValidationProvider>
     </form>
@@ -61,7 +61,8 @@ export default {
   },
   data () {
     return {
-      updateData: ''
+      updateData: '',
+      invalid: true
     }
   },
   mounted () {
@@ -78,6 +79,28 @@ export default {
         item,
         data
       })
+    },
+    submit () {
+      this.invalid = false
+      this.$refs.form.validate()
+        .then((success) => {
+          if (this.updateField === 'email') {
+            if (this.updateData === this.initialData) {
+              this.$store.commit('clients/fieldAction', { action: 'remove', item: this.updateItem, data: this.client[this.updateField] })
+              return
+            }
+            const exists = this.$store.state.clients.all.find(client => client.email === this.updateData)
+            if (exists) {
+              success = false
+              alert('That email already exists.')
+            }
+          }
+          if (!success) {
+            this.invalid = true
+            return
+          }
+          this.updateClient(this.updateField, this.updateData)
+        })
     }
   }
 }
