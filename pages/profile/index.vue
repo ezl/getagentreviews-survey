@@ -41,19 +41,20 @@
         <label for="company">Company</label>
         <input
           v-model="company"
-          placeholder="Your Company"
+          placeholder="Company"
           type="text"
           class="default-input"
           name="company"
         >
         <label for="description">Description</label>
-        <input
+
+        <textarea
           v-model="description"
-          placeholder="Your Description"
+          placeholder="Description"
           type="text"
           class="default-input"
           name="description"
-        >
+        />
         <ValidationProvider v-slot="{ errors }" rules="url">
           <ValidationInput
             v-model="googleLink"
@@ -66,7 +67,7 @@
             input-styles="width: 250px;"
             container-classes="text-center"
           />
-          <!-- <ValidationBox v-if="submitted" :message="errors[0]" /> -->
+          <ValidationBox v-if="submitted && errors.length" message="Link is not valid." />
         </ValidationProvider>
         <ValidationProvider v-slot="{ errors }" rules="url">
           <ValidationInput
@@ -80,7 +81,7 @@
             input-styles="width: 250px;"
             container-classes="text-center"
           />
-          <!-- <ValidationBox v-if="submitted" :message="errors[0]" /> -->
+          <ValidationBox v-if="submitted && errors.length" message="Link is not valid." />
         </ValidationProvider>
         <button
           class="button mt-4"
@@ -201,7 +202,7 @@ img {
     margin-bottom: 180px;
   }
 }
-input {
+input, textarea {
   width: 250px;
 }
 </style>

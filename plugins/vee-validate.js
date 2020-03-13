@@ -45,3 +45,4 @@ const url = {
 }
 extend('phone', phone)
 extend('url', url)
+extend('url', url)

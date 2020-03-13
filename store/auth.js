@@ -8,7 +8,6 @@ const state = () => ({
 
 const actions = {
   async getUser ({ commit }, token) {
-    console.log('happened')
     await this.$axios
       .get('/user', {
         headers: {
