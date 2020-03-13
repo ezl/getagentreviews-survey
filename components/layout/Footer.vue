@@ -1,6 +1,6 @@
 <template>
-  <v-footer
-    absolute=""
+  <!-- <v-footer
+    absolute="false"
     color="primary lighten-1"
     padless
   >
@@ -25,7 +25,10 @@
         {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
       </v-col>
     </v-row>
-  </v-footer>
+  </v-footer> -->
+  <div>
+    footer
+  </div>
 </template>
 
 <script>

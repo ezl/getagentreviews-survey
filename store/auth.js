@@ -1,17 +1,19 @@
 const state = () => ({
   user: null,
   email: null,
-  loading: false
+  loading: false,
+  serverErrors: [],
+  tempEmail: ''
 })
 
 const actions = {
   async getUser ({ commit }, token) {
-    console.log('happened')
-    await this.$axios.get('/user', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    await this.$axios
+      .get('/user', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       .then(({ data }) => {
         console.log(data)
         commit('setUser', data)
@@ -24,11 +26,16 @@ const actions = {
   logout ({ commit }, token) {
     commit('setLoading', true)
     console.log(token)
-    this.$axios.post('/users/logout', {}, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    this.$axios
+      .post(
+        '/users/logout',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
       .then(({ data }) => {
         this.$router.push('/login')
         commit('setUser', null)
@@ -36,6 +43,28 @@ const actions = {
       })
       .catch((err) => {
         console.log(err)
+      })
+  },
+  register ({ commit }, payload) {
+    commit('setLoading', true)
+    this.$axios
+      .post('/users', payload, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(({ data }) => {
+        // console.log(data)
+        alert(`You've been registed ${data.name}, redirecting you to login!`)
+        this.$router.push('/login')
+        commit('setLoading', false)
+        commit('setTempEmail', data.email)
+      })
+      .catch((err) => {
+        console.log(err.response)
+        commit('setLoading', false)
+        alert('errors! check console for now!')
+        state.serverErrors = err.response.data
       })
   }
 }
@@ -46,6 +75,9 @@ const mutations = {
   },
   setLoading (state, bool) {
     state.loading = bool
+  },
+  setTempEmail (state, email) {
+    state.tempEmail = email
   }
 }
 

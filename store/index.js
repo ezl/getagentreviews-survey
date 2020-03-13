@@ -10,16 +10,8 @@ const mutations = {
 
 const actions = {
   async nuxtServerInit ({ commit, dispatch }, { req }) {
-    console.log(
-      this.$cookiz.get(
-        'auth-token'
-      )
-    )
     await dispatch('auth/getUser', this.$cookiz.get('auth-token'))
   }
-  // async getUser () {
-  //   console.log('user')
-  // }
 }
 
 export default {
