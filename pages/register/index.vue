@@ -67,7 +67,7 @@
               placeholder="Password(8 Characters Min.)"
               input-type="password"
               name="password"
-              label="Password"
+              label="Password*"
               error-property="password"
               :server-errors="serverErrors"
             />
@@ -79,13 +79,13 @@
               placeholder="Confirm Your Password"
               input-type="password"
               name="password-confirm"
-              label="Password Confirmation"
+              label="Password Confirmation*"
               error-property="password"
               :server-errors="serverErrors"
             />
             <ValidationBox v-if="submitted" :message="errors[0]" />
           </ValidationProvider>
-          <ValidationProvider v-slot="{ errors }" rules="required">
+          <ValidationProvider v-slot="{ errors }" rules="">
             <ValidationInput
               v-model="company"
               placeholder="Enter Company Name"

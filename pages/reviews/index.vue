@@ -64,6 +64,12 @@ export default {
   computed: {
     loaded () {
       return this.$store.state.reviews.reviewRequest
+    },
+    routeTo () {
+      if (this.$store.state.reviews.chosen > 3 || this.$store.state.reviews.reviewRequest.star_rating > 3) {
+        return '/reviews/externalfeedback/'
+      }
+      return '/reviews/localfeedback/'
     }
   },
   methods: {

@@ -2,7 +2,7 @@ const state = () => ({
   names: [],
   emails: [],
   all: [],
-  message: ''
+  message: { text: '', type: '' }
 })
 
 const actions = {

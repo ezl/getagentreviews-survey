@@ -12,7 +12,7 @@
           label="Name"
           :input-styles="inputStyling()"
           container-classes="mt-4"
-          :focus="!name &&true"
+          :focus="!name ? true : false"
         />
       </ValidationProvider>
       <ValidationProvider rules="email|required">
@@ -23,7 +23,7 @@
           name="email"
           label="Email"
           :input-styles="inputStyling()"
-          :input-classes="message && message.type === 'error' && 'default-input--error'"
+          :input-classes="message && message.type === 'error' ? 'default-input--error' : ''"
           :focus="message && message.type === 'error' && true"
         />
       </ValidationProvider>
