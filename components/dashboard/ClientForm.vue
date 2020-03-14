@@ -24,7 +24,7 @@
           label="Email"
           :input-styles="inputStyling()"
           :input-classes="message && message.type === 'error' ? 'default-input--error' : ''"
-          :focus="message && message.type === 'error' && true"
+          :focus="message.type && message.type === 'error' ? true : false"
         />
       </ValidationProvider>
       <slot name="client-items" />
