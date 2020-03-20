@@ -156,9 +156,9 @@ export default {
         }
       })
         .then(({ data }) => {
-          console.log(data)
           alert('Your profile has been updated.')
           this.loading = false
+          this.$store.commit('auth/setUserImage', this.imgPreview)
         })
         .catch((err) => {
           console.log(err)

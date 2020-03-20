@@ -15,7 +15,6 @@ const actions = {
         }
       })
       .then(({ data }) => {
-        console.log(data)
         commit('setUser', data)
       })
       .catch((err) => {
@@ -72,6 +71,9 @@ const actions = {
 const mutations = {
   setUser (state, user) {
     state.user = user
+  },
+  setUserImage (state, image) {
+    state.user.profile.image = image
   },
   setLoading (state, bool) {
     state.loading = bool
