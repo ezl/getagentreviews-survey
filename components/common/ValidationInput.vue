@@ -8,8 +8,8 @@
         {{ label }}
       </label>
       <template v-if="inputType === 'password'">
-        <span v-if="!showPass" class="show-pass" @click="toggleShowPassword">SHOW</span>
-        <span v-if="showPass" class="show-pass" @click="toggleShowPassword">HIDE</span>
+        <span v-if="!showPass" class="show-pass" @click="toggleShowPassword"><p>SHOW</p></span>
+        <span v-if="showPass" class="show-pass" @click="toggleShowPassword"><p>HIDE</p></span>
       </template>
       <input
         :ref="inputType === 'password' && 'password'"
