@@ -23,7 +23,7 @@
               error-property="name"
               :server-errors="serverErrors"
             />
-            <ValidationBox v-if="submitted" :message="errors[0]" />
+            <ValidationBox :message="errors[0]" />
           </ValidationProvider>
           <ValidationProvider v-slot="{ errors }" rules="required">
             <ValidationInput
@@ -35,7 +35,7 @@
               error-property="name"
               :server-errors="serverErrors"
             />
-            <ValidationBox v-if="submitted" :message="errors[0]" />
+            <ValidationBox :message="errors[0]" />
           </ValidationProvider>
           <ValidationProvider v-slot="{ errors }" rules="email|required">
             <ValidationInput
@@ -47,7 +47,7 @@
               error-property="email"
               :server-errors="serverErrors"
             />
-            <ValidationBox v-if="submitted" :message="errors[0]" />
+            <ValidationBox :message="errors[0]" />
           </ValidationProvider>
           <ValidationProvider v-slot="{ errors }" rules="required|phone">
             <ValidationInput
@@ -59,7 +59,7 @@
               error-property="number"
               :server-errors="serverErrors"
             />
-            <ValidationBox v-if="submitted" :message="errors[0]" />
+            <ValidationBox :message="errors.length ? 'Enter a valid phone number' : ''" />
           </ValidationProvider>
           <ValidationProvider v-slot="{ errors }" rules="required|min:8">
             <ValidationInput
@@ -71,9 +71,9 @@
               error-property="password"
               :server-errors="serverErrors"
             />
-            <ValidationBox v-if="submitted" :message="errors[0]" />
+            <ValidationBox :message="errors[0]" />
           </ValidationProvider>
-          <ValidationProvider v-slot="{ errors }" rules="required|min:8">
+          <!-- <ValidationProvider v-slot="{ errors }" rules="required|min:8">
             <ValidationInput
               v-model="passwordConfirmation"
               placeholder="Confirm Your Password"
@@ -84,20 +84,16 @@
               :server-errors="serverErrors"
             />
             <ValidationBox v-if="submitted" :message="errors[0]" />
-          </ValidationProvider>
-          <ValidationProvider v-slot="{ errors }" rules="">
-            <ValidationInput
-              v-model="company"
-              placeholder="Enter Company Name"
-              input-type="text"
-              name="company"
-              label="Company"
-              error-property="company"
-              :server-errors="serverErrors"
-            />
-            <ValidationBox v-if="submitted" :message="errors[0]" />
-          </ValidationProvider>
-
+          </ValidationProvider> -->
+          <ValidationInput
+            v-model="company"
+            placeholder="Enter Company Name"
+            input-type="text"
+            name="company"
+            label="Company"
+            error-property="company"
+            :server-errors="serverErrors"
+          />
           <button :class="loading || invalid ? 'button--disabled' : 'button--purple'" class="button w-100">
             Sign Up
           </button>

@@ -7,10 +7,10 @@
       >
         {{ label }}
       </label>
-      <span v-if="inputType === 'password'"><i
-        class="fas fa-eye"
-        @click="toggleShowPassword"
-      /></span>
+      <template v-if="inputType === 'password'">
+        <span v-if="!showPass" class="show-pass" @click="toggleShowPassword">SHOW</span>
+        <span v-if="showPass" class="show-pass" @click="toggleShowPassword">HIDE</span>
+      </template>
       <input
         :ref="inputType === 'password' && 'password'"
         :value="value"
@@ -95,7 +95,8 @@ export default {
   },
   data () {
     return {
-      passwordInput: false
+      passwordInput: false,
+      showPass: false
     }
   },
   watch: {
