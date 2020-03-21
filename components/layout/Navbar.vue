@@ -20,6 +20,10 @@
         nuxt
         text
         :to="route.action && route.action"
+        :color="route.color"
+        :style="`background-color: ${route.bgColor}`"
+        :rounded="route.rounded ? true : false"
+        :elevation="route.rounded ? 24 : 0"
       >
         {{ route.name }}
       </v-btn>
@@ -52,7 +56,7 @@ export default {
   .v-btn {
     color: $purple;
     font-size: 14px;
-    margin: 0 2em;
+    margin: 0 1em;
   }
   box-shadow: none;
 }
