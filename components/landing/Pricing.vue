@@ -1,5 +1,5 @@
 <template>
-  <div class="pricing">
+  <div class="home__pricing">
     <span class="d-block text-purple text-center">PRICING</span>
     <h2 class="text-center mb-7">
       Solutions for both individuals or for your whole company
@@ -49,6 +49,19 @@
           <span class="d-block">$34.99</span> per seat per month
         </h2>
         <span class="text-center d-block text-purple">How many agents need an account?</span>
+        <v-card-text>
+          <v-slider
+            v-model="amountOfAgents"
+            :tick-labels="agentLabels"
+            :max="3"
+            step="1"
+            ticks="always"
+            tick-size="4"
+            color="gray"
+            track-color="gray"
+            thumb-color="#5b5bd1"
+          />
+        </v-card-text>
         <v-card-actions class="pb-5 d-flex justify-center">
           <button class="button button--landing mx-auto">
             Try For Free
@@ -61,13 +74,24 @@
 
 <script>
 export default {
-
+  data () {
+    return {
+      amountOfAgents: 0,
+      agentLabels: [
+        '5+',
+        '10+',
+        '25+',
+        '99+'
+      ]
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '~/styles';
 .card-padding {
-  padding: 35px 0;
+  padding: 15px 0;
 }
 h3 {
   font-weight: 400;

@@ -6,6 +6,10 @@
       <button class="button button--landing">
         Get Started Now
       </button>
+      <div>
+        <span>Get Reviews on</span>
+        <h2>Google Google Google</h2>
+      </div>
     </div>
     <div class="home__get-more-image">
       <img src="@/assets/reviewbg.png" alt="title">

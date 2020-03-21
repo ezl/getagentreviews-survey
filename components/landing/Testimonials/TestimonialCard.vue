@@ -3,6 +3,7 @@
     :loading="loading"
     class="my-12 ml-3 mr-3"
     max-width="374"
+    elevation="24"
   >
     <v-card-text>
       <div class="mb-8">
