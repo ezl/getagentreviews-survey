@@ -5,6 +5,7 @@
         <Drawer />
       </div>
       <div>
+        <DashboardTop />
         <nuxt />
       </div>
     </div>
@@ -13,9 +14,11 @@
 
 <script>
 import Drawer from '~/components/dashboard/Drawer'
+import DashboardTop from '~/components/dashboard/DashboardTop'
 export default {
   components: {
-    Drawer
+    Drawer,
+    DashboardTop
   },
   data () {
     return {
@@ -30,9 +33,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '~/styles';
 .auth-dashboard {
     display: grid;
     grid-template-columns: 13% 87%;
+    @include lato();
 }
 </style>
