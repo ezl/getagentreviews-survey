@@ -32,7 +32,7 @@ export default {
   @include large('up') {
     margin-right: 20%;
   }
-  @include xxlarge("up") {
+  @include xxxlarge("up") {
     margin-right: 25%;
   }
 }
@@ -44,7 +44,7 @@ export default {
   @include xlarge("up") {
     flex-basis: 42%;
   }
-  @include xxlarge("up") {
+  @include xxxlarge("up") {
     flex-basis:38%;
   }
   @include query($screen-md, $screen-sm, "down") {

@@ -57,6 +57,7 @@ export default {
     color: $purple;
     font-size: 14px;
     margin: 0 1em;
+    text-transform: capitalize;
   }
   box-shadow: none;
 }

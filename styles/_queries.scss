@@ -59,6 +59,17 @@
     }
   }
 }
+@mixin xxxlarge($identifier: "up", $range: "") {
+  @if ($identifier == "down") {
+    @media (max-width: #{$screen-xxxl}) {
+      @content;
+    }
+  } @else {
+    @media (min-width: #{$screen-xxxl}) {
+      @content;
+    }
+  }
+}
 
 /*
 - This query is the most dynamic, in case you might need a range or a custom screen size

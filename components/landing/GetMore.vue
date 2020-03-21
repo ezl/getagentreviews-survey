@@ -6,9 +6,22 @@
       <button class="button button--landing">
         Get Started Now
       </button>
-      <div>
-        <span>Get Reviews on</span>
-        <h2>Google Google Google</h2>
+      <div class="mt-8">
+        <span class="grey--text ligthen-1">Get Reviews on</span>
+        <div class="home__get-more-logos d-flex">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Google_wordmark.svg/800px-Google_wordmark.svg.png"
+            alt="google"
+          >
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Zillow_logo19.png"
+            alt="zillow"
+          >
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Yelp_Logo.svg/1280px-Yelp_Logo.svg.png"
+            alt="yelp"
+          >
+        </div>
       </div>
     </div>
     <div class="home__get-more-image">
@@ -27,7 +40,7 @@ export default {
 @import '~/styles';
 
 .home__get-more {
-    height: 899px;
+    height: 800px;
 }
 .home__get-more-image {
     // width: 55%;
@@ -39,6 +52,11 @@ export default {
     // }
 }
 .home__get-more-cta {
+  margin-left: 120px;
+  @include xxlarge {
+    margin-left: auto;
+  }
+
     h1, p {
         width: 59%;
     }
@@ -49,5 +67,12 @@ export default {
         color: $purple;
         font-weight: 50;
     }
+}
+.home__get-more-logos {
+  margin-top: 5px;
+  img {
+    width: 65px;
+    margin: 0 9px;
+  }
 }
 </style>
