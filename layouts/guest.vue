@@ -2,7 +2,9 @@
   <v-app>
     <div class="guest">
       <Navbar :routes="routes()" />
-      <nuxt />
+      <div style="min-height: 88vh;">
+        <nuxt />
+      </div>
       <Footer />
     </div>
   </v-app>

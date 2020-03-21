@@ -42,7 +42,7 @@
             </p>
           </div>
           <div style="width: 40%; align-self:center; text-align: right; padding-right: 20px;">
-            <i class="fas fa-user-alt" />
+            <i class="fas fa-users" />
           </div>
         </div>
         <h2 class="text-center text-purple card-padding pricing__price">

@@ -29,7 +29,7 @@ export default {
   middleware: 'authed',
 
   // temporary
-  layout ({ store }) { return store.state.auth.user ? 'authed' : 'guest' }
+  layout: 'dashboard'
 }
 </script>
 
