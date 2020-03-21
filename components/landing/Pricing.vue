@@ -20,7 +20,7 @@
             <i class="fas fa-user-alt" />
           </div>
         </div>
-        <h2 class="text-center text-purple card-padding">
+        <h2 class="text-center text-purple card-padding pricing__price">
           <span class="d-block">$39.99</span> per month
         </h2>
         <v-card-actions class="pb-5 d-flex justify-center">
@@ -45,7 +45,7 @@
             <i class="fas fa-user-alt" />
           </div>
         </div>
-        <h2 class="text-center text-purple card-padding">
+        <h2 class="text-center text-purple card-padding pricing__price">
           <span class="d-block">$34.99</span> per seat per month
         </h2>
         <span class="text-center d-block text-purple">How many agents need an account?</span>
@@ -69,11 +69,8 @@ export default {
 .card-padding {
   padding: 35px 0;
 }
-h2, h3 {
+h3 {
   font-weight: 400;
-}
-h2 {
-  font-size: 20px;
 }
 .v-card {
   height: 420px;
@@ -84,5 +81,9 @@ h2 {
 }
 .card-header {
   padding: 12px 10px;
+}
+.pricing__price {
+    font-weight: 400;
+    font-size: 20px;
 }
 </style>
