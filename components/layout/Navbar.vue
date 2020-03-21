@@ -1,14 +1,16 @@
 <template>
   <div>
     <v-app-bar
-      color="deep-purple accent-4"
+      color="transparent accent-4"
       dense
       dark
+      fixed
+      class="nav-reset"
     >
       <!-- <v-app-bar-nav-icon /> -->
       <nuxt-link to="/" style="color: white;">
-        <v-toolbar-title>
-          Agency Reviews
+        <v-toolbar-title class="ml-5">
+          <img width="120" src="@/assets/title.png" alt="title">
         </v-toolbar-title>
       </nuxt-link>
       <v-spacer />
@@ -44,6 +46,14 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+@import '~/styles';
+.nav-reset {
+  .v-btn {
+    color: $purple;
+    font-size: 14px;
+    margin: 0 2em;
+  }
+  box-shadow: none;
+}
 </style>

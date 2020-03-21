@@ -1,4 +1,5 @@
 // define default text-styling here
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 .text-center {
     text-align: center;
 }
@@ -12,10 +13,21 @@
 .text-purple {
     color: $purple;
 }
+.text-white {
+    color: $white;
+}
 .bold {
     font-weight: bold;
 }
 
 .w-no-wrap {
     white-space: nowrap;
+}
+
+@mixin lato() {
+    font-family: 'Lato', sans-serif;
+}
+
+.lato {
+    @include lato();
 }

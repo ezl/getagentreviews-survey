@@ -1,0 +1,20 @@
+@mixin bgPurpleGradient() {
+    background-image: linear-gradient(
+    to right,
+    #6676e2 0%,
+    #6173e9 51%,
+    $purple 100%
+  );
+}
+.bg-purple {
+    background-color: #6c7cf0;
+}
+
+.bg-purple--gradient {
+    background-image: linear-gradient(
+    to right,
+    #6676e2 0%,
+    #6173e9 51%,
+    $purple 100%
+  );
+}

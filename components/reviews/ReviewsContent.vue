@@ -1,7 +1,7 @@
 <template>
   <div class="reviews__content">
     <div v-if="includeTitle" class="reviews__content-title-image">
-    <img src="@/assets/title.png" alt="title">
+      <img src="@/assets/title.png" alt="title">
     </div>
     <div class="reviews__content__body">
       <span class="reviews__top-icon">

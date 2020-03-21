@@ -96,7 +96,7 @@
 .button-link {
   @include button-reset();
   cursor: pointer;
-  color: #0000FF;
+  color: #0000ff;
   &:hover {
     color: lighten($red, 14%);
   }
@@ -115,5 +115,16 @@
   color: $white;
   &:hover {
     background-color: lighten($purple, 12%);
+  }
+}
+
+.button--landing {
+  @include bgPurpleGradient();
+  color: $white;
+  padding: 14px;
+  width: 200px;
+  box-shadow: 0px 5px 50px #00000033;
+  &:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
 }

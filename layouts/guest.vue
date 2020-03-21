@@ -19,8 +19,12 @@ export default {
   methods: {
     routes () {
       return [
-        { name: 'Login', action: '/login' },
-        { name: 'Register', action: '/register', bgColor: 'purple' }
+        { name: 'How it works', action: '/how' },
+        { name: 'Pricing', action: '/pricing' },
+        { name: 'Testimonials', action: '/testmonials' },
+        { name: 'Contact', action: '/contact', color: 'white' },
+        { name: 'Login', action: '/login', color: 'white' },
+        { name: 'Sign Up', action: '/register', bgColor: 'white' }
       ]
     }
   }
