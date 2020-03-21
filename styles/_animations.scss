@@ -1,4 +1,8 @@
 $default-timing: 0.2s;
+.slide-in {
+  animation: slide-in $default-timing;
+}
+
 
 .slide-up-enter-active,
 .slide-up-leave-active {
@@ -34,6 +38,14 @@ $default-timing: 0.2s;
 @keyframes slide-in {
   0% {
     transform: translateY(900px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+@keyframes slide-down {
+  0% {
+    transform: translateY(-900px);
   }
   100% {
     transform: translateY(0px);

@@ -36,6 +36,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.footer {
+  height: 100px;
+}
 .footer, .footer__link {
   color: rgb(156, 155, 155);
 }

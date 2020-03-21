@@ -106,9 +106,8 @@ export default {
           console.log(data)
           this.loading = false
           this.$store.commit('auth/setUser', data.user)
-          // localStorage.setItem('auth_token', data.token)
           this.$cookiz.set('auth-token', data.token)
-          this.$router.push('/')
+          this.$router.push('/dashboard')
         })
         .catch((err) => {
           if (err.response.status === 422) {

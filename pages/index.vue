@@ -1,46 +1,36 @@
 <template>
-  <div>
-    <div v-if="$store.state.auth.user" class="ml-3">
-      <ClientForm>
-        <template slot="client-items">
-          <div v-for="(client, key) in clients" :key="key">
-            <ClientItem :key="key" :client="client" />
-            <!-- {{ clients }} -->
-          </div>
-        </template>
-      </ClientForm>
-    </div>
-    <span v-else>
-      <nuxt-link to="/login">
-        Login
-      </nuxt-link> to start sending emails
-    </span>
+  <div class="home">
+    <GetMore />
+    <HowItWorks />
+    <Pricing />
+    <Testimonials />
+    <Contact />
   </div>
 </template>
 
 <script>
-import ClientItem from '~/components/dashboard/ClientItem'
-import ClientForm from '~/components/dashboard/ClientForm'
+import GetMore from '~/components/landing/GetMore'
+import HowItWorks from '~/components/landing/HowItWorks'
+import Pricing from '~/components/landing/Pricing'
+import Testimonials from '~/components/landing/Testimonials'
+import Contact from '~/components/landing/Contact'
 export default {
+  layout ({ store }) { return store.state.auth.user ? 'authed' : 'guest' },
   components: {
-    ClientItem,
-    ClientForm
-  },
-  computed: {
-    clients () {
-      return this.$store.state.clients.all
-    }
-  },
-  // temporary
-  layout ({ store }) { return store.state.auth.user ? 'authed' : 'guest' }
+    GetMore,
+    HowItWorks,
+    Pricing,
+    Testimonials,
+    Contact
+  }
+
 }
 </script>
 
 <style lang="scss" scoped>
-// .v-list-item.v-list-item--two-line.theme--light {
-//   cursor: pointer;
-//  &:hover {
-//    background-color: lighten(gray, 16%);
-//  }
-// }
+@import '~/styles';
+.home {
+  @include lato();
+}
+
 </style>

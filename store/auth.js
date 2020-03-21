@@ -53,8 +53,6 @@ const actions = {
         }
       })
       .then(({ data }) => {
-        // console.log(data)
-        alert(`You've been registed ${data.name}, redirecting you to login!`)
         this.$router.push('/login')
         commit('setLoading', false)
         commit('setTempEmail', data.email)

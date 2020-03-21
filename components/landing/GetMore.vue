@@ -43,13 +43,7 @@ export default {
     height: 800px;
 }
 .home__get-more-image {
-    // width: 55%;
-    // position: relative;
-    // img {
-    //     position: absolute;
-    //     top: -2%;
-    //     left: 20%;
-    // }
+  position: relative;
 }
 .home__get-more-cta {
   margin-left: 120px;

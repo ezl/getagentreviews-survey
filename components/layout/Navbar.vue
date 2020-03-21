@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div class="navbar">
     <v-app-bar
-      color="transparent accent-4"
+      :color="`${navbarColor} accent-4`"
       dense
-      dark
-      fixed
+      :fixed="scrolledEnough ? true : false"
+      :absolute="!scrolledEnough ? true : false"
       class="nav-reset"
+      :class="scrolledEnough ? 'slide-down' : ''"
     >
       <!-- <v-app-bar-nav-icon /> -->
       <nuxt-link to="/" style="color: white;">
@@ -42,10 +43,36 @@ export default {
       default: () => {}
     }
   },
+  data () {
+    return {
+      scrollPosition: 0
+    }
+  },
+  computed: {
+    scrolledEnough () {
+      if (this.scrollPosition > 80) {
+        return true
+      }
+      return false
+    },
+    navbarColor () {
+      if (!this.scrolledEnough) {
+        return 'transparent'
+      }
+      return 'black'
+    }
+  },
+  mounted () {
+    window.addEventListener('scroll', this.updateScroll)
+  },
   methods: {
     logout () {
       return this.$store.dispatch('auth/logout', this.$cookiz.get('auth-token'))
+    },
+    updateScroll () {
+      this.scrollPosition = window.scrollY
     }
+
   }
 }
 </script>
@@ -61,4 +88,8 @@ export default {
   }
   box-shadow: none;
 }
+.slide-down {
+  animation: slide-down .4s;
+}
+
 </style>
