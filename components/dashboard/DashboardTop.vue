@@ -1,17 +1,37 @@
 <template>
-  <div class="dashboard-top d-flex justify-space-between">
+  <div class="dashboard-top d-flex justify-space-between container">
     <DashboardTopCard />
     <DashboardTopCard />
     <DashboardTopCard />
-    <div class="d-flex flex-column align-space-between" style="height: 174px;">
-      <span><v-icon class="mr-2">mdi-tab</v-icon>Notification</span>
-      <v-btn class="d-block" rounded style="color: blue; border: 1px solid blue;">
+    <div
+      class="d-flex flex-column align-space dashboard-top__buttons"
+      style="height: 174px;"
+    >
+      <span>
+        <v-icon class="mr-2">mdi-tab</v-icon>Notification
+      </span>
+      <v-btn
+        class="d-block"
+        rounded
+        style="color: blue; border: 1px solid blue;"
+      >
         Refer & Earn
       </v-btn>
-      <v-btn dark color="red" class="d-block" rounded>
+      <v-btn
+        dark
+        color="red"
+        class="d-block"
+        rounded
+      >
         Gmail Connected
       </v-btn>
-      <v-btn dark color="#6b79ed" class="d-block" rounded @click.stop="dialog = true">
+      <v-btn
+        dark
+        color="#6b79ed"
+        class="d-block"
+        rounded
+        @click.stop="dialog = true"
+      >
         (+) Add People
       </v-btn>
       <v-dialog
@@ -79,5 +99,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@import '~/styles';
+.dashboard-top {
+  @include medium('down') {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+}
+.dashboard-top__buttons {
+  @include medium('down') {
+    width: 323px;
+    text-align: center;
+    margin-top: 10px;
+  }
+}
 </style>

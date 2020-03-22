@@ -1,14 +1,9 @@
 <template>
   <div class="mt-10">
     <div v-if="$store.state.auth.user" class="ml-3">
-      <ClientForm>
-        <template slot="client-items">
-          <div v-for="(client, key) in clients" :key="key">
-            <ClientItem :key="key" :client="client" />
-            <!-- {{ clients }} -->
-          </div>
-        </template>
-      </ClientForm>
+      <!-- <ClientForm>
+      </ClientForm> -->
+      <ClientForm />
     </div>
   </div>
 </template>

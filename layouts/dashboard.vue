@@ -1,9 +1,10 @@
 <template>
   <v-app>
-    <div class="auth-dashboard">
+    <div class="auth-dashboard auth-dashboard__grid">
       <div>
         <Drawer />
       </div>
+      <BottomNavigation />
       <div>
         <DashboardTop />
         <nuxt />
@@ -14,11 +15,13 @@
 
 <script>
 import Drawer from '~/components/dashboard/Drawer'
+import BottomNavigation from '~/components/dashboard/BottomNavigation'
 import DashboardTop from '~/components/dashboard/DashboardTop'
 export default {
   components: {
     Drawer,
-    DashboardTop
+    DashboardTop,
+    BottomNavigation
   },
   data () {
     return {
@@ -36,8 +39,18 @@ export default {
 <style lang="scss" scoped>
 @import '~/styles';
 .auth-dashboard {
-    display: grid;
-    grid-template-columns: 13% 87%;
     @include lato();
 }
+
+.auth-dashboard__grid {
+  display: grid;
+    grid-template-columns: 13% 87%;
+    @include large("down") {
+    grid-template-columns: 25% 75%;
+    }
+    @include small("down") {
+      display: block;
+    }
+}
+
 </style>
