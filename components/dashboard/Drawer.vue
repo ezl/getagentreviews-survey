@@ -1,10 +1,12 @@
 <template>
   <v-card
-    height="100vh"
-    width="188"
-    class="mx-auto drawer"
+    min-height="100vh"
+    class="drawer"
   >
-    <v-navigation-drawer permanent>
+    <v-navigation-drawer
+      permanent
+      class="drawer"
+    >
       <v-list-item>
         <v-list-item-content>
           <img
@@ -42,6 +44,12 @@
 
 <script>
 export default {
+  props: {
+    mobile: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       routes: [
@@ -59,6 +67,10 @@ export default {
 <style lang="scss" scoped>
 @import '~/styles';
 .drawer {
+  width: 188px;
+  @include medium("down") {
+    width: 250px;
+  }
   i {
     color: lighten($purple, 11%);
   }
@@ -84,6 +96,12 @@ a {
   color: $purple;
   i {
     color: $purple;
+  }
+}
+.drawer.v-card {
+  @include small("down") {
+
+    display: none;
   }
 }
 </style>
