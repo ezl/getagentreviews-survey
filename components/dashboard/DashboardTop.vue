@@ -1,12 +1,15 @@
 <template>
-  <div class="dashboard-top d-flex justify-space-between container">
-    <DashboardTopCard />
-    <DashboardTopCard />
-    <DashboardTopCard />
-    <div
-      class="d-flex flex-column align-space dashboard-top__buttons"
-      style="height: 174px;"
-    >
+  <v-row>
+    <v-col col="1">
+      <DashboardTopCard />
+    </v-col>
+    <v-col col="1">
+      <DashboardTopCard />
+    </v-col>
+    <v-col col="1">
+      <DashboardTopCard />
+    </v-col>
+    <v-col sm>
       <span>
         <v-icon class="mr-2">mdi-tab</v-icon>Notification
       </span>
@@ -30,69 +33,32 @@
         color="#6b79ed"
         class="d-block"
         rounded
-        @click.stop="dialog = true"
+        @click.stop="$store.commit('dashboardTop/setModal', {modalType: 'addingPeople', to: true} )"
       >
         (+) Add People
       </v-btn>
-      <v-dialog
-        v-model="dialog"
-        width="500"
-      >
-        <v-card>
-          <v-card-title
-            class="headline grey lighten-2"
-            primary-title
-          >
-            Add People
-          </v-card-title>
-
-          <v-card-actions class="d-flex justify-center">
-            <label
-              class="default-file-upload"
-              for="image"
-            >
-              Upload CSV
-              <input
-                id="image"
-                placeholder="Upload Image"
-                type="file"
-                name="image"
-              >
-            </label>
-            <v-btn
-              color="primary"
-              text
-              @click.stop="dialog2 = true"
-            >
-              Add Manually
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      <v-dialog
-        v-model="dialog2"
-        width="500"
-      >
-        <v-card>
-          <ClientForm />
-        </v-card>
-      </v-dialog>
-    </div>
-  </div>
+    </v-col>
+    <AddPeople />
+  </v-row>
 </template>
 
 <script>
-import DashboardTopCard from './DashboardTop/DashboardTopCard'
-import ClientForm from '~/components/dashboard/ClientForm'
+import DashboardTopCard from '~/components/dashboard/DashboardTop/DashboardTopCard'
+import AddPeople from '~/components/dashboard/DashboardTop/AddPeople'
 export default {
   components: {
     DashboardTopCard,
-    ClientForm
+    AddPeople
   },
   data () {
     return {
       dialog: false,
       dialog2: false
+    }
+  },
+  computed: {
+    addingPeople () {
+      return this.$store.state.dashboardTop.modal.addingPeople
     }
   }
 }
@@ -101,14 +67,14 @@ export default {
 <style lang="scss" scoped>
 @import '~/styles';
 .dashboard-top {
-  @include medium('down') {
+  @include large('down') {
     flex-wrap: wrap !important;
     justify-content: center !important;
   }
 }
 .dashboard-top__buttons {
-  @include medium('down') {
-    width: 323px;
+  @include large('down') {
+    width: 350px;
     text-align: center;
     margin-top: 10px;
   }

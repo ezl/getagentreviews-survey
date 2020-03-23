@@ -2,6 +2,7 @@
   <v-card
     width="323"
     height="174"
+    class="dashboard-top__card"
   >
     <v-list-item two-line>
       <v-list-item-content>
@@ -40,5 +41,13 @@ export default {
 .card-icon {
     padding: 6px;
     border-radius: 50%;
+}
+.dashboard-top__card {
+// margin-right: 24px !important;
+//   @include large("down") {
+//     margin-left: 0 !important;
+//     margin-right: 0 !important;
+//     margin-bottom: 16px !important;
+//   }
 }
 </style>

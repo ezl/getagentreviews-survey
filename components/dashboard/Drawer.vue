@@ -2,6 +2,7 @@
   <v-card
     min-height="100vh"
     class="drawer"
+    width="100%"
   >
     <v-navigation-drawer
       permanent

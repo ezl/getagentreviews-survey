@@ -5,7 +5,7 @@
         <Drawer />
       </div>
       <BottomNavigation />
-      <div>
+      <div class="ml-3">
         <DashboardTop />
         <nuxt />
       </div>
@@ -44,7 +44,11 @@ export default {
 
 .auth-dashboard__grid {
   display: grid;
-    grid-template-columns: 13% 87%;
+  @include xlarge("up") {
+
+    grid-template-columns: 11% 99%;
+  }
+    grid-template-columns: 12% 88%;
     @include large("down") {
     grid-template-columns: 25% 75%;
     }
