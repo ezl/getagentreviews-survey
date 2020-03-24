@@ -7,7 +7,7 @@
           :input-type="'text'"
           name="client-email-name"
           :default-input-styling="false"
-          :input-classes="`w-100 ${classes}`"
+          :input-classes="`${classes}`"
           :input-styles="styles"
           :focus="invalid && true"
         />

@@ -26,6 +26,36 @@
             Remove
           </button>
         </template>
+        <template v-slot:item.name="{ item }">
+          <span v-if="!names.includes(item.name)" @click="$store.commit('clients/fieldAction', {action: 'edit', item: 'names', data: item.name})">
+            {{ item.name }}
+          </span>
+          <ClientEditable
+            v-else
+            :initial-data="item.name"
+            update-field="name"
+            update-item="names"
+            :client="item"
+            input-type="text"
+            rules="required"
+            styles="max-width: 120px; margin-bottom: 0; margin-top: 0;"
+          />
+        </template>
+        <template v-slot:item.email="{ item }">
+          <span v-if="!emails.includes(item.email)" @click="$store.commit('clients/fieldAction', {action: 'edit', item: 'emails', data: item.email})">
+            {{ item.email }}
+          </span>
+          <ClientEditable
+            v-else
+            :initial-data="item.email"
+            update-field="email"
+            update-item="emails"
+            :client="item"
+            input-type="email"
+            rules="required|email"
+            styles="max-width: 160px; margin-bottom: 0; margin-top: 0;"
+          />
+        </template>
       </v-data-table>
       <div class="text-center ma-2">
         <v-snackbar
@@ -47,10 +77,10 @@
 </template>
 
 <script>
-
+import ClientEditable from '~/components/dashboard/ClientEditable'
 export default {
   components: {
-
+    ClientEditable
   },
   data () {
     return {
