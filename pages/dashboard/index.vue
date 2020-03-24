@@ -1,38 +1,118 @@
 <template>
   <div class="mt-10">
     <div v-if="$store.state.auth.user" class="ml-3">
-      <!-- <ClientForm>
-      </ClientForm> -->
-      <ClientForm />
+      <v-data-table
+        :headers="headers"
+        :items="clients"
+        :items-per-page="5"
+        class="elevation-1"
+        item-key="email"
+      >
+        <template v-if="clients.length" v-slot:header.sent>
+          <button class="button button--landing" @click="sendEmails">
+            Send to All
+          </button>
+        </template>
+        <template v-slot:header.added="{ header }">
+          {{ header.text }}<v-icon small>
+            fas fa-info-circle
+          </v-icon>
+        </template>
+        <template v-slot:item.sent="{ item }">
+          <button class="button button--purple" @click="inquire(item.name, item.email)">
+            Send Request
+          </button>
+          <button class="button" @click="remove(item)">
+            Remove
+          </button>
+        </template>
+      </v-data-table>
+      <div class="text-center ma-2">
+        <v-snackbar
+          v-model="sent"
+          top
+        >
+          Emails Sent
+          <v-btn
+            color="green"
+            text
+            @click="sent = false"
+          >
+            Close
+          </v-btn>
+        </v-snackbar>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import ClientItem from '~/components/dashboard/ClientItem'
-import ClientForm from '~/components/dashboard/ClientForm'
+
 export default {
   components: {
-    ClientItem,
-    ClientForm
+
   },
+  data () {
+    return {
+      sent: false,
+      headers: [
+        {
+          text: 'Name',
+          align: 'start',
+          sortable: true,
+          value: 'name'
+        },
+        { text: 'Email', value: 'email' },
+        { text: 'Phone Number', value: 'number' },
+        { text: 'Added', value: 'added' },
+        { text: 'Status', value: 'sent', sortable: false }
+      ]
+    }
+  },
+
   computed: {
     clients () {
       return this.$store.state.clients.all
+    },
+    names () {
+      return this.$store.state.clients.names
+    },
+    emails () {
+      return this.$store.state.clients.emails
     }
   },
   middleware: 'authed',
-
   // temporary
-  layout: 'dashboard'
+  layout: 'dashboard',
+  methods: {
+    sendEmails () {
+      this.clients.forEach((client) => {
+        this.inquire(client.name, client.email)
+      })
+    },
+    inquire (name, email) {
+      this.$axios.post('/reviewrequest', {
+        client_name: name,
+        client_email: email,
+        agent: this.$store.state.auth.user.id
+      })
+        .then(({ data }) => {
+          this.sent = true
+          console.log(data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    remove (passedClient) {
+      this.$store.dispatch('clients/remove', passedClient)
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-// .v-list-item.v-list-item--two-line.theme--light {
-//   cursor: pointer;
-//  &:hover {
-//    background-color: lighten(gray, 16%);
-//  }
-// }
+.button--landing {
+  padding: 6px 4px;
+}
 </style>

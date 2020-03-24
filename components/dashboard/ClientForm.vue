@@ -34,9 +34,9 @@
       <button :class="invalid ? 'button--disabled' : 'button--purple'" class="button button--success">
         Add Client
       </button>
-      <button v-if="clients && clients.length" type="button" class="button button--purple" @click="sendEmails">
+      <!-- <button v-if="clients && clients.length" type="button" class="button button--purple" @click="sendEmails">
         Send Emails
-      </button>
+      </button> -->
     </form>
     <div v-if="sent">
       Emails sent!
