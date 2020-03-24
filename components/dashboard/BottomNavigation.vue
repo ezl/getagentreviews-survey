@@ -1,6 +1,13 @@
 <template>
   <v-bottom-navigation active-class="active-bottom" fixed>
-    <v-btn v-for="route in routes" :key="route.name" exact exact-active-class="active-bottom" :to="route.action">
+    <v-btn
+      v-for="route in routes"
+      :key="route.name"
+      exact
+      exact-active-class="active-bottom"
+      :to="route.action ? route.action : ''"
+      @click="route.function ? route.function : ''"
+    >
       <span>{{ route.name }}</span>
       <v-icon>{{ route.icon }}</v-icon>
     </v-btn>
@@ -16,8 +23,13 @@ export default {
         { name: 'Reviews', action: '/dashboard/reviews', icon: 'mdi-account' },
         { name: 'Feedback', action: '/dashboard/feedback', icon: 'mdi-account' },
         { name: 'Settings', action: '/dashboard/settings', icon: 'mdi-account' },
-        { name: 'Sign Out', action: '/dashboard/people', icon: 'mdi-account' }
+        { name: 'Sign Out', function: this.logout, icon: 'mdi-account' }
       ]
+    }
+  },
+  methods: {
+    logout () {
+      return this.$store.dispatch('auth/logout', this.$cookiz.get('auth-token'))
     }
   }
 }

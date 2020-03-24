@@ -12,10 +12,10 @@
         <v-list-item-content>
           <img
             class="d-block mx-auto mb-3"
-            :src="$store.state.auth.user.profile.image"
-            :alt="$store.state.auth.user.name"
+            :src="user ? user.profile.image : '#'"
+            :alt="user ? user.name : ''"
           >
-          <span class="text-purple">{{ $store.state.auth.user.name }}</span>
+          <span class="text-purple">{{ user ? user.name : '' }}</span>
         </v-list-item-content>
       </v-list-item>
 
@@ -29,11 +29,11 @@
           v-for="route in routes"
           :key="route.name"
         >
-          <nuxt-link :to="route.action">
-            <v-icon class="mr-2 drawer-link">
+          <nuxt-link :to="route.action ? route.action : '#'">
+            <v-icon class="mr-2 drawer-link" @click="route.function ? route.function() : ''">
               {{ route.icon }}
             </v-icon>
-            <span class="drawer-link">
+            <span class="drawer-link" @click="route.function ? route.function() : ''">
               {{ route.name }}
             </span>
           </nuxt-link>
@@ -58,8 +58,18 @@ export default {
         { name: 'Reviews', action: '/dashboard/reviews', icon: 'mdi-account' },
         { name: 'Feedback', action: '/dashboard/feedback', icon: 'mdi-account' },
         { name: 'Settings', action: '/dashboard/settings', icon: 'mdi-account' },
-        { name: 'Sign Out', action: '/dashboard/people', icon: 'mdi-account' }
+        { name: 'Sign Out', function: this.logout, icon: 'mdi-account' }
       ]
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.auth.user
+    }
+  },
+  methods: {
+    logout () {
+      return this.$store.dispatch('auth/logout', this.$cookiz.get('auth-token'))
     }
   }
 }

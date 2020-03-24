@@ -57,7 +57,7 @@ export default {
       default: ''
     },
     serverErrors: {
-      type: Array,
+      type: [Array, String],
       default: () => {}
     },
     errorProperty: {

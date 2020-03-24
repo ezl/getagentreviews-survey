@@ -5,8 +5,10 @@
         <Drawer />
       </div>
       <BottomNavigation />
-      <div class="ml-3">
-        <DashboardTop />
+      <div>
+        <div class="ml-3">
+          <DashboardTop />
+        </div>
         <nuxt />
       </div>
     </div>

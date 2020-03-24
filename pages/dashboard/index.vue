@@ -1,6 +1,6 @@
 <template>
   <div class="mt-10">
-    <div v-if="$store.state.auth.user" class="ml-3">
+    <div v-if="$store.state.auth.user" class="ml-1">
       <v-data-table
         :headers="headers"
         :items="clients"
