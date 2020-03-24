@@ -4,7 +4,15 @@
     width="500"
   >
     <v-card>
-      <ClientForm />
+      <v-card-title
+        class="headline grey lighten-2"
+        primary-title
+      >
+        Add Form
+      </v-card-title>
+      <v-col>
+        <ClientForm />
+      </v-col>
     </v-card>
   </v-dialog>
 </template>
