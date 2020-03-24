@@ -23,6 +23,7 @@
               placeholder="Upload Image"
               type="file"
               name="image"
+              @change="getData"
             >
           </label>
           <v-btn
@@ -40,6 +41,7 @@
 </template>
 
 <script>
+import * as d3 from 'd3'
 import AddManually from '~/components/dashboard/DashboardTop/AddManually'
 export default {
   components: {
@@ -55,6 +57,29 @@ export default {
           this.$store.commit('dashboardTop/setModal', { modalType: 'addingPeople', to: false })
         }
       }
+    }
+  },
+  methods: {
+    getData (e) {
+      let file = null
+      const fileList = Array.prototype.slice.call(e.target.files)
+
+      fileList.forEach((f) => {
+        const reader = new FileReader()
+        const vm = this
+
+        reader.onload = function (e) {
+          file = e.target.result
+          d3.csv(file, (client) => {
+            console.log(client)
+            vm.addClient(client.name, client.email)
+          })
+        }
+        reader.readAsDataURL(f)
+      })
+    },
+    addClient (name, email) {
+      this.$store.dispatch('clients/addClient', { name, email })
     }
   }
 }
