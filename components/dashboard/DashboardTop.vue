@@ -52,13 +52,6 @@ export default {
   },
   data () {
     return {
-      dialog: false,
-      dialog2: false
-    }
-  },
-  computed: {
-    addingPeople () {
-      return this.$store.state.dashboardTop.modal.addingPeople
     }
   }
 }
