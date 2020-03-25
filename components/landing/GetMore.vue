@@ -8,7 +8,7 @@
       </button>
       <div class="mt-8">
         <span class="grey--text ligthen-1">Get Reviews on</span>
-        <div class="home__get-more-logos d-flex">
+        <v-row class="home__get-more-logos">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Google_wordmark.svg/800px-Google_wordmark.svg.png"
             alt="google"
@@ -21,7 +21,7 @@
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Yelp_Logo.svg/1280px-Yelp_Logo.svg.png"
             alt="yelp"
           >
-        </div>
+        </v-row>
       </div>
     </div>
     <div class="home__get-more-image">
@@ -41,18 +41,34 @@ export default {
 
 .home__get-more {
     height: 800px;
+    @include large("down") {
+      text-align: center;
+      justify-content: center;
+      flex-wrap: wrap-reverse;
+      height: auto;
+      margin-top: 50px;
+    }
 }
 .home__get-more-image {
   position: relative;
+  @include large("down") {
+    display: none;
+  }
 }
 .home__get-more-cta {
   margin-left: 120px;
+  @include large("down") {
+    margin: 0 auto;
+  }
   @include xxlarge {
     margin-left: auto;
   }
 
     h1, p {
         width: 59%;
+        @include large("down") {
+          width: 100%;
+        }
     }
     h1 {
         color: $purple;
@@ -63,6 +79,10 @@ export default {
     }
 }
 .home__get-more-logos {
+  @include large("down") {
+    justify-content: center;
+    margin-bottom: 30px;
+  }
   margin-top: 5px;
   img {
     width: 65px;

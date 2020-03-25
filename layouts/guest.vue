@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div class="guest">
-      <Navbar :routes="routes()" />
+      <Navbar />
       <div style="min-height: 88vh;">
         <nuxt />
       </div>
@@ -17,18 +17,6 @@ export default {
   components: {
     Navbar,
     Footer
-  },
-  methods: {
-    routes () {
-      return [
-        { name: 'How it works', action: '/how' },
-        { name: 'Pricing', action: '/pricing' },
-        { name: 'Testimonials', action: '/testmonials' },
-        { name: 'Contact', action: '/contact', color: 'white' },
-        { name: 'Login', action: '/login', color: 'white' },
-        { name: 'Sign Up', action: '/register', bgColor: 'white', rounded: true }
-      ]
-    }
   }
 }
 </script>

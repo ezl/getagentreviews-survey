@@ -4,10 +4,10 @@
     <h2 class="text-center mb-7">
       Solutions for both individuals or for your whole company
     </h2>
-    <div class="d-flex justify-center mb-8">
+    <div class="d-flex justify-center mb-8 flex-wrap home__pricing-cards">
       <v-card
         class="mr-8 pb-11"
-        max-width="347"
+        width="320"
       >
         <div class="d-flex bg-purple--gradient mb-8">
           <div class="text-white justify-space-between card-header">
@@ -31,7 +31,7 @@
       </v-card>
       <v-card
         class="pb-11"
-        max-width="347"
+        width="320"
       >
         <div class="d-flex bg-purple--gradient mb-8">
           <div class="text-white justify-space-between card-header">
@@ -109,5 +109,12 @@ h3 {
 .pricing__price {
     font-weight: 400;
     font-size: 20px;
+}
+.home__pricing-cards {
+  .v-card {
+    @include small("down") {
+    margin: 5px 0 !important;
+    }
+  }
 }
 </style>

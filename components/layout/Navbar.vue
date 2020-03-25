@@ -1,5 +1,6 @@
 <template>
   <div class="navbar">
+    <Drawer />
     <v-app-bar
       :color="`${navbarColor} accent-4`"
       dense
@@ -8,18 +9,22 @@
       class="nav-reset"
       :class="scrolledEnough ? 'slide-down' : ''"
     >
-      <!-- <v-app-bar-nav-icon /> -->
+      <v-icon color="#6b79ed" @click="$store.commit('navigation/setDrawer', !$store.state.navigation.drawer)">
+        mdi-menu
+      </v-icon>
       <nuxt-link to="/" style="color: white;">
         <v-toolbar-title class="ml-5">
           <img width="120" src="@/assets/title.png" alt="title">
         </v-toolbar-title>
       </nuxt-link>
       <v-spacer />
+
       <v-btn
         v-for="route in routes"
         :key="route.name"
         nuxt
         text
+        class="navbar__desktop-link"
         :to="route.action && route.action"
         :color="route.color"
         :style="`background-color: ${route.bgColor}`"
@@ -36,16 +41,15 @@
 </template>
 
 <script>
+import Drawer from '~/components/layout/Drawer'
 export default {
-  props: {
-    routes: {
-      type: Array,
-      default: () => {}
-    }
+  components: {
+    Drawer
   },
   data () {
     return {
-      scrollPosition: 0
+      scrollPosition: 0,
+      drawer: true
     }
   },
   computed: {
@@ -60,10 +64,14 @@ export default {
         return 'transparent'
       }
       return 'black'
+    },
+    routes () {
+      return this.$store.state.navigation.guestRoutes
     }
   },
   mounted () {
     window.addEventListener('scroll', this.updateScroll)
+    this.scrollPosition = window.scrollY
   },
   methods: {
     logout () {
@@ -88,8 +96,18 @@ export default {
   }
   box-shadow: none;
 }
+.navbar__desktop-link {
+  @include large("down") {
+      display: none;
+    }
+}
 .slide-down {
   animation: slide-down .4s;
 }
-
+.mdi.mdi-menu.theme--light {
+  display: none;
+  @include large("down") {
+    display: inline-block
+  }
+}
 </style>

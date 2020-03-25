@@ -4,11 +4,19 @@
     <h2 class="text-center mb-7">
       What Clients Say About Us
     </h2>
-    <div class="d-flex justify-center">
-      <TestimonialCard quote="Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating." />
-      <TestimonialCard quote="Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating." />
-      <TestimonialCard quote="Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating." />
-    </div>
+    <v-container>
+      <v-row justify="space-between">
+        <v-col>
+          <TestimonialCard quote="Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating." />
+        </v-col>
+        <v-col>
+          <TestimonialCard quote="Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating." />
+        </v-col>
+        <v-col>
+          <TestimonialCard quote="Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating." />
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 

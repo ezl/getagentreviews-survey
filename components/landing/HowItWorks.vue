@@ -4,9 +4,12 @@
     <h2 class="text-center mb-7">
       Your Customers Can Review You Anywhere Online
     </h2>
-    <div class="d-flex justify-center mb-8">
-      <img src="@/assets/group-12.png" alt="title">
-    </div>
+    <v-row justify="center">
+      <v-col class="how-it-works-image">
+        <img src="@/assets/group-12.png" alt="title">
+      </v-col>
+    </v-row>
+  </div>
   </div>
 </template>
 
@@ -16,6 +19,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.how-it-works-image {
+  img {
+    width: 100%;
+  }
+}
 </style>
