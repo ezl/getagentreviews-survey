@@ -3,7 +3,8 @@ const state = () => ({
   email: null,
   loading: false,
   serverErrors: [],
-  tempEmail: ''
+  tempEmail: '',
+  reviews: []
 })
 
 const actions = {
@@ -63,6 +64,18 @@ const actions = {
         alert('errors! check console for now!')
         state.serverErrors = err.response.data
       })
+  },
+  async getReviews ({ commit }, id) {
+    commit('setLoading', true)
+    await this.$axios
+      .get('/users/reviews/' + id)
+      .then(({ data }) => {
+        commit('setReviews', data)
+      })
+      .catch((err) => {
+        console.log(err.response)
+        alert('errors! check console for now!')
+      })
   }
 }
 
@@ -78,6 +91,9 @@ const mutations = {
   },
   setTempEmail (state, email) {
     state.tempEmail = email
+  },
+  setReviews (state, reviews) {
+    state.reviews = reviews
   }
 }
 

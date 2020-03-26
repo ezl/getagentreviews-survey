@@ -199,4 +199,9 @@ input, textarea {
 button {
     width: 150px;
 }
+form {
+    @include small("down") {
+        padding-bottom: 40px;
+    }
+}
 </style>

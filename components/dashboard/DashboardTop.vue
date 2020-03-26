@@ -11,8 +11,8 @@
         <DashboardTopCard />
       </v-col>
       <v-col>
-        <span>
-          <v-icon class="mr-2">mdi-tab</v-icon>Notification
+        <span style="font-size: 14px;" class="text--grey font-weight-bold text-center ml-4">
+          <v-icon x-small class="mr-2 text--grey bold">mdi-tab</v-icon>Notification
         </span>
         <v-btn
           class="d-block"
@@ -76,5 +76,7 @@ export default {
 }
 button {
   margin: 5px 0;
+  width: 144px;
+  font-size: 12px !important;
 }
 </style>

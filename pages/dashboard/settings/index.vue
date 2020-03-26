@@ -43,6 +43,9 @@ export default {
         'Email notification settings'
       ]
     }
+  },
+  mounted () {
+    console.log(this.$store.state.auth.reviews)
   }
 
 }

@@ -15,7 +15,7 @@
             :src="user ? user.profile.image : '#'"
             :alt="user ? user.name : ''"
           >
-          <span class="text-purple">{{ user ? user.name : '' }}</span>
+          <span class="text-purple text-center">{{ user ? user.name : '' }}</span>
         </v-list-item-content>
       </v-list-item>
 
@@ -30,10 +30,16 @@
           :key="route.name"
         >
           <nuxt-link :to="route.action ? route.action : '#'">
-            <v-icon class="mr-2 drawer-link" @click="route.function ? route.function() : ''">
+            <v-icon
+              class="mr-2 drawer-link"
+              @click="route.name === 'Sign Out' ? logout() : ''"
+            >
               {{ route.icon }}
             </v-icon>
-            <span class="drawer-link" @click="route.function ? route.function() : ''">
+            <span
+              class="drawer-link"
+              @click="route.name === 'Sign Out' ? logout() : ''"
+            >
               {{ route.name }}
             </span>
           </nuxt-link>
@@ -53,18 +59,14 @@ export default {
   },
   data () {
     return {
-      routes: [
-        { name: 'People', action: '/dashboard/people', icon: 'mdi-account' },
-        { name: 'Reviews', action: '/dashboard/reviews', icon: 'mdi-account' },
-        { name: 'Feedback', action: '/dashboard/feedback', icon: 'mdi-account' },
-        { name: 'Settings', action: '/dashboard/settings', icon: 'mdi-account' },
-        { name: 'Sign Out', function: this.logout, icon: 'mdi-account' }
-      ]
     }
   },
   computed: {
     user () {
       return this.$store.state.auth.user
+    },
+    routes () {
+      return this.$store.state.navigation.dashboardRoutes
     }
   },
   methods: {

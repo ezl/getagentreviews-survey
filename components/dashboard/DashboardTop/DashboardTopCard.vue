@@ -42,6 +42,7 @@ export default {
     border-radius: 50%;
 }
 .dashboard-top__card {
+  width: 291px;
   @include large("down") {
    width: 300px;
   }

@@ -72,7 +72,11 @@ export default {
           file = e.target.result
           d3.csv(file, (client) => {
             console.log(client)
-            vm.addClient(client.name, client.email)
+            const name = vm.extractName(client)
+            const pnum = vm.extractNum(client)
+            const email = vm.extractEmail(client)
+
+            vm.addClient(name, email, pnum)
           })
         }
         reader.readAsDataURL(f)
@@ -80,6 +84,52 @@ export default {
     },
     addClient (name, email) {
       this.$store.dispatch('clients/addClient', { name, email })
+    },
+    extractName (client) {
+      let name = ''
+      if (client.name) {
+        name = client.name
+      } else if (client.firstname) {
+        name = client.firstname
+      } else if (client.first_name) {
+        name = client.first_name
+      } else if (client.first) {
+        name = client.first
+      }
+      if (!name) {
+        if (client.lastname) {
+          name.concat(' ', client.lastname)
+        } else if (client.last_name) {
+          name.concat(' ', client.last_name)
+        } else if (client.last) {
+          name.concat(' ', client.last)
+        }
+      }
+      return name
+    },
+    extractNum (client) {
+      let num = ''
+      if (client.phone_number) {
+        num = client.phone_number
+      } else if (client.phone) {
+        num = client.phone
+      } else if (client.cell_phone) {
+        num = client.cell_phone
+      } else if (client.cell) {
+        num = client.cell
+      } else if (client.number) {
+        num = client.number
+      }
+      return num
+    },
+    extractEmail (client) {
+      let email = ''
+      if (client.email) {
+        email = client.email
+      } else if (client.email_address) {
+        email = client.email_address
+      }
+      return email
     }
   }
 }

@@ -6,7 +6,7 @@
       exact
       exact-active-class="active-bottom"
       :to="route.action ? route.action : ''"
-      @click="route.function ? route.function : ''"
+      @click="route.name === 'Sign Out' ? logout() : ''"
     >
       <span>{{ route.name }}</span>
       <v-icon>{{ route.icon }}</v-icon>
@@ -18,13 +18,12 @@
 export default {
   data () {
     return {
-      routes: [
-        { name: 'People', action: '/dashboard/people', icon: 'mdi-account' },
-        { name: 'Reviews', action: '/dashboard/reviews', icon: 'mdi-account' },
-        { name: 'Feedback', action: '/dashboard/feedback', icon: 'mdi-account' },
-        { name: 'Settings', action: '/dashboard/settings', icon: 'mdi-account' },
-        { name: 'Sign Out', function: this.logout, icon: 'mdi-account' }
-      ]
+
+    }
+  },
+  computed: {
+    routes () {
+      return this.$store.state.navigation.dashboardRoutes
     }
   },
   methods: {
