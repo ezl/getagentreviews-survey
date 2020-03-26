@@ -38,6 +38,9 @@ export default {
 }
 .auth-screen__img {
   flex-basis: 100%;
+  @include xlarge("down") {
+    align-self: center;
+  }
   @include large('up') {
     flex-basis: 46%;
   }

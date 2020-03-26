@@ -60,7 +60,11 @@ export default {
 .home__get-more-cta {
   margin-left: 120px;
   @include large("down") {
-    margin: 0 auto;
+    margin: 0 auto !important;
+  }
+  @include xlarge("down") {
+    font-size: 15px;
+    margin-left: 2em;
   }
   @include xxlarge {
     margin-left: auto;

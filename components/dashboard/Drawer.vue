@@ -1,8 +1,9 @@
 <template>
   <v-card
     min-height="100vh"
-    class="drawer"
+    class="drawer d-block"
     width="100%"
+    height="100%"
   >
     <v-navigation-drawer
       permanent

@@ -11,7 +11,9 @@ const mutations = {
 const actions = {
   async nuxtServerInit ({ commit, dispatch, state }, { req }) {
     await dispatch('auth/getUser', this.$cookiz.get('auth-token'))
-    await dispatch('auth/getReviews', state.auth.user.id)
+    if (state.auth.user) {
+      await dispatch('auth/getReviews', state.auth.user.id)
+    }
   }
 }
 
