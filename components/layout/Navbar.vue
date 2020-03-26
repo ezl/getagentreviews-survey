@@ -30,12 +30,13 @@
         :style="`background-color: ${route.bgColor}`"
         :rounded="route.rounded ? true : false"
         :elevation="route.rounded ? 24 : 0"
+        @click="route.name === 'Logout' ? logout() : ''"
       >
         {{ route.name }}
       </v-btn>
-      <v-btn v-if="$store.state.auth.user" text @click="logout">
+      <!-- <v-btn v-if="$store.state.auth.user" text @click="logout">
         Logout
-      </v-btn>
+      </v-btn> -->
     </v-app-bar>
   </div>
 </template>
@@ -66,7 +67,7 @@ export default {
       return 'black'
     },
     routes () {
-      return this.$store.state.navigation.guestRoutes
+      return this.$store.getters['navigation/routes']
     }
   },
   mounted () {

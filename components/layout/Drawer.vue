@@ -24,6 +24,7 @@
         :key="route.name"
         link
         :to="route.action ? route.action : '#'"
+        @click="route.name === 'Logout' ? logout() : ''"
       >
         <v-list-item-icon>
           <v-icon small color="#6b79ed">
@@ -59,10 +60,15 @@ export default {
       }
     },
     routes () {
-      return this.$store.state.navigation.guestRoutes
+      return this.$store.getters['navigation/routes']
     },
     user () {
       return this.$store.state.auth.user
+    }
+  },
+  methods: {
+    logout () {
+      return this.$store.dispatch('auth/logout', this.$cookiz.get('auth-token'))
     }
   }
 }

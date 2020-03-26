@@ -3,12 +3,14 @@
     <div class="home__get-more-cta align-self-center">
       <h1>Get More 5 Star Reviews Online</h1>
       <p>We make it simple and automatic for you to keep getting more 5 star reviews on Zillow, Yelp, or Google.</p>
-      <button class="button button--landing">
-        Get Started Now
-      </button>
+      <nuxt-link to="/register">
+        <button class="button button--landing">
+          Get Started Now
+        </button>
+      </nuxt-link>
       <div class="mt-8">
         <span class="grey--text ligthen-1">Get Reviews on</span>
-        <v-row class="home__get-more-logos">
+        <v-row no-gutters class="home__get-more-logos">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Google_wordmark.svg/800px-Google_wordmark.svg.png"
             alt="google"
@@ -85,7 +87,7 @@ export default {
   }
   margin-top: 5px;
   img {
-    width: 65px;
+    max-width: 65px;
     margin: 0 9px;
   }
 }

@@ -7,6 +7,7 @@
         :items-per-page="5"
         class="elevation-1"
         item-key="email"
+        no-data-text="No clients added yet, click the 'Add People' button to start adding"
       >
         <template v-if="clients.length" v-slot:header.sent>
           <button class="button button--landing" @click="sendEmails">

@@ -5,9 +5,48 @@ const state = () => {
       { name: 'How it works', action: '/how', icon: 'fa fa-tools' },
       { name: 'Pricing', action: '/pricing', icon: 'fas fa-dollar-sign' },
       { name: 'Testimonials', action: '/testmonials', icon: 'fas fa-comments' },
-      { name: 'Contact', action: '/contact', color: 'white', icon: 'fas fa-id-card-alt' },
-      { name: 'Login', action: '/login', color: 'white', icon: 'fas fa-sign-in-alt' },
-      { name: 'Sign Up', action: '/register', bgColor: 'white', rounded: true, icon: 'fas fa-user-plus' }
+      {
+        name: 'Contact',
+        action: '/contact',
+        color: 'white',
+        icon: 'fas fa-id-card-alt'
+      },
+      {
+        name: 'Login',
+        action: '/login',
+        color: 'white',
+        icon: 'fas fa-sign-in-alt'
+      },
+      {
+        name: 'Sign Up',
+        action: '/register',
+        bgColor: 'white',
+        rounded: true,
+        icon: 'fas fa-user-plus'
+      }
+    ],
+    authedRoutes: [
+      { name: 'How it works', action: '/how', icon: 'fa fa-tools' },
+      { name: 'Pricing', action: '/pricing', icon: 'fas fa-dollar-sign' },
+      { name: 'Testimonials', action: '/testmonials', icon: 'fas fa-comments' },
+      {
+        name: 'Contact',
+        action: '/contact',
+        color: 'white',
+        icon: 'fas fa-id-card-alt'
+      },
+      {
+        name: 'Logout',
+        color: 'white',
+        icon: 'fas fa-sign-in-alt'
+      },
+      {
+        name: 'Dashboard',
+        action: '/dashboard',
+        bgColor: 'white',
+        rounded: true,
+        icon: 'fas fa-user-plus'
+      }
     ]
   }
 }
@@ -18,6 +57,15 @@ const mutations = {
   }
 }
 
+const getters = {
+  routes: (state, getters, rootState, rootGetters) => {
+    if (rootState.auth.user) {
+      return state.authedRoutes
+    }
+    return state.guestRoutes
+  }
+}
+
 export default {
-  state, mutations
+  state, mutations, getters
 }

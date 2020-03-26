@@ -6,7 +6,7 @@
       </div>
       <BottomNavigation />
       <div>
-        <div class="ml-3">
+        <div>
           <DashboardTop />
         </div>
         <nuxt />

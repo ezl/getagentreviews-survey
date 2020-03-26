@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div class="authed">
-      <Navbar :routes="routes()" />
+      <Navbar />
       <div style="min-height: 88vh;">
         <nuxt />
       </div>

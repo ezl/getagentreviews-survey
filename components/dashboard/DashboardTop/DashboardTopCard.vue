@@ -1,6 +1,5 @@
 <template>
   <v-card
-    width="323"
     height="174"
     class="dashboard-top__card"
   >
@@ -43,11 +42,8 @@ export default {
     border-radius: 50%;
 }
 .dashboard-top__card {
-// margin-right: 24px !important;
-//   @include large("down") {
-//     margin-left: 0 !important;
-//     margin-right: 0 !important;
-//     margin-bottom: 16px !important;
-//   }
+  @include large("down") {
+   width: 300px;
+  }
 }
 </style>

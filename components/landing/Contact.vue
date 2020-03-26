@@ -7,8 +7,8 @@
         Let us know if you have any questions -- we'll get back to you ASAP!
       </h2>
       <form>
-        <v-row justify="space-between">
-          <v-col>
+        <v-row no-gutters justify="space-between">
+          <v-col class="mr-1">
             <ValidationInput input-classes="w-100" placeholder="First Name" label="First Name" input-styles="width: 100%" />
           </v-col>
           <v-col>
@@ -57,5 +57,8 @@ input {
       width: 100%;
     }
   }
+}
+img {
+  max-width: 100%;
 }
 </style>

@@ -4,7 +4,7 @@
     <h2 class="text-center mb-7">
       Your Customers Can Review You Anywhere Online
     </h2>
-    <v-row justify="center">
+    <v-row no-gutters justify="center">
       <v-col class="how-it-works-image">
         <img src="@/assets/group-12.png" alt="title">
       </v-col>
@@ -21,6 +21,7 @@ export default {
 
 <style lang="scss" scoped>
 .how-it-works-image {
+  max-width: 95% !important;
   img {
     width: 100%;
   }

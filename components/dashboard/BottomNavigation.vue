@@ -19,7 +19,7 @@ export default {
   data () {
     return {
       routes: [
-        { name: 'People', action: '/dashboard', icon: 'mdi-account' },
+        { name: 'People', action: '/dashboard/people', icon: 'mdi-account' },
         { name: 'Reviews', action: '/dashboard/reviews', icon: 'mdi-account' },
         { name: 'Feedback', action: '/dashboard/feedback', icon: 'mdi-account' },
         { name: 'Settings', action: '/dashboard/settings', icon: 'mdi-account' },

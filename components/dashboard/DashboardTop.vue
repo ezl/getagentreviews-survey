@@ -1,45 +1,47 @@
 <template>
-  <v-row>
-    <v-col col="1">
-      <DashboardTopCard />
-    </v-col>
-    <v-col col="1">
-      <DashboardTopCard />
-    </v-col>
-    <v-col col="1">
-      <DashboardTopCard />
-    </v-col>
-    <v-col sm>
-      <span>
-        <v-icon class="mr-2">mdi-tab</v-icon>Notification
-      </span>
-      <v-btn
-        class="d-block"
-        rounded
-        style="color: blue; border: 1px solid blue;"
-      >
-        Refer & Earn
-      </v-btn>
-      <v-btn
-        dark
-        color="red"
-        class="d-block"
-        rounded
-      >
-        Gmail Connected
-      </v-btn>
-      <v-btn
-        dark
-        color="#6b79ed"
-        class="d-block"
-        rounded
-        @click.stop="$store.commit('dashboardTop/setModal', {modalType: 'addingPeople', to: true} )"
-      >
-        (+) Add People
-      </v-btn>
-    </v-col>
-    <AddPeople />
-  </v-row>
+  <v-container>
+    <v-row>
+      <v-col col="1">
+        <DashboardTopCard />
+      </v-col>
+      <v-col col="1">
+        <DashboardTopCard />
+      </v-col>
+      <v-col col="1">
+        <DashboardTopCard />
+      </v-col>
+      <v-col>
+        <span>
+          <v-icon class="mr-2">mdi-tab</v-icon>Notification
+        </span>
+        <v-btn
+          class="d-block"
+          rounded
+          style="color: blue; border: 1px solid blue;"
+        >
+          Refer & Earn
+        </v-btn>
+        <v-btn
+          dark
+          color="red"
+          class="d-block"
+          rounded
+        >
+          Gmail Connected
+        </v-btn>
+        <v-btn
+          dark
+          color="#6b79ed"
+          class="d-block"
+          rounded
+          @click.stop="$store.commit('dashboardTop/setModal', {modalType: 'addingPeople', to: true} )"
+        >
+          (+) Add People
+        </v-btn>
+      </v-col>
+      <AddPeople />
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -71,5 +73,8 @@ export default {
     text-align: center;
     margin-top: 10px;
   }
+}
+button {
+  margin: 5px 0;
 }
 </style>
