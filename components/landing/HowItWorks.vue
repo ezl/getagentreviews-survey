@@ -1,5 +1,5 @@
 <template>
-  <div id="how-it-works" class="mt-8">
+  <div id="how-it-works" class="mt-8y">
     <span class="d-block text-purple text-center">HOW IT WORKS</span>
     <h2 class="text-center mb-7">
       Your Customers Can Review You Anywhere Online
@@ -9,7 +9,6 @@
         <img src="@/assets/group-12.png" alt="title">
       </v-col>
     </v-row>
-  </div>
   </div>
 </template>
 
