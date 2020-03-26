@@ -39,7 +39,18 @@ textarea {
     background-color: lighten($black, 12%);
   }
 }
-
+.text-file-upload {
+  input[type="file"] {
+    display: none;
+  }
+  display: inline-block;
+  cursor: pointer;
+  color: $purple;
+  transition: all $default-timing;
+  &:hover {
+    color: darken($purple, 11%);
+  }
+}
 .form__password {
   position: relative;
   span {

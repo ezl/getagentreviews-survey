@@ -112,7 +112,6 @@ export default {
       return this.$store.state.clients.emails
     }
   },
-  middleware: 'authed',
   // temporary
   layout: 'dashboard',
   methods: {

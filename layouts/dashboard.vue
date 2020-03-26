@@ -30,6 +30,8 @@ export default {
 
     }
   },
+  middleware: 'authed',
+
   methods: {
     logout () {
       return this.$store.dispatch('auth/logout', this.$cookiz.get('auth-token'))
@@ -47,8 +49,7 @@ export default {
 .auth-dashboard__grid {
   display: grid;
   @include xlarge("up") {
-
-    grid-template-columns: 11% 99%;
+    grid-template-columns: 11% 89%;
   }
     grid-template-columns: 12% 88%;
     @include large("down") {

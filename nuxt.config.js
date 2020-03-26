@@ -61,8 +61,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    // baseURL: 'http://localhost:805/api'
-    baseURL: 'https://api.getagentreviews.com/api'
+    baseURL: 'http://localhost:805/api'
+    // baseURL: 'https://api.getagentreviews.com/api'
   },
   /*
    ** Build configuration

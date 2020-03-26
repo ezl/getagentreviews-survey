@@ -65,6 +65,16 @@
     background-color: lighten($black, 7%);
   }
 }
+.button--white {
+  background-color: $white;
+  color: $purple;
+  border: 1px solid $purple;
+
+  &:hover {
+    color: $white;
+    background-color: $purple;
+  }
+}
 
 .button--gray {
   background-color: rgba(9, 30, 66, 0.04);
