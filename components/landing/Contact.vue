@@ -1,7 +1,7 @@
 <template>
   <v-container class="d-flex justify-lg-space-between home__contact">
     <img src="@/assets/contactperson.png" alt="title">
-    <div class="home__contact-form">
+    <div id="contact" class="home__contact-form">
       <span class="d-block text-purple text-center">CONTACT US</span>
       <h2 class="text-center mb-7">
         Let us know if you have any questions -- we'll get back to you ASAP!

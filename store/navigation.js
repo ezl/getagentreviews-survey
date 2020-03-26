@@ -2,12 +2,12 @@ const state = () => {
   return {
     drawer: false,
     guestRoutes: [
-      { name: 'How it works', action: '/how', icon: 'fa fa-tools' },
-      { name: 'Pricing', action: '/pricing', icon: 'fas fa-dollar-sign' },
-      { name: 'Testimonials', action: '/testmonials', icon: 'fas fa-comments' },
+      { name: 'How it works', action: '#how-it-works', icon: 'fa fa-tools' },
+      { name: 'Pricing', action: '#pricing', icon: 'fas fa-dollar-sign' },
+      { name: 'Testimonials', action: '#testimonials', icon: 'fas fa-comments' },
       {
         name: 'Contact',
-        action: '/contact',
+        action: '#contact',
         color: 'white',
         icon: 'fas fa-id-card-alt'
       },
@@ -26,12 +26,12 @@ const state = () => {
       }
     ],
     authedRoutes: [
-      { name: 'How it works', action: '/how', icon: 'fa fa-tools' },
-      { name: 'Pricing', action: '/pricing', icon: 'fas fa-dollar-sign' },
-      { name: 'Testimonials', action: '/testmonials', icon: 'fas fa-comments' },
+      { name: 'How it works', action: '#how-it-works', icon: 'fa fa-tools' },
+      { name: 'Pricing', action: '#pricing', icon: 'fas fa-dollar-sign' },
+      { name: 'Testimonials', action: '#testimonials', icon: 'fas fa-comments' },
       {
         name: 'Contact',
-        action: '/contact',
+        action: '#contact',
         color: 'white',
         icon: 'fas fa-id-card-alt'
       },

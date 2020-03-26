@@ -1,5 +1,5 @@
 <template>
-  <div class="home__pricing">
+  <div id="pricing" class="home__pricing">
     <span class="d-block text-purple text-center">PRICING</span>
     <h2 class="text-center mb-7">
       Solutions for both individuals or for your whole company

@@ -1,5 +1,5 @@
 <template>
-  <div class="home__get-more d-flex justify-space-between w-100">
+  <div id="get-more" class="home__get-more d-flex justify-space-between w-100">
     <div class="home__get-more-cta align-self-center">
       <h1>Get More 5 Star Reviews Online</h1>
       <p>We make it simple and automatic for you to keep getting more 5 star reviews on Zillow, Yelp, or Google.</p>
@@ -50,9 +50,13 @@ export default {
       height: auto;
       margin-top: 50px;
     }
+     @include xlarge("down") {
+    height: auto;
+  }
 }
 .home__get-more-image {
   position: relative;
+
   @include large("down") {
     display: none;
   }

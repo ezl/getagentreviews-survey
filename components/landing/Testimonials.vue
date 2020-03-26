@@ -1,5 +1,5 @@
 <template>
-  <div class="testimonials">
+  <div id="testimonials" class="testimonials">
     <span class="d-block text-purple text-center">TESTIMONALS</span>
     <h2 class="text-center mb-7">
       What Clients Say About Us
