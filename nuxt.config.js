@@ -74,6 +74,14 @@ export default {
     transpile: ['vee-validate/dist/rules'],
     extend (config, ctx) {}
   },
+  pageTransition: {
+    name: 'fade',
+    mode: 'out-in'
+  },
+  layoutTransition: {
+    name: 'fade',
+    mode: 'out-in'
+  },
   router: {
     scrollBehavior: async (to, from, savedPosition) => {
       if (savedPosition) {

@@ -28,9 +28,9 @@
         />
       </ValidationProvider>
       <slot name="client-items" />
-      <button type="button" class="button button--secondary">
+      <!-- <button type="button" class="button button--secondary">
         Upload CSV
-      </button>
+      </button> -->
       <button :class="invalid ? 'button--disabled' : 'button--purple'" class="button button--success">
         Add Client
       </button>
