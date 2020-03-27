@@ -1,7 +1,7 @@
 <template>
   <v-card
     min-height="100vh"
-    class="drawer d-block"
+    class="drawer"
     width="100%"
     height="100%"
   >

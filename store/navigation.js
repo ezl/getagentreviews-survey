@@ -42,7 +42,7 @@ const state = () => {
       },
       {
         name: 'Dashboard',
-        action: '/dashboard',
+        action: '/dashboard/people',
         bgColor: 'white',
         rounded: true,
         icon: 'fas fa-user-plus'
