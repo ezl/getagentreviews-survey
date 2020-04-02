@@ -83,12 +83,12 @@ export default {
     mode: 'out-in'
   },
   router: {
-    scrollBehavior: async (to, from, savedPosition) => {
+    scrollBehavior: (to, from, savedPosition) => {
       if (savedPosition) {
         return savedPosition
       }
 
-      const findEl = async (hash, x) => {
+      const findEl = (hash, x) => {
         return (
           document.querySelector(hash) ||
           new Promise((resolve, reject) => {
@@ -103,7 +103,7 @@ export default {
       }
 
       if (to.hash) {
-        const el = await findEl(to.hash)
+        const el = findEl(to.hash)
         if ('scrollBehavior' in document.documentElement.style) {
           return window.scrollTo({ top: el.offsetTop, behavior: 'smooth' })
         } else {
