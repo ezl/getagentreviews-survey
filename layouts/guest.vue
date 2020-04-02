@@ -1,22 +1,25 @@
 <template>
-  <div class="navgation">
-    <template v-if="$store.state.auth.user">
-      Hello {{ $store.state.auth.user.name }}
-    </template>
-    <nuxt-link>Profile</nuxt-link>
-    <nuxt />
-    <footer class="footer">
-      myfooter
-    </footer>
-  </div>
+  <v-app>
+    <div class="guest">
+      <Navbar />
+      <div style="min-height: 88vh;">
+        <nuxt />
+      </div>
+      <Footer />
+    </div>
+  </v-app>
 </template>
 
 <script>
+import Navbar from '~/components/layout/Navbar'
+import Footer from '~/components/layout/Footer'
 export default {
-
+  components: {
+    Navbar,
+    Footer
+  }
 }
 </script>
 
 <style>
-
 </style>

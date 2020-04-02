@@ -1,31 +1,28 @@
 <template>
-  <v-footer
-    absolute=""
-    color="primary lighten-1"
-    padless
-  >
-    <v-row
-      justify="center"
-      no-gutters
-    >
-      <v-btn
-        v-for="link in links"
-        :key="link"
-        color="white"
-        text
-        rounded
-        class="my-2"
-      >
-        {{ link }}
-      </v-btn>
-      <v-col
-        class="primary lighten-2 py-4 text-center white--text"
-        cols="12"
-      >
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
-      </v-col>
-    </v-row>
-  </v-footer>
+  <v-container>
+    <div class="footer">
+      <v-divider class="mx-4 mb-4" />
+      <div class="d-flex justify-space-between">
+        <div>
+          <nuxt-link class="footer__link" to="/about">
+            About us
+          </nuxt-link>
+          <nuxt-link class="footer__link" to="/faq">
+            FAQ
+          </nuxt-link>
+          <nuxt-link class="footer__link" to="/terms">
+            Terms & Conditions
+          </nuxt-link>
+          <nuxt-link class="footer__link" to="/privacy">
+            Privacy
+          </nuxt-link>
+        </div>
+        <div>
+          <span>Copyright @Agent Reviews {{ new Date().getFullYear() }}</span>
+        </div>
+      </div>
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -38,6 +35,19 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.footer {
+  height: 100px;
+}
+.footer, .footer__link {
+  color: rgb(156, 155, 155);
+}
+.footer__link, span {
+  margin: 0 8px;
+}
+.footer__link {
+  &:hover {
+    text-decoration: underline;
+  }
+}
 </style>

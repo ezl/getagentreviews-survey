@@ -32,19 +32,22 @@ export default {
   @include large('up') {
     margin-right: 20%;
   }
-  @include xxlarge("up") {
+  @include xxxlarge("up") {
     margin-right: 25%;
   }
 }
 .auth-screen__img {
   flex-basis: 100%;
+  @include xlarge("down") {
+    align-self: center;
+  }
   @include large('up') {
     flex-basis: 46%;
   }
   @include xlarge("up") {
     flex-basis: 42%;
   }
-  @include xxlarge("up") {
+  @include xxxlarge("up") {
     flex-basis:38%;
   }
   @include query($screen-md, $screen-sm, "down") {

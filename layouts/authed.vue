@@ -2,7 +2,9 @@
   <v-app>
     <div class="authed">
       <Navbar />
-      <nuxt />
+      <div style="min-height: 88vh;">
+        <nuxt />
+      </div>
       <Footer />
     </div>
   </v-app>
@@ -15,6 +17,17 @@ export default {
   components: {
     Navbar,
     Footer
+  },
+  methods: {
+    routes () {
+      return [
+        { name: 'Profile', action: '/profile' }
+      ]
+    },
+    logout () {
+      alert('happeend')
+      return this.$store.dispatch('auth/logout', this.$cookiz.get('auth-token'))
+    }
   }
 }
 </script>

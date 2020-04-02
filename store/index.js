@@ -8,11 +8,17 @@ const mutations = {
   }
 }
 
-// const actions = {
-//   async nuxtServerInit ({ commit }, { req }) {}
-// }
+const actions = {
+  async nuxtServerInit ({ commit, dispatch, state }, { req }) {
+    await dispatch('auth/getUser', this.$cookiz.get('auth-token'))
+    if (state.auth.user) {
+      await dispatch('auth/getReviews', state.auth.user.id)
+    }
+  }
+}
 
 export default {
   state,
-  mutations
+  mutations,
+  actions
 }

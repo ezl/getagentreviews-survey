@@ -9,13 +9,19 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "test": "jest"
+    "test": "jest",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
+    "awesome-phonenumber": "^2.27.0",
+    "cookie-universal-nuxt": "^2.1.2",
+    "d3": "^5.15.0",
     "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
-    "sass-loader": "^8.0.2"
+    "sass-loader": "^8.0.2",
+    "v-click-outside": "^3.0.1",
+    "vee-validate": "^3.2.5"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.2",

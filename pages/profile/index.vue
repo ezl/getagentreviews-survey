@@ -1,78 +1,110 @@
 <template>
   <div class="profile d-flex justify-center align-center h-100">
-    <div v-if="user" class="d-flex flex-column align-center align-content-center">
-      <b class="d-block">
-        {{ user.name }}
-      </b>
+    <ValidationObserver v-slot="{ handleSubmit, invalid }">
+      <form class="d-flex flex-column align-center align-content-center" @submit.prevent="handleSubmit(updateProfile)">
+        <b class="d-block">
+          {{ user && user.name }}
+        </b>
 
-      <label
-        class="default-file-upload"
-        for="image"
-      >
-        <template v-if="!user.profile.image">Upload Image</template>
-        <template v-else>Change Image</template>
+        <label
+          class="default-file-upload"
+          for="image"
+        >
+          <template v-if="user && !user.profile.image">Upload Image</template>
+          <template v-else>Change Image</template>
+          <input
+            id="image"
+            placeholder="Upload Image"
+            type="file"
+            name="image"
+            @change="getURL"
+          >
+        </label>
+        <div class="text-center">
+          <img
+            v-if="imgPreview"
+            :src="imgPreview"
+            alt=""
+          >
+          <img
+            v-if="user && user.profile.image && !imgPreview"
+            :src="user && user.profile.image"
+            :alt="`${user.name}'s profile image`"
+          >
+          <span
+            v-if="imgPreview"
+            style="cursor:pointer;"
+            href="#"
+            @click="imgPreview = '', file = ''"
+          >Keep Old Image</span>
+        </div>
+        <label for="company">Company</label>
         <input
-          id="image"
-          placeholder="Upload Image"
-          type="file"
-          name="image"
-          @change="getURL"
+          v-model="company"
+          placeholder="Company"
+          type="text"
+          class="default-input"
+          name="company"
         >
-      </label>
-      <div class="text-center">
-        <img
-          v-if="imgPreview"
-          :src="imgPreview"
-          alt=""
+        <label for="description">Description</label>
+
+        <textarea
+          v-model="description"
+          placeholder="Description"
+          type="text"
+          class="default-input"
+          name="description"
+        />
+        <ValidationProvider v-slot="{ errors }" rules="url">
+          <ValidationInput
+            v-model="googleLink"
+            placeholder="Google Link"
+            input-type="text"
+            name="google-link"
+            label="Google"
+            :default-input-styling="false"
+            input-classes="default-input"
+            input-styles="width: 250px;"
+            container-classes="text-center"
+          />
+          <ValidationBox v-if="submitted && errors.length" message="Link is not valid." />
+        </ValidationProvider>
+        <ValidationProvider v-slot="{ errors }" rules="url">
+          <ValidationInput
+            v-model="yelpLink"
+            placeholder="Yelp Link"
+            input-type="text"
+            name="yelp-link"
+            label="Yelp"
+            :default-input-styling="false"
+            input-classes="default-input"
+            input-styles="width: 250px;"
+            container-classes="text-center"
+          />
+          <ValidationBox v-if="submitted && errors.length" message="Link is not valid." />
+        </ValidationProvider>
+        <button
+          class="button mt-4"
+          :class="loading || invalid ? 'button--disabled' : 'button--purple'"
         >
-        <img
-          v-if="user.profile.image && !imgPreview"
-          :src="user.profile.image"
-          :alt="`${user.name}'s profile image`"
-        >
-        <span v-if="imgPreview" style="cursor:pointer;" href="#" @click="imgPreview = '', file = ''">Keep Old Image</span>
-      </div>
-      <label for="company">Company</label>
-      <input
-        v-model="company"
-        placeholder="Your Company"
-        type="text"
-        class="default-input"
-        name="company"
-      >
-      <label for="description">Description</label>
-      <input
-        v-model="description"
-        placeholder="Your Description"
-        type="text"
-        class="default-input"
-        name="description"
-      >
-      <label for="google">Google</label>
-      <input
-        v-model="googleLink"
-        placeholder="Your Google Review Link"
-        type="text"
-        class="default-input"
-        name="google"
-      >
-      <label for="yelp">Yelp</label>
-      <input
-        v-model="yelpLink"
-        placeholder="Your Yelp Link"
-        type="text"
-        class="default-input"
-        name="yelp"
-      >
-      <button class="button button--purple mt-4" @click="updateProfile">
-        Update
-      </button>
-    </div>
+          Update
+        </button>
+      </form>
+    </ValidationObserver>
   </div>
 </template>
 
 <script>
+import { ValidationProvider, ValidationObserver } from 'vee-validate'
+import ValidationBox from '~/components/misc/ValidationBox'
+import ValidationInput from '~/components/common/ValidationInput'
 export default {
+  components: {
+    ValidationProvider,
+    ValidationBox,
+    ValidationObserver,
+    ValidationInput
+  },
   layout: 'authed',
   data () {
     return {
@@ -82,7 +114,9 @@ export default {
       email_description: '',
       googleLink: '',
       yelpLink: '',
-      file: ''
+      file: '',
+      loading: false,
+      submitted: false
     }
   },
   computed: {
@@ -96,23 +130,20 @@ export default {
       return this.$store.state.auth.user
     }
   },
-  middleware: 'fakepersist',
+  middleware: 'authed',
   mounted () {
-    // temporary
     const userObj = this.$store.state.auth.user && this.$store.state.auth.user.profile
-    if (!userObj && localStorage.getItem('auth_token')) {
-      this.$store.dispatch('auth/getUser', localStorage.getItem('auth_token'))
-    } else if (userObj) {
+    if (userObj) {
       this.company = userObj.company
       this.description = userObj.description
       this.googleLink = userObj.links && userObj.links.google
       this.yelpLink = userObj.links && userObj.links.yelp
-    } else {
-      this.$router.push('/login')
     }
   },
   methods: {
     updateProfile () {
+      this.loading = true
+      this.submitted = true
       const fd = new FormData()
       fd.append('company', this.company)
       fd.append('image', this.file)
@@ -125,11 +156,13 @@ export default {
         }
       })
         .then(({ data }) => {
-          console.log(data)
           alert('Your profile has been updated.')
+          this.loading = false
+          this.$store.commit('auth/setUserImage', this.imgPreview)
         })
         .catch((err) => {
           console.log(err)
+          this.loading = false
         })
     },
     getURL (e) {
@@ -159,12 +192,17 @@ export default {
 @import '~/styles';
 img {
   display: block;
-  max-width: 60%;
   margin: 3px auto;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
 }
 .button--purple {
   @include small('down') {
     margin-bottom: 180px;
   }
+}
+input, textarea {
+  width: 250px;
 }
 </style>
