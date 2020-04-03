@@ -1,10 +1,7 @@
 <template>
-  <div
-    class="external-feedback__card center-flex-v-h"
-    @click="externalSubmit"
-  >
+  <v-card :hover="true" target="_blank" :href="`http://${location}.com`" elevation="24" class="d-flex justify-center align-center pa-10">
     <slot />
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -24,5 +21,20 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.col {
+  img {
+    width: 10px;
+  }
+}
+.v-card {
+  opacity: 0.82;
+  width: 210px;
+  height: 110px;
+  transition: all .25s ease-in;
+  &:hover {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
 </style>

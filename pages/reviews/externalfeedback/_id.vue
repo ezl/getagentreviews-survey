@@ -28,7 +28,7 @@
       </template>
       <template slot="extra-content">
         <span class="d-block">I don't have google but I'd be happy to leave a review on:</span>
-        <div class="external-feedback__others">
+        <v-row class="external-feedback__cards" justify-md="center" justify-sm="center">
           <ExternalCard location="zillow">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Zillow_logo19.png"
@@ -47,7 +47,7 @@
               alt="facebook"
             >
           </ExternalCard>
-        </div>
+        </v-row>
         <button v-if="$store.state.reviews.leftFeedBackExternal.length" class="button button--success mt-4" @click="$router.push('/reviews/thankyou')">
           Done
         </button>
@@ -80,5 +80,34 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import '~/styles';
+  img {
+    width: 100%;
+  }
+.external-feedback__cards {
+  @include xlarge("down") {
+     .v-card {
+        margin: 0 4px;
+      }
+  } 
+  @include large("up") {
+    // width: 694px;
+    position: relative;
+    left: 4px;
+    .v-card {
+        margin: 0 5px;
+
+  }
+  }
+  @include medium("down") {
+    justify-content: center;
+    margin: 0;
+      .v-card {
+        margin: 4px;
+               width: 275x;
+
+      }
+  }
+}
 </style>

@@ -7,21 +7,14 @@
   .google {
     margin-top: 15px;
     margin-bottom: 50px;
-    @include small("down") {
+    @include medium("down") {
       display: flex;
       justify-content: center;
     }
   }
   .external-feedback__others {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
     .external-feedback__card {
       margin: 0 4px;
-    }
-    @include small("down") {
-      justify-content: center;
-      flex-wrap: wrap;
     }
     .external-feedback__card {
       @include small("down") {
