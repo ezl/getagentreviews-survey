@@ -1,4 +1,7 @@
 .local-feedback {
+  @include large("down") {
+    text-align: center;
+  }
   textarea {
     background-color: rgb(236, 236, 236);
     resize: none;
@@ -9,6 +12,9 @@
     margin: 25px 0;
     padding: 20px;
     line-height: 27px;
+    @include large("down") {
+      margin: 25px auto;
+    }
   }
 }
 .local-feedback__link {
