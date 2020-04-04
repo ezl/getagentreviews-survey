@@ -88,24 +88,23 @@ export default {
 .external-feedback__cards {
   @include xlarge("down") {
      .v-card {
-        margin: 0 4px;
+        margin: 0 8px;
       }
   } 
   @include large("up") {
     // width: 694px;
     position: relative;
-    left: 4px;
+    left: -3px;
     .v-card {
-        margin: 0 5px;
-
+        margin: 0 16px;
   }
   }
   @include medium("down") {
     justify-content: center;
     margin: 0;
       .v-card {
-        margin: 4px;
-               width: 275x;
+        margin: 8px;
+        width: 275x;
 
       }
   }
