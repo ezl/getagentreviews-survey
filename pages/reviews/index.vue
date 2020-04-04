@@ -6,7 +6,7 @@
       :button-c-t-a="saveReview"
     >
       <template slot="title">
-        How was your experience with <b v-if="$store.state.reviews.reviewRequest">{{ $store.state.reviews.reviewRequest.agent.name }}</b>?
+        How was your experience with <b v-if="$store.state.reviews.agent">{{ $store.state.reviews.agent.name }}</b>{{$store.state.reviews.agent}}?
       </template>
       <template slot="subtitle">
         We won't publish your responses until after you confirm his review here.
@@ -51,6 +51,7 @@ export default {
         const data = params.rating.split('-')
         if (params) {
           await store.dispatch('reviews/getReview', data[1])
+          await store.dispatch('reviews/getAgent', store.state.reviews.reviewRequest.agent.id)
         }
         if (store.state.reviews.reviewRequest.star_rating_completed) {
           return redirect('/reviews/localfeedback/' + store.state.reviews.reviewRequest.id)
