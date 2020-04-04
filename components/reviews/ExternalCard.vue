@@ -22,11 +22,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.col {
-  img {
-    width: 10px;
-  }
-}
 .v-card {
   opacity: 0.82;
   width: 210px;

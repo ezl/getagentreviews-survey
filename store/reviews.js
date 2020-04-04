@@ -10,11 +10,10 @@ const state = () => ({
 })
 
 const actions = {
-  getAgent ({ commit }, id) {
-    this.$axios
+  async getAgent ({ commit, state }, id) {
+    await this.$axios
       .get(`/users/${id}`)
       .then(({ data }) => {
-        console.log(data)
         commit('setAgent', data)
       })
       .catch((err) => {
@@ -24,7 +23,6 @@ const actions = {
   async getReview ({ commit, dispatch }, id) {
     await this.$axios.get(`/reviewrequest/${id}`)
       .then(({ data }) => {
-        console.log('review', data)
         commit('setReviewRequest', data)
         if (!data.link_clicked) {
           // if link hasn't been clicked yet set it to clicked on the backend

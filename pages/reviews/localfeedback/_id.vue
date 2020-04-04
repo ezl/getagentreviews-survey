@@ -69,7 +69,7 @@ export default {
       if (!store.state.reviews.reviewRequest) {
         await store.dispatch('reviews/getReview', params.id)
       }
-      if (store.state.reviews.reviewRequest.feedback_completed) {
+      if (store.state.reviews.reviewRequest.feedback_completed || store.state.reviews.reviewRequest.star_rating > 3) {
         return redirect('/reviews/externalfeedback/' + store.state.reviews.reviewRequest.id)
       }
     }
