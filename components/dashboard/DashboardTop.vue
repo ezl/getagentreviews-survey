@@ -1,16 +1,16 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col col="1">
+    <v-row justify-xl="space-between" justify-lg="space-between" justify="center">
+      <v-col :lg="cols.lg" :md="cols.md" :sm="cols.sm" :cols="cols.reg">
         <DashboardTopCard />
       </v-col>
-      <v-col col="1">
+      <v-col :lg="cols.lg" :md="cols.md" :sm="cols.sm" :cols="cols.reg">
         <DashboardTopCard />
       </v-col>
-      <v-col col="1">
+      <v-col :lg="cols.lg" :md="cols.md" :sm="cols.sm" :cols="cols.reg">
         <DashboardTopCard />
       </v-col>
-      <v-col>
+      <v-col :lg="cols.lg" md="3" cols="6">
         <span style="font-size: 14px;" class="text--grey font-weight-bold text-center ml-4">
           <v-icon x-small class="mr-2 text--grey bold">mdi-tab</v-icon>Notification
         </span>
@@ -54,6 +54,12 @@ export default {
   },
   data () {
     return {
+      cols: {
+        reg: '10',
+        sm: '6',
+        md: '4',
+        lg: '3'
+      }
     }
   }
 }

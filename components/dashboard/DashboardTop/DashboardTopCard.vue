@@ -41,10 +41,10 @@ export default {
     padding: 6px;
     border-radius: 50%;
 }
-.dashboard-top__card {
-  width: 291px;
-  @include large("down") {
-   width: 300px;
-  }
-}
+// .dashboard-top__card {
+//   width: 291px;
+//   @include large("down") {
+//    width: 300px;
+//   }
+// }
 </style>
