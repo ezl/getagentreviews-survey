@@ -1,4 +1,5 @@
 <template>
+<v-col cols="11" lg="4" md="6" sm="6">
   <v-card
     class="my-12 ml-3 mr-3"
     max-width="374"
@@ -6,7 +7,7 @@
   >
     <v-card-text>
       <div class="mb-8">
-        <i>"{{ quote }}"</i>
+        <i>"{{ cutOff(quote) }}"</i>
       </div>
       <v-rating
         :value="5"
@@ -20,17 +21,18 @@
 
     <v-card-actions class="d-flex justify-space-between">
       <div class="d-flex align-center">
-        <v-list-item-avatar color="grey" />
+        <img :src="img" alt="person that reviewed">
         <div>
-          <b class="d-block">Stormie Hansford</b>
-          <span>CEO, Realhousingstate</span>
+          <b class="d-block">{{ name }}</b>
+          <span>{{ job }}, {{ company }}</span>
         </div>
       </div>
       <div>
-        logo
+        <img style="width: 70px;" src="https://openthread.google.cn/images/ot-contrib-google.png" alt="logo">
       </div>
     </v-card-actions>
   </v-card>
+  </v-col>
 </template>
 
 <script>
@@ -39,14 +41,51 @@ export default {
     quote: {
       type: String,
       default: ''
+    },
+    img: {
+      type: String,
+      default: ''
+    },
+    logo: {
+      type: String,
+      default: ''
+    },
+    name: {
+      type: String,
+      default: ''
+    },
+    job: {
+      type: String,
+      default: ''
+    },
+    company: {
+      type: String,
+      default: ''
+    }
+  },
+  methods: {
+    cutOff(quote) {
+      const max = 90
+      let shorten = quote.substring(0, max)
+      if (quote.length > max) {
+        shorten = shorten + "..."
+      }
+      return shorten
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '~/styles';
 .v-card {
   padding-bottom: 10px;
   font-size: 12px;
+}
+img {
+  width: 45px;
+  border-radius: 50%;
+  height: 45px;
+  margin-right: 8px;
 }
 </style>

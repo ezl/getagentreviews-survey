@@ -4,100 +4,36 @@
     <h2 class="text-center mb-7">
       Solutions for both individuals or for your whole company
     </h2>
-    <div class="d-flex justify-center mb-8 flex-wrap home__pricing-cards">
-      <v-card
-        class="mr-8 pb-11"
-        width="320"
-      >
-        <div class="d-flex bg-purple--gradient mb-8">
-          <div class="text-white justify-space-between card-header">
-            <h4>
-              Individual
-            </h4>
-            <p>For individual real estate agents or brokers.</p>
-          </div>
-          <div style="width: 40%; align-self:center; text-align: right; padding-right: 20px;">
-            <i class="fas fa-user-alt" />
-          </div>
-        </div>
-        <h2 class="text-center text-purple card-padding pricing__price">
-          <span class="d-block">$39.99</span> per month
-        </h2>
-        <v-card-actions class="pb-5 d-flex justify-center">
-          <button class="button button--landing">
-            Try For Free
-          </button>
-        </v-card-actions>
-      </v-card>
-      <v-card
-        class="pb-11"
-        width="320"
-      >
-        <div class="d-flex bg-purple--gradient mb-8">
-          <div class="text-white justify-space-between card-header">
-            <h4>Agency</h4>
-            <p>
-              Discounted group pricing for
-              companies onboarding 5 or more real estate agents.
-            </p>
-          </div>
-          <div style="width: 40%; align-self:center; text-align: right; padding-right: 20px;">
-            <i class="fas fa-users" />
-          </div>
-        </div>
-        <h2 class="text-center text-purple card-padding pricing__price">
-          <span class="d-block">$34.99</span> per seat per month
-        </h2>
-        <span class="text-center d-block text-purple">How many agents need an account?</span>
-        <v-card-text>
-          <v-slider
-            v-model="amountOfAgents"
-            :tick-labels="agentLabels"
-            :max="3"
-            step="1"
-            ticks="always"
-            tick-size="4"
-            color="gray"
-            track-color="gray"
-            thumb-color="#5b5bd1"
-          />
-        </v-card-text>
-        <v-card-actions class="pb-5 d-flex justify-center">
-          <button class="button button--landing mx-auto">
-            Try For Free
-          </button>
-        </v-card-actions>
-      </v-card>
-    </div>
+    <v-row class="mb-8" justify="center">
+      <Individual />
+      <Agency />
+    </v-row>
   </div>
 </template>
 
 <script>
+import Individual from '~/components/landing/Pricing/Individual'
+import Agency from '~/components/landing/Pricing/Agency'
 export default {
-  data () {
-    return {
-      amountOfAgents: 0,
-      agentLabels: [
-        '5+',
-        '10+',
-        '25+',
-        '99+'
-      ]
-    }
+  components: {
+    Individual,
+    Agency
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~/styles';
+.home__pricing {
 .card-padding {
-  padding: 15px 0;
+  padding: 16px 0;
 }
 h3 {
   font-weight: 400;
 }
 .v-card {
-  height: 420px;
+  height: 432px;
+  padding-bottom:30px;
   p {
     font-size: 14px;
     margin-top: 5px;
@@ -110,11 +46,8 @@ h3 {
     font-weight: 400;
     font-size: 20px;
 }
-.home__pricing-cards {
-  .v-card {
-    @include small("down") {
-    margin: 5px 0 !important;
-    }
-  }
+.v-card {
+  // height: 450px
+}
 }
 </style>
