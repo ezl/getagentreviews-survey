@@ -1,7 +1,13 @@
 const state = () => ({
   modal: {
     addingPeople: false,
-    manualAdd: false
+    manualAdd: false,
+    csvMatch: false
+  },
+  assumptions: {
+    names: [],
+    emails: [],
+    numbers: []
   },
   potentialClients: []
 })
@@ -22,6 +28,9 @@ const mutations = {
   },
   setPotentialClients (state, clients) {
     state.potentialClients = clients
+  },
+  setAssumption (state, { field, assumptions }) {
+    state.assumptions[field] = [...state.assumptions[field], assumptions]
   }
 }
 
