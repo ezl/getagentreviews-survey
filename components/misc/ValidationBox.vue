@@ -23,8 +23,10 @@ export default {
   background-color: #f9d7da;
   display: inline-block;
   padding: 10px;
-  font-size: 12px;
+  font-size: 13px;
   width: 100%;
   text-align: center;
+  color: #6d151d;
+  font-weight: bold;
 }
 </style>
