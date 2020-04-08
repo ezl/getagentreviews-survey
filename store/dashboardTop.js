@@ -27,7 +27,7 @@ const actions = {
     if (fname && lname && !fullname) {
       const copy = fname.data
       for (let i = 0; i < copy.length; i++) {
-        copy[i] = copy[i].concat(lname.data[i])
+        copy[i] = copy[i].concat(' ' + lname.data[i])
       }
       fullname = copy
     }
