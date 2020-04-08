@@ -19,10 +19,12 @@ export default {
 
 <style>
 .validation-box {
-  border: solid 1px #ffc40b;
-  background-color: #fff3cd;
+  border: solid 1px #ff6c7f;
+  background-color: #f9d7da;
   display: inline-block;
-  padding: 8px;
+  padding: 10px;
   font-size: 12px;
+  width: 100%;
+  text-align: center;
 }
 </style>

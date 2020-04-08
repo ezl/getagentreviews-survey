@@ -62,7 +62,8 @@ const actions = {
         console.log(err)
       })
   },
-  register ({ commit, dispatch }, { batch, user}) {
+  register ({ commit, dispatch }, { batch, user }) {
+    commit('setServerErrors', [])
     commit('setLoading', true)
     this.$axios
       .post('/users', batch, {
@@ -76,8 +77,7 @@ const actions = {
       .catch((err) => {
         console.log(err.response)
         commit('setLoading', false)
-        alert('errors! check console for now!')
-        state.serverErrors = err.response.data
+        commit('setServerErrors', err.response.data)
       })
   },
   async getReviews ({ commit }, id) {
@@ -109,6 +109,9 @@ const mutations = {
   },
   setReviews (state, reviews) {
     state.reviews = reviews
+  },
+  setServerErrors (state, errors) {
+    state.serverErrors = errors
   }
 }
 

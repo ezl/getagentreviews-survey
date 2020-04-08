@@ -21,16 +21,19 @@
         :class="classBinds()"
         @input="$emit('input', $event.target.value)"
       >
-      <template v-if="serverErrors && Array.isArray(serverErrors) && serverErrors[errorProperty]">
-        <ValidationBox v-for="err in serverErrors[errorProperty]" :key="err" :message="err" />
+      <template v-if="serverErrors && serverErrors.errors && serverErrors.errors[errorProperty]">
+        <ValidationBox v-for="err in serverErrors.errors[errorProperty]" :key="err" :message="err" />
       </template>
     </div>
   </div>
 </template>
 
 <script>
-
+import ValidationBox from '~/components/misc/ValidationBox'
 export default {
+  components: {
+    ValidationBox
+  },
   props: {
     submitted: {
       type: Boolean,
@@ -55,10 +58,6 @@ export default {
     name: {
       type: String,
       default: ''
-    },
-    serverErrors: {
-      type: [Array, String],
-      default: () => {}
     },
     errorProperty: {
       type: String,
@@ -97,6 +96,11 @@ export default {
     return {
       passwordInput: false,
       showPass: false
+    }
+  },
+  computed: {
+    serverErrors () {
+      return this.$store.state.auth.serverErrors
     }
   },
   watch: {
