@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="message.length" class="validation-box">
+    <div v-if="message.length" class="validation-box" :class="!width ? 'w-100' : ''" :style="width ? `width: ${width}` : ''">
       {{ message }}
     </div>
   </div>
@@ -12,6 +12,10 @@ export default {
     message: {
       type: String,
       default: ''
+    },
+    width: {
+      type: String,
+      default: '100%'
     }
   }
 }
@@ -24,7 +28,6 @@ export default {
   display: inline-block;
   padding: 10px;
   font-size: 13px;
-  width: 100%;
   text-align: center;
   color: #6d151d;
   font-weight: bold;

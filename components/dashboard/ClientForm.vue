@@ -1,21 +1,9 @@
 <template>
   <!-- to do -->
-  <ValidationObserver v-slot="{ handleSubmit, invalid }">
+  <ValidationObserver ref="observer" v-slot="{ handleSubmit, invalid }">
     <ValidationBox v-if="message" :message="message.text" />
     <form @submit.prevent="handleSubmit(addClient)">
-      <ValidationProvider rules="required">
-        <ValidationInput
-          v-model="name"
-          placeholder="Client Name"
-          input-type="text"
-          name="name"
-          label="Name"
-          :input-styles="inputStyling()"
-          container-classes="mt-4"
-          :focus="!name ? true : false"
-        />
-      </ValidationProvider>
-      <ValidationProvider rules="email|required">
+      <ValidationProvider v-slot="{ errors }" rules="email|required">
         <ValidationInput
           v-model="email"
           placeholder="Client Email"
@@ -24,19 +12,40 @@
           label="Email"
           :input-styles="inputStyling()"
           :input-classes="message && message.type === 'error' ? 'default-input--error' : ''"
-          :focus="message.type && message.type === 'error' ? true : false"
+          :focus="!email || message.type && message.type === 'error' ? true : false"
         />
+        <ValidationBox width="250px" :message="errors[0]" />
+      </ValidationProvider>
+      <ValidationProvider v-slot="{ errors }" rules="required">
+        <ValidationInput
+          v-model="name"
+          placeholder="Client Name"
+          input-type="text"
+          name="name"
+          label="Name"
+          :input-styles="inputStyling()"
+          container-classes="mt-4"
+          :focus="errors.length ? true : false"
+        />
+        <ValidationBox width="250px" :message="errors[0]" />
+      </ValidationProvider>
+      <ValidationProvider v-slot="{ errors }" rules="phone|required">
+        <ValidationInput
+          v-model="number"
+          placeholder="Client Number"
+          input-type="tel"
+          name="phone"
+          label="Phone Number"
+          :input-styles="inputStyling()"
+          :input-classes="errors.length ? 'default-input--error' : ''"
+          :focus="errors.length ? true : false"
+        />
+        <ValidationBox v-if="errors.length" width="250px" message="Please enter a valid phone number." />
       </ValidationProvider>
       <slot name="client-items" />
-      <!-- <button type="button" class="button button--secondary">
-        Upload CSV
-      </button> -->
       <button :class="invalid ? 'button--disabled' : 'button--purple'" class="button button--success">
         Add Client
       </button>
-      <!-- <button v-if="clients && clients.length" type="button" class="button button--purple" @click="sendEmails">
-        Send Emails
-      </button> -->
     </form>
     <div v-if="sent">
       Emails sent!
@@ -59,6 +68,7 @@ export default {
     return {
       name: '',
       email: '',
+      number: '',
       sent: false
     }
   },
@@ -89,7 +99,8 @@ export default {
         })
     },
     addClient () {
-      this.$store.dispatch('clients/addClient', { name: this.name, email: this.email })
+      this.$refs.observer.reset()
+      this.$store.dispatch('clients/addClient', { name: this.name, email: this.email, phone_number: this.number })
       if (this.message.type !== 'error') {
         this.name = ''
         this.email = ''

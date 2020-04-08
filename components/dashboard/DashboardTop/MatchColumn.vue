@@ -1,5 +1,21 @@
 <template>
   <v-col v-if="storeData && storeData.data.length" md="6" lg="5" cols="12">
+    <div class="text-center ma-2">
+      <v-snackbar
+        v-model="err"
+        top
+        :timeout="1500"
+      >
+        {{ curr }} is already included.
+        <v-btn
+          color="green"
+          text
+          @click="err = false"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
+    </div>
     <v-card height="500">
       <v-card-title>
         <span v-if="invalidList.length" class="body-2"><span class="red--text mr-1">Error:</span>The highlighted items aren't proper format</span>
@@ -34,7 +50,11 @@ export default {
   data () {
     return {
       invalidList: [],
-      index: ''
+      index: '',
+      validateArray: [],
+      err: false,
+      curr: ''
+
     }
   },
   computed: {
@@ -49,6 +69,24 @@ export default {
         return this.storeData && this.storeData.match
       },
       set (newVal) {
+        if (this.match === 'Unassigned' && newVal === 'Unassigned') {
+          return
+        }
+        this.validateArray = []
+        this.$store.state.dashboardTop.csvData.forEach((item) => {
+          if (item.match !== 'Unassigned' && this.validateArray && !this.validateArray.includes(item.match)) {
+            this.validateArray = [...this.validateArray, item.match]
+          }
+        })
+        if (this.validateArray.includes(newVal)) {
+          if (newVal !== 'Unassigned') {
+            this.curr = newVal
+          }
+          this.$store.commit('dashboardTop/updateMatchedItem', { index: this.index, match: 'Unassigned' })
+          this.err = true
+          return
+        }
+
         this.$store.commit('dashboardTop/updateMatchedItem', { index: this.index, match: newVal })
         this.validate()
       }
@@ -61,16 +99,8 @@ export default {
         this.validate()
       }
     }
-    // storeData (newVal) {
-    //   if (!newVal) {
-    //     this.findMatch(this.data[0])
-    //     const find = this.$store.state.dashboardTop.csvData.find(each => each.data === this.data)
-    //     this.index = this.$store.state.dashboardTop.csvData.indexOf(find)
-    //   }
-    // }
   },
   mounted () {
-    console.log('this happens')
     this.findMatch(this.data[0])
     const find = this.$store.state.dashboardTop.csvData.find(each => each.data === this.data)
     this.index = this.$store.state.dashboardTop.csvData.indexOf(find)
@@ -87,26 +117,34 @@ export default {
       const fullnamere = /^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$/
       const isFullName = fullnamere.test(item.toLowerCase())
       if (isPhone) {
-        this.initalReg = phonere
-
-        match = 'Phone Number'
+        if (this.matches.includes('Phone Number')) {
+          match = 'Unassigned'
+        } else {
+          match = 'Phone Number'
+        }
       } else if (isEmail) {
-        this.initalReg = emailre
-
-        match = 'Email'
+        if (this.matches.includes('Email')) {
+          match = 'Unassigned'
+        } else {
+          match = 'Email'
+        }
       } else if (isFullName) {
-        this.initialReg = fullnamere
-        match = 'Full Name'
+        if (this.matches.includes('Full Name')) {
+          match = 'Unassigned'
+        } else {
+          match = 'Full Name'
+        }
       } else if (isName) {
         if (this.matches.includes('First Name')) {
-          this.initalReg = nameRe
-          match = 'Last Name'
+          if (this.matches.includes('Last Name')) {
+            match = 'Unassigned'
+          } else {
+            match = 'Last Name'
+          }
         } else {
           match = 'First Name'
         }
       } else {
-        this.initalReg = ''
-
         match = 'Unassigned'
       }
       // add new matched item to store array to prevent duplicate matching

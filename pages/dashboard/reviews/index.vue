@@ -5,7 +5,7 @@
         <v-data-table
           :headers="headers"
           :items="reviews"
-          :items-per-page="5"
+          :items-per-page="15"
           class="elevation-1"
           item-key="email"
           no-data-text="No clients have left reviews yet"

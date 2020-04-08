@@ -7,7 +7,8 @@ const state = () => ({
   },
   csvData: [],
   matches: [],
-  potentialClients: []
+  potentialClients: [],
+  errors: ''
 })
 
 const actions = {
@@ -25,14 +26,19 @@ const actions = {
     const lname = state.csvData.find(each => each.match === 'Last Name')
     const number = state.csvData.find(each => each.match === 'Phone Number')
     if (fname && lname && !fullname) {
+      alert('g')
       const copy = fname.data
       for (let i = 0; i < copy.length; i++) {
         copy[i] = copy[i].concat(' ' + lname.data[i])
       }
       fullname = copy
+      for (let i = 0; i < fullname.length; i++) {
+        dispatch('clients/addClient', { name: fullname[i], email: email.data[i], phone_number: number && number.data[i] }, { root: true })
+      }
+      return
     }
-    for (let i = 0; i < fullname.length; i++) {
-      dispatch('clients/addClient', { name: fullname[i], email: email.data[i], number: number && number.data[i] }, { root: true })
+    for (let i = 0; i < fullname.data.length; i++) {
+      dispatch('clients/addClient', { name: fullname.data[i], email: email.data[i], phone_number: number && number.data[i] }, { root: true })
     }
   }
 }
@@ -40,6 +46,9 @@ const actions = {
 const mutations = {
   setModal (state, { modalType, to }) {
     state.modal[modalType] = to
+  },
+  setErrors (state, errors) {
+    state.errors = errors
   },
   setPotentialClients (state, clients) {
     state.potentialClients = clients
