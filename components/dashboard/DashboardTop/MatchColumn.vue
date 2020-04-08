@@ -1,7 +1,7 @@
 <template>
-  <v-col md="6" lg="5" cols="12">
+  <v-col v-if="storeData && storeData.data.length" md="6" lg="5" cols="12">
     <v-card height="500">
-      <v-card-title v-if="storeData">
+      <v-card-title>
         <span v-if="invalidList.length" class="body-2"><span class="red--text mr-1">Error:</span>The highlighted items aren't proper format</span>
         <v-select v-model="match" label="Column" :items="['Email', 'Phone Number', 'First Name', 'Last Name', 'Full Name', 'Unassigned']" />
         <v-list-item v-for="(item, i) in storeData.data" :key="i">
@@ -61,13 +61,19 @@ export default {
         this.validate()
       }
     }
+    // storeData (newVal) {
+    //   if (!newVal) {
+    //     this.findMatch(this.data[0])
+    //     const find = this.$store.state.dashboardTop.csvData.find(each => each.data === this.data)
+    //     this.index = this.$store.state.dashboardTop.csvData.indexOf(find)
+    //   }
+    // }
   },
   mounted () {
-    if (!this.storeData) {
-      this.findMatch(this.data[0])
-      const find = this.$store.state.dashboardTop.csvData.find(each => each.data === this.data)
-      this.index = this.$store.state.dashboardTop.csvData.indexOf(find)
-    }
+    console.log('this happens')
+    this.findMatch(this.data[0])
+    const find = this.$store.state.dashboardTop.csvData.find(each => each.data === this.data)
+    this.index = this.$store.state.dashboardTop.csvData.indexOf(find)
   },
   methods: {
     findMatch (item) {

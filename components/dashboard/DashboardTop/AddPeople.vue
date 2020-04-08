@@ -80,6 +80,9 @@ export default {
       if (!file) {
         return
       }
+      this.$store.commit('dashboardTop/setMatches', { clear: true })
+      this.$store.commit('dashboardTop/setCsvData', [])
+      this.results = []
       const vm = this
       Papa.parse(file, {
         complete (results) {

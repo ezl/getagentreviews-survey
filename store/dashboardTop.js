@@ -32,7 +32,7 @@ const actions = {
       fullname = copy
     }
     for (let i = 0; i < fullname.length; i++) {
-      dispatch('clients/addClient', { name: fullname[i], email: email.data[i], number: number.data[i] }, { root: true })
+      dispatch('clients/addClient', { name: fullname[i], email: email.data[i], number: number && number.data[i] }, { root: true })
     }
   }
 }
@@ -53,6 +53,9 @@ const mutations = {
       return
     }
     state.matches = [...state.matches, match]
+  },
+  setCsvData (state, data) {
+    state.csvData = data
   },
   setMatchedItem (state, payload) {
     state.csvData = [...state.csvData, payload]

@@ -14,11 +14,11 @@
         <h1 class="text-center">
           If any of the coliumns are incorrect, please reassign
         </h1>
-        <v-row justify="center">
+        <v-row v-if="data" justify="center">
           <MatchColumn v-for="(item, i) in data" :key="i" :matches="matches" :data="item" />
         </v-row>
         <div class="text-center">
-          <v-btn @click="addClients" color="success">
+          <v-btn color="success" @click="addClients">
             Add Clients
           </v-btn>
         </div>
@@ -59,7 +59,9 @@ export default {
   methods: {
     addClients () {
       this.$store.dispatch('dashboardTop/csvAdd')
-      // this.$store.dispatch('clients/addClient', { name: this.name, email: this.email })
+      this.$store.commit('dashboardTop/setModal', { modalType: 'addingPeople', to: false })
+      this.$store.commit('dashboardTop/setModal', { modalType: 'csvPrompt', to: false })
+      this.$store.commit('dashboardTop/setModal', { modalType: 'csvMatch', to: false })
     }
   }
 }
