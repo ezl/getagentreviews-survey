@@ -23,6 +23,23 @@ const actions = {
         commit('setUser', null)
       })
   },
+  login ({ commit }, { email, password }) {
+    this.$axios
+      .post('/users/login', {
+        email,
+        password
+      })
+      .then(({ data }) => {
+        commit('setUser', data.user)
+        this.$cookiz.set('auth-token', data.token)
+        this.$router.push('/dashboard/people')
+      })
+      .catch((err) => {
+        if (err.response.status === 422) {
+          console.log(err.response.data)
+        }
+      })
+  },
   logout ({ commit }, token) {
     commit('setLoading', true)
     console.log(token)
@@ -45,18 +62,16 @@ const actions = {
         console.log(err)
       })
   },
-  register ({ commit }, payload) {
+  register ({ commit, dispatch }, { batch, user}) {
     commit('setLoading', true)
     this.$axios
-      .post('/users', payload, {
+      .post('/users', batch, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
       .then(({ data }) => {
-        this.$router.push('/login')
-        commit('setLoading', false)
-        commit('setTempEmail', data.email)
+        dispatch('login', { email: user.email, password: user.password })
       })
       .catch((err) => {
         console.log(err.response)

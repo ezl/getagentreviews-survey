@@ -162,7 +162,7 @@ export default {
   methods: {
     register () {
       this.submitted = true
-      this.$store.dispatch('auth/register', this.batch)
+      this.$store.dispatch('auth/register', { batch: this.batch, user: { email: this.email, password: this.password } })
     },
     toggleShowPassword () {
       this.showPass = !this.showPass
