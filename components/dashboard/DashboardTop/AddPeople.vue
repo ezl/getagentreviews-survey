@@ -9,23 +9,13 @@
           class="headline grey lighten-2"
           primary-title
         >
-          Add People {{ data }}
+          Add People
         </v-card-title>
 
         <v-card-actions class="d-flex justify-center">
-          <label
-            class="default-file-upload"
-            for="image"
-          >
+          <v-btn dark @click="csvOptions = true" @click.stop="$store.commit('dashboardTop/setModal', {modalType: 'csvPrompt', to: true})">
             Upload CSV
-            <input
-              id="image"
-              placeholder="Upload Image"
-              type="file"
-              name="image"
-              @change="getData"
-            >
-          </label>
+          </v-btn>
           <v-btn
             color="primary"
             text
@@ -37,32 +27,27 @@
       </v-card>
     </v-dialog>
     <AddManually />
-    <CSVMatcher :assumptions="initialAssume" :data="data" />
+    <CSVPrompt :answer="answer" @getData="getData" @answer="setAnswer" />
+    <CSVMatcher :data="data" />
   </div>
 </template>
 
 <script>
-import * as d3 from 'd3'
 import Papa from 'papaparse'
 import CSVMatcher from '~/components/dashboard/DashboardTop/CSVMatcher'
+import CSVPrompt from '~/components/dashboard/DashboardTop/CSVPrompt'
 import AddManually from '~/components/dashboard/DashboardTop/AddManually'
 export default {
   components: {
     AddManually,
-    CSVMatcher
+    CSVMatcher,
+    CSVPrompt
   },
   data () {
     return {
-      assumeEmail: null,
-      assumePhoneNumber: null,
-      names: [],
-      numbers: [],
-      emails: [],
-      assumeName: [],
-      initialAssume: { names: [], emails: [], numbers: [] },
-      clients: [],
       assumeData: null,
-      results: []
+      results: [],
+      answer: ''
     }
   },
   computed: {
@@ -79,63 +64,30 @@ export default {
     data () {
       const res = []
       this.results.forEach((result, i) => {
-        result.forEach((item, x) => {
+        for (let x = 0; x < result.length; x++) {
           if (!res[x]) { res[x] = [] }
-          res[x] = [...res[x], item]
-        })
+          res[x] = [...res[x], result[x]]
+        }
       })
       return res
     }
   },
   methods: {
-    getData (e) {
-      this.initialAssume = { names: [], emails: [], numbers: [] }
+    setAnswer (answer) {
+      this.answer = answer
+    },
+    getData (file) {
+      if (!file) {
+        return
+      }
       const vm = this
-      Papa.parse(e.target.files[0], {
+      Papa.parse(file, {
         complete (results) {
+          if (vm.answer === 'yes') { results.data.shift() }
           vm.results = results.data
-          for (let i = 0; i < results.data.length; i++) {
-            vm.findData(results.data[i])
-          }
         }
       })
       this.$store.commit('dashboardTop/setModal', { modalType: 'csvMatch', to: true })
-    },
-    addClient (name, email) {
-      this.$store.dispatch('clients/addClient', { name, email })
-    },
-    findData (arr) {
-      const vm = this
-
-      for (let i = 0; i < arr.length; i++) {
-        // const newarr = []
-        // newarr.push(arr[i])
-        console.log(`just added ${arr[i]} to the ${i} spot of the data array`)
-
-        const otherFormat = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
-        const isPhone = otherFormat.test(arr[i])
-        if (isPhone) {
-          vm.initialAssume.numbers.push(arr[i])
-        }
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        const isEmail = re.test(String(arr[i]).toLowerCase())
-        if (isEmail) {
-          vm.initialAssume.emails.push(arr[i])
-          console.log(arr[i])
-        }
-        const nameRe = /^[a-z0-9]+$/i
-        const isName = nameRe.test(arr[i]) && arr[i].length
-        if (isName) {
-          if (vm.assumeName.includes(i)) {
-            return
-          }
-          vm.initialAssume.names.push(arr[i])
-        }
-        // if an item was added but one of the strings don't fit the regex
-        if (!isName) {
-          vm.assumeName = vm.assumeName.filter(each => each !== i)
-        }
-      }
     }
 
   }

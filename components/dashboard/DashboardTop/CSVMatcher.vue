@@ -11,51 +11,17 @@
         >
           Column Matching
         </v-card-title>
-        Based on your CSV, our results have returned:
+        <h1 class="text-center">
+          If any of the coliumns are incorrect, please reassign
+        </h1>
         <v-row justify="center">
-          <MatchColumn v-for="item in data" :key="item" :data="item" />
+          <MatchColumn v-for="(item, i) in data" :key="i" :matches="matches" :data="item" />
         </v-row>
-        <ul>
-          Names are:
-          <li v-for="(names, index) in assumptions.names" :key="index">
-            {{ names }}
-          </li>
-        </ul>
-        <ul>
-          Numbers are are:
-          <li v-for="(numbers, index) in assumptions.numbers" :key="index">
-            {{ numbers }}
-          </li>
-        </ul>
-        <ul>
-          Emails are:
-          <li v-for="(emails, index) in assumptions.emails" :key="index">
-            {{ emails }}
-          </li>
-        </ul>
-        If these don't look right, choose what columns match what:
-        <ul v-for="(full, index) in data" :key="index">
-          <select id="" class="default-input" name="">
-            <option value="">
-              email
-            </option>
-            <option value="">
-              first name
-            </option>
-            <option value="">
-              last name
-            </option>
-            <option value="">
-              full name
-            </option>
-            <option value="">
-              phone number
-            </option>
-          </select>
-          <li v-for="(item, i) in full" :key="i">
-            <template><b>{{ item }}</b></template>
-          </li>
-        </ul>
+        <div class="text-center">
+          <v-btn @click="addClients" color="success">
+            Add Clients
+          </v-btn>
+        </div>
       </v-container>
     </v-card>
   </v-dialog>
@@ -68,13 +34,14 @@ export default {
     MatchColumn
   },
   props: {
-    assumptions: {
-      type: Object,
-      default: () => {}
-    },
     data: {
       type: Array,
       default: () => {}
+    }
+  },
+  data () {
+    return {
+      matches: []
     }
   },
   computed: {
@@ -87,6 +54,12 @@ export default {
           this.$store.commit('dashboardTop/setModal', { modalType: 'csvMatch', to: false })
         }
       }
+    }
+  },
+  methods: {
+    addClients () {
+      this.$store.dispatch('dashboardTop/csvAdd')
+      // this.$store.dispatch('clients/addClient', { name: this.name, email: this.email })
     }
   }
 }
