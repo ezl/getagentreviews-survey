@@ -24,7 +24,7 @@
             </v-icon>
           </template>
           <template v-slot:item.sent="{ item }">
-            <button class="button button--purple" @click="inquire(item.review_id, item.email)">
+            <button class="button button--purple" @click="inquire(item.review_id, item.client.email)">
               Send Request
             </button>
             <button class="button" @click="remove(item)">
@@ -32,12 +32,12 @@
             </button>
           </template>
           <template v-slot:item.name="{ item }">
-            <span v-if="!names.includes(item.name)" @click="$store.commit('clients/fieldAction', {action: 'edit', item: 'names', data: item.name})">
-              {{ item.name }}
+            <span v-if="!names.includes(item.client.name)" @click="$store.commit('clients/fieldAction', {action: 'edit', item: 'names', data: item.client.name})">
+              {{ item.client.name }}
             </span>
             <ClientEditable
               v-else
-              :initial-data="item.name"
+              :initial-data="item.client.name"
               update-field="name"
               update-item="names"
               :client="item"
@@ -47,12 +47,12 @@
             />
           </template>
           <template v-slot:item.email="{ item }">
-            <span v-if="!emails.includes(item.email)" @click="$store.commit('clients/fieldAction', {action: 'edit', item: 'emails', data: item.email})">
-              {{ item.email }}
+            <span v-if="!emails.includes(item.client.email)" @click="$store.commit('clients/fieldAction', {action: 'edit', item: 'emails', data: item.client.email})">
+              {{ item.client.email }}
             </span>
             <ClientEditable
               v-else
-              :initial-data="item.email"
+              :initial-data="item.client.email"
               update-field="email"
               update-item="emails"
               :client="item"
@@ -102,8 +102,8 @@ export default {
           value: 'name'
         },
         { text: 'Email', value: 'email' },
-        { text: 'Phone Number', value: 'phone_number' },
-        { text: 'Added', value: 'reviews_created_at' },
+        { text: 'Phone Number', value: 'client.phone_number' },
+        { text: 'Added', value: 'created_at' },
         { text: 'Status', value: 'sent', sortable: false }
       ],
       temp: ''
@@ -112,7 +112,7 @@ export default {
 
   computed: {
     clients () {
-      return this.$store.state.clients.all
+      return this.$store.state.clients.all.filter(item => item.client.isDeleted === 0)
     },
     names () {
       return this.$store.state.clients.names

@@ -25,22 +25,30 @@ const actions = {
         const newClientList = [...state.all, data]
         commit('setClients', { clients: newClientList })
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err)
       })
   },
   async getUserClients ({ commit }, id) {
     await this.$axios.get(`/users/${id}/clients`)
       .then(({ data }) => {
+        console.log(data)
         commit('setClients', { clients: data })
       })
       .catch((err) => {
         console.log(err)
       })
   },
-  remove ({ commit, state }, client) {
-    const newClientList = state.all.filter(c => c !== client)
-    commit('setClients', { clients: newClientList })
+  remove ({ commit, state }, { client }) {
+    this.$axios
+      .delete(`/clients/${client.id}`)
+      .then(({ data }) => {
+        const newClientList = state.all.filter(c => c.client !== client)
+        commit('setClients', { clients: newClientList })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   },
   updateClient ({ commit, state }, client) {
     const index = state.all.indexOf(client.current)
@@ -67,7 +75,6 @@ const mutations = {
       state.all[index][item] = data
       return
     }
-    console.log('clients')
     state.all = clients
   },
   setMessage (state, message) {
