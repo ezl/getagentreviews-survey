@@ -13,6 +13,7 @@ const actions = {
     await dispatch('auth/getUser', this.$cookiz.get('auth-token'))
     if (state.auth.user) {
       await dispatch('auth/getReviews', state.auth.user.id)
+      await dispatch('clients/getUserClients', state.auth.user.id)
     }
   }
 }

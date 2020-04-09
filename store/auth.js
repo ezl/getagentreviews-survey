@@ -85,7 +85,7 @@ const actions = {
     await this.$axios
       .get('/users/reviews/' + id)
       .then(({ data }) => {
-        commit('setReviews', data)
+        commit('setReviews', data.data)
       })
       .catch((err) => {
         console.log(err.response)

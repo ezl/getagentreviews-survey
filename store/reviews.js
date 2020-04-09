@@ -6,7 +6,9 @@ const state = () => ({
   leftFeedBackExternal: [],
   externalFeedBack: '',
   agent: null,
-  reviewRequest: null
+  reviewRequest: null,
+  sent: false,
+  failed: []
 })
 
 const actions = {
@@ -32,17 +34,27 @@ const actions = {
       .catch(err => console.log(err))
   },
   async stepComplete ({ commit }, payload) {
-    await this.$axios.put('/reviewrequest/' + payload.id, payload)
+    await this.$axios.put('/reviewrequest/' + payload.id, payload, {progress: false})
       .then(({ data }) => {
         commit('setReviewRequest', data)
+        if (payload.email_sent) {
+          commit('setSent', true)
+        }
         if (payload.route) {
           this.$router.push(payload.route)
         }
       })
       .catch((err) => {
         console.log(err)
-        alert('something went wrong...')
+        commit('setFailed', { item: payload.email })
+        // alert('something went wrong... It\'s likely the email is incorrect ')
       })
+  },
+  bulkSend ({ commit, dispatch }, payload) {
+    commit('setFailed', { clear: true })
+    payload.items.forEach((client) => {
+      dispatch('stepComplete', { id: client.review_id, email_sent: new Date() })
+    })
   }
 }
 
@@ -82,6 +94,16 @@ const mutations = {
   },
   setReviewRequest (state, reviewRequest) {
     state.reviewRequest = reviewRequest
+  },
+  setSent (state, sent) {
+    state.sent = sent
+  },
+  setFailed (state, { item, clear }) {
+    if (clear) {
+      state.failed = []
+      return
+    }
+    state.failed = [...state.failed, item]
   }
 }
 

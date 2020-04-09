@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <div class="mt-10">
+      {{ $store.state.reviews.failed }}
       <div v-if="$store.state.auth.user" class="ml-1">
         <v-data-table
           :headers="headers"
@@ -21,7 +22,7 @@
             </v-icon>
           </template>
           <template v-slot:item.sent="{ item }">
-            <button class="button button--purple" @click="inquire(item.name, item.email)">
+            <button class="button button--purple" @click="inquire(item.review_id, item.email)">
               Send Request
             </button>
             <button class="button" @click="remove(item)">
@@ -82,12 +83,12 @@
 <script>
 import ClientEditable from '~/components/dashboard/ClientEditable'
 export default {
+  loading: false,
   components: {
     ClientEditable
   },
   data () {
     return {
-      sent: false,
       headers: [
         {
           text: 'Name',
@@ -97,7 +98,7 @@ export default {
         },
         { text: 'Email', value: 'email' },
         { text: 'Phone Number', value: 'phone_number' },
-        { text: 'Added', value: 'added' },
+        { text: 'Added', value: 'reviews_created_at' },
         { text: 'Status', value: 'sent', sortable: false }
       ]
     }
@@ -112,29 +113,30 @@ export default {
     },
     emails () {
       return this.$store.state.clients.emails
+    },
+    sent: {
+      get () {
+        return this.$store.state.reviews.sent
+      },
+      set (val) {
+        this.$store.commit('reviews/setSent', false)
+      }
+    }
+  },
+  mounted () {
+    if (!this.clients.length) {
+      this.$store.dispatch('clients/getUserClients', this.$store.state.auth.user.id)
     }
   },
   // temporary
   layout: 'dashboard',
   methods: {
     sendEmails () {
-      this.clients.forEach((client) => {
-        this.inquire(client.name, client.email)
-      })
+      this.$store.dispatch('reviews/bulkSend', { items: this.clients })
     },
-    inquire (name, email) {
-      this.$axios.post('/reviewrequest', {
-        client_name: name,
-        client_email: email,
-        agent: this.$store.state.auth.user.id
-      })
-        .then(({ data }) => {
-          this.sent = true
-          console.log(data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+    inquire (id, email) {
+      this.$store.commit('reviews/setFailed', { clear: true })
+      this.$store.dispatch('reviews/stepComplete', { id, email_sent: new Date(), email })
     },
     remove (passedClient) {
       this.$store.dispatch('clients/remove', passedClient)

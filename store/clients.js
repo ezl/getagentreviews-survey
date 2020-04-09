@@ -6,16 +6,37 @@ const state = () => ({
 })
 
 const actions = {
-  addClient ({ commit, state }, client) {
-    console.log(client)
+  addClient ({ commit, state, rootState }, client) {
     commit('setMessage', '')
     const exists = state.all.find(c => c.email === client.email)
     if (exists) {
       commit('setMessage', { text: 'That email is already included.', type: 'error' })
       return
     }
-    const newClientList = [...state.all, client]
-    commit('setClients', { clients: newClientList })
+    this.$axios
+      .post('/clients', {
+        name: client.name,
+        email: client.email,
+        phone_number: client.phone_number,
+        agent: rootState.auth.user.id
+      })
+      .then(({ data }) => {
+        console.log(data)
+        const newClientList = [...state.all, data]
+        commit('setClients', { clients: newClientList })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
+  async getUserClients ({ commit }, id) {
+    await this.$axios.get(`/users/${id}/clients`)
+      .then(({ data }) => {
+        commit('setClients', { clients: data })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   },
   remove ({ commit, state }, client) {
     const newClientList = state.all.filter(c => c !== client)
@@ -46,6 +67,7 @@ const mutations = {
       state.all[index][item] = data
       return
     }
+    console.log('clients')
     state.all = clients
   },
   setMessage (state, message) {
