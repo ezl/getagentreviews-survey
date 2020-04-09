@@ -1,7 +1,9 @@
 <template>
   <v-container>
     <div class="mt-10">
-      {{ $store.state.reviews.failed }}
+      <v-overlay :value="sending">
+        <v-progress-circular indeterminate size="64" />
+      </v-overlay>
       <div v-if="$store.state.auth.user" class="ml-1">
         <v-data-table
           :headers="headers"
@@ -65,7 +67,7 @@
             v-model="sent"
             top
           >
-            Emails Sent
+            Request Sent to {{ temp }}
             <v-btn
               color="green"
               text
@@ -74,6 +76,7 @@
               Close
             </v-btn>
           </v-snackbar>
+          <BulkResults />
         </div>
       </div>
     </div>
@@ -82,10 +85,12 @@
 
 <script>
 import ClientEditable from '~/components/dashboard/ClientEditable'
+import BulkResults from '~/components/dashboard/People/BulkResults'
 export default {
   loading: false,
   components: {
-    ClientEditable
+    ClientEditable,
+    BulkResults
   },
   data () {
     return {
@@ -100,7 +105,8 @@ export default {
         { text: 'Phone Number', value: 'phone_number' },
         { text: 'Added', value: 'reviews_created_at' },
         { text: 'Status', value: 'sent', sortable: false }
-      ]
+      ],
+      temp: ''
     }
   },
 
@@ -114,12 +120,23 @@ export default {
     emails () {
       return this.$store.state.clients.emails
     },
+    sending () {
+      return this.$store.state.reviews.sending.value
+    },
     sent: {
       get () {
         return this.$store.state.reviews.sent
       },
       set (val) {
-        this.$store.commit('reviews/setSent', false)
+        this.$store.commit('reviews/setSent', val)
+      }
+    },
+    bulk: {
+      get () {
+        return this.$store.state.reviews.sending.bulkResolved
+      },
+      set (value) {
+        this.$store.commit('reviews/setSending', { bulkResolved: value })
       }
     }
   },
@@ -135,7 +152,8 @@ export default {
       this.$store.dispatch('reviews/bulkSend', { items: this.clients })
     },
     inquire (id, email) {
-      this.$store.commit('reviews/setFailed', { clear: true })
+      this.temp = email
+      this.$store.commit('reviews/setSending', { failed: [], success: [], bulk: false, value: false })
       this.$store.dispatch('reviews/stepComplete', { id, email_sent: new Date(), email })
     },
     remove (passedClient) {

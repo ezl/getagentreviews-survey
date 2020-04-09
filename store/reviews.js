@@ -1,3 +1,5 @@
+import { set } from 'd3'
+
 const state = () => ({
   chosen: 0,
   rated: false,
@@ -8,7 +10,14 @@ const state = () => ({
   agent: null,
   reviewRequest: null,
   sent: false,
-  failed: []
+  failed: [],
+  sending: {
+    value: false,
+    failed: [],
+    success: [],
+    bulk: false,
+    bulkResolved: false
+  }
 })
 
 const actions = {
@@ -34,11 +43,14 @@ const actions = {
       .catch(err => console.log(err))
   },
   async stepComplete ({ commit }, payload) {
-    await this.$axios.put('/reviewrequest/' + payload.id, payload, {progress: false})
+    await this.$axios.put('/reviewrequest/' + payload.id, payload, { progress: payload.bulk })
       .then(({ data }) => {
         commit('setReviewRequest', data)
-        if (payload.email_sent) {
+        if (payload.email_sent && !payload.bulk) {
           commit('setSent', true)
+        }
+        if (payload.bulk) {
+          commit('setSending', { success: payload.email })
         }
         if (payload.route) {
           this.$router.push(payload.route)
@@ -46,15 +58,22 @@ const actions = {
       })
       .catch((err) => {
         console.log(err)
-        commit('setFailed', { item: payload.email })
+        commit('setSending', { failed: payload.email })
         // alert('something went wrong... It\'s likely the email is incorrect ')
       })
   },
   bulkSend ({ commit, dispatch }, payload) {
-    commit('setFailed', { clear: true })
-    payload.items.forEach((client) => {
-      dispatch('stepComplete', { id: client.review_id, email_sent: new Date() })
+    commit('setSending', { failed: [], success: [], bulk: true, value: true })
+    const cliPromise = payload.items.map(async (client) => {
+      const result = await dispatch('stepComplete', { id: client.review_id, email: client.email, email_sent: new Date(), bulk: true })
+      return new Promise((resolve, reject) => {
+        resolve(result)
+      })
     })
+    Promise.all(cliPromise)
+      .then((res) => {
+        commit('setSending', { value: false, bulkResolved: true })
+      })
   }
 }
 
@@ -104,6 +123,31 @@ const mutations = {
       return
     }
     state.failed = [...state.failed, item]
+  },
+  setSending (state, { value, success, failed, bulk, bulkResolved }) {
+    if (value || value === false) {
+      state.sending.value = value
+    }
+    if (bulkResolved || bulkResolved === false) {
+      state.sending.bulkResolved = bulkResolved
+    }
+    if (bulk) {
+      state.sending.bulk = bulk
+    }
+    if (success) {
+      if (!success.length) {
+        state.sending.success = []
+      } else {
+        state.sending.success = [...state.sending.success, success]
+      }
+    }
+    if (failed) {
+      if (!failed.length) {
+        state.sending.failed = []
+      } else {
+        state.sending.failed = [...state.sending.failed, failed]
+      }
+    }
   }
 }
 
