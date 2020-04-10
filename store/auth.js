@@ -19,8 +19,10 @@ const actions = {
         commit('setUser', data)
       })
       .catch((err) => {
-        console.error(err)
-        commit('setUser', null)
+        // console.error(err)
+        if (err) {
+          commit('setUser', null)
+        }
       })
   },
   login ({ commit }, { email, password }) {

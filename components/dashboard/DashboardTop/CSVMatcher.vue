@@ -5,7 +5,7 @@
   >
     <v-snackbar v-if="errors && errors.type === 'csvError'" v-model="errors" top :time="2000">
       {{ errors.text }}
-      <v-btn @click="errors = ''" color="red" text>
+      <v-btn color="red" text @click="errors = ''">
         Close
       </v-btn>
     </v-snackbar>
@@ -45,11 +45,10 @@
 
 <script>
 import MatchColumn from '~/components/dashboard/DashboardTop/MatchColumn'
-import ValidationBox from '~/components/misc/ValidationBox'
+// import ValidationBox from '~/components/misc/ValidationBox'
 export default {
   components: {
-    MatchColumn,
-    ValidationBox
+    MatchColumn
   },
   props: {
     data: {
