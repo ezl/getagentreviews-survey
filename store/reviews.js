@@ -64,8 +64,8 @@ const actions = {
   },
   bulkSend ({ commit, dispatch }, payload) {
     commit('setSending', { failed: [], success: [], bulk: true, value: true })
-    const cliPromise = payload.items.map(async (client) => {
-      const result = await dispatch('stepComplete', { id: client.review_id, email: client.email, email_sent: new Date(), bulk: true })
+    const cliPromise = payload.items.map(async (item) => {
+      const result = await dispatch('stepComplete', { id: item.id, email: item.client.email, email_sent: new Date(), bulk: true })
       return new Promise((resolve, reject) => {
         resolve(result)
       })

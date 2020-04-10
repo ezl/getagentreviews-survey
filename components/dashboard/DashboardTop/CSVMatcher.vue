@@ -61,7 +61,7 @@ export default {
       this.$store.dispatch('dashboardTop/csvAdd')
       this.$store.commit('dashboardTop/setModal', { modalType: 'addingPeople', to: false })
       this.$store.commit('dashboardTop/setModal', { modalType: 'csvPrompt', to: false })
-      this.$store.commit('dashboardTop/setModal', { modalType: 'csvMatch', to: false })
+      // this.$store.commit('dashboardTop/setModal', { modalType: 'csvMatch', to: false })
     }
   }
 }

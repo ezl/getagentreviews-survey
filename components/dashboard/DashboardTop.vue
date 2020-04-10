@@ -1,5 +1,20 @@
 <template>
-  <v-container>
+  <v-container id="logout">
+    <v-overlay :value="bulk">
+      <v-progress-circular indeterminate size="64" />
+    </v-overlay>
+    <v-snackbar
+      v-model="failed"
+      top
+      :timeout="5000"
+    >
+      <template v-if="failed.length">
+        <h2>Failed Items</h2>
+        <span v-for="item in failed" :key="item.id">
+          {{ item.client.id }}
+        </span>
+      </template>
+    </v-snackbar>
     <v-row justify-xl="space-between" justify-lg="space-between" justify="center">
       <v-col :lg="cols.lg" :md="cols.md" :sm="cols.sm" :cols="cols.reg">
         <DashboardTopCard />
@@ -59,6 +74,24 @@ export default {
         sm: '6',
         md: '4',
         lg: '3'
+      }
+    }
+  },
+  computed: {
+    bulk: {
+      get () {
+        return this.$store.state.clients.bulk.value
+      },
+      set (val) {
+        this.$store.commit('clients/setBulk', { value: false })
+      }
+    },
+    failed: {
+      get () {
+        return this.$store.state.clients.bulk.failed && this.$store.state.clients.bulk.failed.length
+      },
+      set () {
+        this.$store.commit('clients/setBulk', { failed: [] })
       }
     }
   }

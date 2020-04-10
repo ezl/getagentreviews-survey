@@ -25,21 +25,38 @@ const actions = {
     const fname = state.csvData.find(each => each.match === 'First Name')
     const lname = state.csvData.find(each => each.match === 'Last Name')
     const number = state.csvData.find(each => each.match === 'Phone Number')
+    let arr = []
+
     if (fname && lname && !fullname) {
-      alert('g')
       const copy = fname.data
       for (let i = 0; i < copy.length; i++) {
         copy[i] = copy[i].concat(' ' + lname.data[i])
       }
       fullname = copy
       for (let i = 0; i < fullname.length; i++) {
-        dispatch('clients/addClient', { name: fullname[i], email: email.data[i], phone_number: number && number.data[i] }, { root: true })
+        arr = [
+          ...arr,
+          {
+            name: fullname[i],
+            email: email.data[i],
+            phone_number: number && number.data[i]
+          }
+        ]
       }
+      dispatch('clients/bulkAdd', arr, { root: true })
       return
     }
     for (let i = 0; i < fullname.data.length; i++) {
-      dispatch('clients/addClient', { name: fullname.data[i], email: email.data[i], phone_number: number && number.data[i] }, { root: true })
+      arr = [
+        ...arr,
+        {
+          name: fullname.data[i],
+          email: email.data[i],
+          phone_number: number && number.data[i]
+        }
+      ]
     }
+    dispatch('clients/bulkAdd', arr, { root: true })
   }
 }
 

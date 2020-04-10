@@ -57,6 +57,8 @@ const actions = {
         this.$router.push('/login')
         commit('setUser', null)
         commit('setLoading', false)
+        commit('clients/setClients', { clients: [] }, { root: true })
+        commit('reviews/setReviewRequest', null, { root: true })
       })
       .catch((err) => {
         console.log(err)

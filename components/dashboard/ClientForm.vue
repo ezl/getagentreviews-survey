@@ -1,7 +1,7 @@
 <template>
   <!-- to do -->
   <ValidationObserver ref="observer" v-slot="{ handleSubmit, invalid }">
-    <ValidationBox v-if="message" :message="message.text" />
+    <ValidationBox v-if="message && message.type === 'error'" :message="message.text" />
     <form @submit.prevent="handleSubmit(addClient)">
       <ValidationProvider v-slot="{ errors }" rules="email|required">
         <ValidationInput
@@ -47,9 +47,20 @@
         Add Client
       </button>
     </form>
-    <div v-if="sent">
-      Emails sent!
-    </div>
+    <v-snackbar
+      v-model="messageSuccess"
+      top
+      :timeout="2000"
+    >
+      {{ message.text }}
+      <v-btn
+        color="green"
+        text
+        @click="messageSuccess = { type: '', text: '' }"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
   </ValidationObserver>
 </template>
 
@@ -79,8 +90,21 @@ export default {
     names () {
       return this.$store.state.clients.names
     },
-    message () {
-      return this.$store.state.clients.message
+    message: {
+      get () {
+        return this.$store.state.clients.message
+      },
+      set (val) {
+        this.$store.commit('clients/setMessage', { type: '', text: '' })
+      }
+    },
+    messageSuccess: {
+      get () {
+        return this.$store.state.clients.message && this.$store.state.clients.message.type === 'success'
+      },
+      set (val) {
+        this.$store.commit('clients/setMessage', { type: '', text: '' })
+      }
     }
   },
   methods: {
@@ -104,6 +128,7 @@ export default {
       if (this.message.type !== 'error') {
         this.name = ''
         this.email = ''
+        this.number = ''
       }
     },
     sendEmails () {

@@ -24,7 +24,7 @@
             </v-icon>
           </template>
           <template v-slot:item.sent="{ item }">
-            <button class="button button--purple" @click="inquire(item.review_id, item.client.email)">
+            <button class="button button--purple" @click="inquire(item.id, item.client.email)">
               Send Request
             </button>
             <button class="button" @click="remove(item)">
@@ -112,7 +112,7 @@ export default {
 
   computed: {
     clients () {
-      return this.$store.state.clients.all.filter(item => item.client.isDeleted === 0)
+      return this.$store.state.clients.all
     },
     names () {
       return this.$store.state.clients.names

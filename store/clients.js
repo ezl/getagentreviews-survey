@@ -2,15 +2,23 @@ const state = () => ({
   names: [],
   emails: [],
   all: [],
-  message: { text: '', type: '' }
+  message: { text: '', type: '' },
+  bulk: {
+    success: [],
+    failed: [],
+    value: false
+  }
 })
 
 const actions = {
   addClient ({ commit, state, rootState }, client) {
     commit('setMessage', '')
-    const exists = state.all.find(c => c.email === client.email)
+    const exists = state.all.find(c => c.client.email === client.email)
     if (exists) {
-      commit('setMessage', { text: 'That email is already included.', type: 'error' })
+      commit('setMessage', {
+        text: 'That email is already included.',
+        type: 'error'
+      })
       return
     }
     this.$axios
@@ -21,18 +29,72 @@ const actions = {
         agent: rootState.auth.user.id
       })
       .then(({ data }) => {
-        console.log(data)
+        // console.log('item', data)
         const newClientList = [...state.all, data]
         commit('setClients', { clients: newClientList })
+        commit('setMessage', {
+          text: `${data.client.name} is now a client.`,
+          type: 'success'
+        })
       })
       .catch((err) => {
+        alert('test!')
         console.log(err)
       })
   },
-  async getUserClients ({ commit }, id) {
-    await this.$axios.get(`/users/${id}/clients`)
+  bulkAdd ({ commit, state, rootState }, clients) {
+    commit('setBulk', { value: true })
+    commit('setMessage', '')
+    commit(
+      'dashboardTop/setModal',
+      { modalType: 'csvMatch', to: false },
+      { root: true }
+    )
+    let exists = []
+    clients.forEach((client) => {
+      const finder = state.all.find(c => c.client.email === client.email)
+      if (finder) {
+        exists = [...exists, finder]
+      }
+    })
+    if (exists) {
+      alert('some emails already exists and won\t be added')
+    }
+    this.$axios
+      .post('/clients/bulk', {
+        clients,
+        agent: rootState.auth.user.id
+      })
       .then(({ data }) => {
-        console.log(data)
+        console.log(data.failed)
+        commit('setBulk', { value: false })
+        commit('setBulk', { success: data.success })
+        commit('setBulk', { failed: data.failed })
+
+        let newClientList = state.all
+        data.success.forEach((newClient) => {
+          newClientList = [...newClientList, newClient]
+        })
+        commit('setClients', { clients: newClientList })
+        commit('dashboardTop/setModal', { modalType: 'csvMatch', to: false }, { root: true })
+      })
+      .catch((err) => {
+        commit('setBulk', { value: false })
+        if (err.response) {
+          commit('setBulk', { failed: err.response.data.failed })
+        }
+        commit(
+          'dashboardTop/setModal',
+          { modalType: 'csvMatch', to: true },
+          { root: true }
+        )
+      })
+  },
+  async getUserClients ({ commit }, id) {
+    await this.$axios
+      .get(`/users/${id}/clients`)
+      .then(({ data }) => {
+        // console.log(data)
         commit('setClients', { clients: data })
       })
       .catch((err) => {
@@ -40,12 +102,11 @@ const actions = {
       })
   },
   remove ({ commit, state }, { client }) {
+    const newClientList = state.all.filter(c => c.client !== client)
+    commit('setClients', { clients: newClientList })
     this.$axios
       .delete(`/clients/${client.id}`)
-      .then(({ data }) => {
-        const newClientList = state.all.filter(c => c.client !== client)
-        commit('setClients', { clients: newClientList })
-      })
+      .then(({ data }) => {})
       .catch((err) => {
         console.log(err)
       })
@@ -85,6 +146,17 @@ const mutations = {
       state[item] = [...state[item], data]
     } else {
       state[item] = state[item].filter(c => c !== data)
+    }
+  },
+  setBulk (state, { value, success, failed }) {
+    if (value || value === false) {
+      state.bulk.value = value
+    }
+    if (success) {
+      state.bulk.success = success
+    }
+    if (failed) {
+      state.bulk.failed = failed
     }
   }
 }

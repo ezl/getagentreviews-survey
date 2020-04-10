@@ -30,7 +30,7 @@
           v-for="route in routes"
           :key="route.name"
         >
-          <nuxt-link :to="route.action ? route.action : '#'">
+          <nuxt-link :to="route.action ? route.action : '#logout'">
             <v-icon
               class="mr-2 drawer-link"
               @click="route.name === 'Sign Out' ? logout() : ''"
