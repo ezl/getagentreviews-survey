@@ -8,7 +8,8 @@ const state = () => ({
   csvData: [],
   matches: [],
   potentialClients: [],
-  errors: ''
+  errors: { text: '', type: '' },
+  invalidList: []
 })
 
 const actions = {
@@ -19,8 +20,10 @@ const actions = {
     }
     commit('setPotentialClients', [...state.potentialClients, client])
   },
-  csvAdd ({ state, dispatch }) {
+  csvAdd ({ state, dispatch, commit }) {
+    commit('setErrors', { text: '', type: '' })
     const email = state.csvData.find(each => each.match === 'Email')
+    const rightLength = email.data.length
     let fullname = state.csvData.find(each => each.match === 'Full Name')
     const fname = state.csvData.find(each => each.match === 'First Name')
     const lname = state.csvData.find(each => each.match === 'Last Name')
@@ -28,6 +31,10 @@ const actions = {
     let arr = []
 
     if (fname && lname && !fullname) {
+      if (fname.data.length !== rightLength || lname.data.length !== rightLength || number.data.length !== rightLength) {
+        commit('setErrors', { text: 'All your csv columns must have the same length', type: 'csvError' })
+        return
+      }
       const copy = fname.data
       for (let i = 0; i < copy.length; i++) {
         copy[i] = copy[i].concat(' ' + lname.data[i])
@@ -44,6 +51,16 @@ const actions = {
         ]
       }
       dispatch('clients/bulkAdd', arr, { root: true })
+      return
+    }
+    if (
+      fullname.data.length !== rightLength ||
+        number.data.length !== rightLength
+    ) {
+      commit('setErrors', {
+        text: 'All your csv columns must have the same length',
+        type: 'csvError'
+      })
       return
     }
     for (let i = 0; i < fullname.data.length; i++) {
@@ -94,6 +111,15 @@ const mutations = {
   updateMatchedItem (state, { index, match, text }) {
     if (match) {
       state.csvData[index].match = match
+    }
+  },
+  setInvalidList (state, { clear, data }) {
+    if (clear) {
+      state.invalidList = []
+      return
+    }
+    if (data) {
+      state.invalidList = [...state.invalidList, data]
     }
   }
 }

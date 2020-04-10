@@ -55,8 +55,19 @@ const actions = {
       const finder = state.all.find(c => c.client.email === client.email)
       if (finder) {
         exists = [...exists, finder]
+        clients = clients.filter(c => c !== client)
       }
     })
+    if (!clients.length) {
+      commit('setBulk', { value: false })
+      commit(
+        'dashboardTop/setModal',
+        { modalType: 'csvMatch', to: true },
+        { root: true }
+      )
+      commit('dashboardTop/setErrors', { text: 'You already have all those clients.', type: 'csvError' }, { root: true })
+      return
+    }
     if (exists) {
       alert('some emails already exists and won\t be added')
     }
@@ -70,7 +81,6 @@ const actions = {
         commit('setBulk', { value: false })
         commit('setBulk', { success: data.success })
         commit('setBulk', { failed: data.failed })
-
         let newClientList = state.all
         data.success.forEach((newClient) => {
           newClientList = [...newClientList, newClient]

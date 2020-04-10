@@ -165,22 +165,25 @@ export default {
         this.storeData.data.forEach((element) => {
           if (!emailre.test(element)) {
             this.invalidList = [...this.invalidList, element]
+            this.$emit('setErrors', true)
           }
         })
       } else if (this.match === 'Phone Number') {
         this.storeData.data.forEach((element) => {
           if (!phonere.test(element)) {
             this.invalidList = [...this.invalidList, element]
+            this.$emit('setErrors', true)
           }
         })
       } else {
         valid = true
+        this.$emit('setErrors', false)
       }
       return valid
     },
     remove (item) {
       this.$store.commit('dashboardTop/removeDataItem', item)
-      this.validate()
+      this.$emit('setErrors', this.validate())
     }
   }
 }
