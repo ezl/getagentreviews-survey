@@ -23,12 +23,21 @@ const actions = {
   csvAdd ({ state, dispatch, commit }) {
     commit('setErrors', { text: '', type: '' })
     const email = state.csvData.find(each => each.match === 'Email')
-    const rightLength = email.data.length
+    const rightLength = email ? email.data.length : null
     let fullname = state.csvData.find(each => each.match === 'Full Name')
     const fname = state.csvData.find(each => each.match === 'First Name')
     const lname = state.csvData.find(each => each.match === 'Last Name')
     const number = state.csvData.find(each => each.match === 'Phone Number')
     let arr = []
+    if (!email || !number) {
+      return
+    }
+
+    if (!fullname) {
+      if (!fname || !lname) {
+        return
+      }
+    }
 
     if (fname && lname && !fullname) {
       if (fname.data.length !== rightLength || lname.data.length !== rightLength || number.data.length !== rightLength) {
