@@ -1,5 +1,5 @@
 <template>
-  <v-card :hover="true" target="_blank" :href="`http://${location}.com`" elevation="24" class="d-flex justify-center align-center pa-10">
+  <v-card :hover="true" target="_blank" :href="`//${location}`" elevation="24" class="d-flex justify-center align-center pa-10">
     <slot />
   </v-card>
 </template>

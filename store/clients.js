@@ -68,8 +68,12 @@ const actions = {
       commit('dashboardTop/setErrors', { text: 'You already have all those clients.', type: 'csvError' }, { root: true })
       return
     }
-    if (exists) {
-      alert('some emails already exists and won\t be added')
+    if (exists.length) {
+      commit(
+        'dashboardTop/setErrors',
+        { text: 'some emails already exists and won\'t be added.', type: 'csvError' },
+        { root: true }
+      )
     }
     this.$axios
       .post('/clients/bulk', {

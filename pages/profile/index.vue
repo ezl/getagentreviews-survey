@@ -91,6 +91,12 @@
         </button>
       </form>
     </ValidationObserver>
+    <v-snackbar v-model="saved">
+      Your profile has been updated.
+      <v-btn color="success">
+        Ok
+      </v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -116,7 +122,8 @@ export default {
       yelpLink: '',
       file: '',
       loading: false,
-      submitted: false
+      submitted: false,
+      saved: false
     }
   },
   computed: {
@@ -156,7 +163,7 @@ export default {
         }
       })
         .then(({ data }) => {
-          alert('Your profile has been updated.')
+          this.saved = true
           this.loading = false
           this.$store.commit('auth/setUserImage', this.imgPreview)
         })

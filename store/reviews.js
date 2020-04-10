@@ -1,5 +1,3 @@
-import { set } from 'd3'
-
 const state = () => ({
   chosen: 0,
   rated: false,
@@ -65,6 +63,9 @@ const actions = {
   bulkSend ({ commit, dispatch }, payload) {
     commit('setSending', { failed: [], success: [], bulk: true, value: true })
     const cliPromise = payload.items.map(async (item) => {
+      if (item.feedback_completed || item.external_review_completed) {
+        return
+      }
       const result = await dispatch('stepComplete', { id: item.id, email: item.client.email, email_sent: new Date(), bulk: true })
       return new Promise((resolve, reject) => {
         resolve(result)

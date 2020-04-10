@@ -18,7 +18,7 @@
       <template v-if="agent && google" slot="body">
         <span class="external-feedback__leave-review">Leave a review on:</span>
         <div class="google">
-          <ExternalCard location="google">
+          <ExternalCard :location="google">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Google_wordmark.svg/800px-Google_wordmark.svg.png"
               alt="google"
@@ -29,19 +29,19 @@
       <template v-if="zillow || yelp || facebook" slot="extra-content">
         <span class="d-block">I don't have google but I'd be happy to leave a review on:</span>
         <v-row class="external-feedback__cards">
-          <ExternalCard v-if="agent && zillow" location="zillow">
+          <ExternalCard v-if="agent && zillow" :location="zillow">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Zillow_logo19.png"
               alt="zillow"
             >
           </ExternalCard>
-          <ExternalCard v-if="agent && yelp" location="yelp">
+          <ExternalCard v-if="agent && yelp" :location="yelp">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Yelp_Logo.svg/1280px-Yelp_Logo.svg.png"
               alt="yelp"
             >
           </ExternalCard>
-          <ExternalCard v-if="agent && facebook" location="facebook">
+          <ExternalCard v-if="agent && facebook" :location="facebook">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/0/09/Facebook%2C_Inc._Logo_2019.png"
               alt="facebook"

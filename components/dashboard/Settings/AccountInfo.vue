@@ -85,6 +85,12 @@
         </button>
       </form>
     </ValidationObserver>
+    <v-snackbar v-model="saved" :timeout="2500" top>
+      Your profile has been updated.
+      <v-btn text color="success" @click="saved = false">
+        Ok
+      </v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -111,7 +117,8 @@ export default {
       file: '',
       loading: false,
       submitted: false,
-      copyOfUser: null
+      copyOfUser: null,
+      saved: false
     }
   },
   computed: {
@@ -152,7 +159,7 @@ export default {
         }
       })
         .then(({ data }) => {
-          alert('Your profile has been updated.')
+          this.saved = true
           this.loading = false
           this.$store.commit('auth/setUserImage', this.imgPreview)
           this.$store.commit('auth/setUser', data.user)
