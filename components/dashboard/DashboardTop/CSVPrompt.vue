@@ -1,6 +1,18 @@
 <template>
   <v-dialog v-model="show" width="400">
-    <v-card class="text-center pt-5">
+    <v-card class="text-center">
+      <v-card-title
+        class="headline grey lighten-2"
+        primary-title
+      >
+        CSV Options
+        <v-spacer />
+        <v-btn icon @click="show = false">
+          <v-icon>
+            mdi-close
+          </v-icon>
+        </v-btn>
+      </v-card-title>
       <v-card-text class="headline black--text">
         <template v-if="!answer">
           Does your csv include headers?
