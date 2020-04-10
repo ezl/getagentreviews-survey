@@ -26,9 +26,9 @@ export default {
           text: 'Name',
           align: 'start',
           sortable: true,
-          value: 'name'
+          value: 'client.name'
         },
-        { text: 'Email', value: 'email' },
+        { text: 'Email', value: 'client.email' },
         { text: 'Review Date', value: 'external_review_completed' },
         { text: 'Reviewed On', value: 'external_link_clicked' },
         { text: 'Review', value: 'review' }
@@ -38,7 +38,7 @@ export default {
 
   computed: {
     reviews () {
-      return this.$store.state.auth.reviews.filter((review) => {
+      return this.$store.state.clients.all.filter((review) => {
         if (review.external_link_clicked && review.external_review_completed) {
           return review
         }

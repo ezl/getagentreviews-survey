@@ -26,9 +26,9 @@ export default {
           text: 'Name',
           align: 'start',
           sortable: true,
-          value: 'name'
+          value: 'client.name'
         },
-        { text: 'Email', value: 'email' },
+        { text: 'Email', value: 'client.email' },
         { text: 'Feedback Date', value: 'feedback_completed' },
         { text: 'Feedback', value: 'feedback' }
       ]
@@ -37,7 +37,7 @@ export default {
 
   computed: {
     feedback () {
-      return this.$store.state.auth.reviews.filter((review) => {
+      return this.$store.state.clients.all.filter((review) => {
         if (review.feedback_completed && review.feedback) {
           return review
         }
