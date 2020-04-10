@@ -1,5 +1,5 @@
 <template>
-  <v-card :hover="true" target="_blank" :href="`//${location}`" elevation="24" class="d-flex justify-center align-center pa-10">
+  <v-card @click="completed" :hover="true" target="_blank" :href="`//${location}`" elevation="24" class="d-flex justify-center align-center pa-10">
     <slot />
   </v-card>
 </template>
@@ -13,8 +13,7 @@ export default {
     }
   },
   methods: {
-    externalSubmit () {
-      // this.$store.commit('reviews/setLeftFeedBackExternal', this.location)
+    completed () {
       this.$store.dispatch('reviews/stepComplete', { id: this.$store.state.reviews.reviewRequest.id, external_link_clicked: new Date(), external_review_completed: new Date(), route: '/reviews/thankyou/' + this.$store.state.reviews.reviewRequest.id })
     }
   }
