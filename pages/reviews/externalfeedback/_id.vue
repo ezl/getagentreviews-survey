@@ -98,6 +98,11 @@ export default {
         return redirect('/reviews/thankyou/' + store.state.reviews.reviewRequest.id)
       }
     }
+  },
+  head () {
+    return {
+      title: 'External Feedback'
+    }
   }
 }
 </script>

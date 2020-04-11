@@ -99,6 +99,11 @@ export default {
       // this.$router.push('/reviews/externalfeedback/' + this.$route.params.id)
       this.$store.dispatch('reviews/stepComplete', { id: this.$route.params.id, feedback_completed: new Date(), feedback: this.feedback, route: '/reviews/externalfeedback/' + this.$store.state.reviews.reviewRequest.id })
     }
+  },
+  head () {
+    return {
+      title: 'Feedback'
+    }
   }
 }
 </script>

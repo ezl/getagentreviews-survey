@@ -42,6 +42,11 @@ export default {
         return redirect('/reviews/externalfeedback/' + store.state.reviews.reviewRequest.id)
       }
     }
+  },
+  head () {
+    return {
+      title: 'Thank You'
+    }
   }
 //   mounted () {
 //     this.submitReview()

@@ -15,7 +15,12 @@ export default {
       }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href:
+          'https://raw.githubusercontent.com/ezl/getagentreviews/master/static/favicon.ico'
+      },
       {
         rel: 'stylesheet',
         href: 'https://use.fontawesome.com/releases/v5.7.2/css/all.css'
@@ -72,7 +77,7 @@ export default {
      ** You can extend webpack config here
      */
     transpile: ['vee-validate/dist/rules'],
-    extend (config, ctx) {}
+    extend(config, ctx) {}
   },
   pageTransition: {
     name: 'fade',

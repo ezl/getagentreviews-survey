@@ -5,6 +5,11 @@
         <v-progress-circular indeterminate size="64" />
       </v-overlay>
       <div v-if="$store.state.auth.user" class="ml-1">
+        <div class="text-center people-request-all--mobile">
+          <button class="button button--landing" @click="sendEmails">
+            Request All
+          </button>
+        </div>
         <v-data-table
           :headers="headers"
           :items="clients"
@@ -191,12 +196,25 @@ export default {
       }
       return priority
     }
+  },
+  head () {
+    return {
+      title: 'Dashboard - People'
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '~/styles';
 .button--landing {
   padding: 6px 4px;
+}
+.people-request-all--mobile {
+  display: none;
+  position: sticky; top: 1%;
+  @include small("down") {
+    display: block;
+  }
 }
 </style>

@@ -174,6 +174,11 @@ export default {
         this.$refs.passwordConfirm.type = 'password'
       }
     }
+  },
+  head () {
+    return {
+      title: 'Register'
+    }
   }
 }
 </script>

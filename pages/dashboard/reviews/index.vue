@@ -56,6 +56,11 @@ export default {
     getReviews () {
       this.$store.dispatch('auth/getReviews', this.$store.state.auth.user.id)
     }
+  },
+  head () {
+    return {
+      title: 'Dashboard - Feedback'
+    }
   }
 }
 </script>

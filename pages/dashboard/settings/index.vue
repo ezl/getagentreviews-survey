@@ -46,6 +46,11 @@ export default {
   },
   mounted () {
     console.log(this.$store.state.auth.reviews)
+  },
+  head () {
+    return {
+      title: 'Dashboard - Feedback'
+    }
   }
 
 }

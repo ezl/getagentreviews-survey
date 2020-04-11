@@ -22,6 +22,11 @@ export default {
     Pricing,
     Testimonials,
     Contact
+  },
+  head () {
+    return {
+      title: 'Landing'
+    }
   }
 
 }

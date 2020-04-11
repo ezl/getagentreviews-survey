@@ -3,7 +3,7 @@
     <div v-for="user in users.data" :key="user.id" class="test">
       <h2>{{ user.name }}</h2>
       <p>{{ user.description }}</p>
-      <img :src="user.image" :alt="`${user.name}'s profile image`">
+      <img :src="user.profile.image" :alt="`${user.name}'s profile image`">
     </div>
   </div>
 </template>
