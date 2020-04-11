@@ -129,6 +129,11 @@ export default {
         this.$refs.password.type = 'password'
       }
     }
+  },
+  head () {
+    return {
+      title: 'Login'
+    }
   }
 }
 </script>
