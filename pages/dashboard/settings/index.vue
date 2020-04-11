@@ -49,7 +49,7 @@ export default {
   },
   head () {
     return {
-      title: 'Dashboard - Feedback'
+      title: 'Dashboard - Settings'
     }
   }
 
