@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <v-row class="how-it-works-person--2" justify="center">
-      <v-col lg="7" cols="11">
+      <v-col sm="7" lg="7" cols="11" md="7">
         <img class="how-it-works-image--single" src="@/assets/person2.png" alt="person">
       </v-col>
-      <v-col class="mt-4 how-it-works-text" lg="4" cols="10">
+      <v-col class="mt-4 how-it-works-text" sm="6" md="5" lg="4" cols="10">
         <CircledNumber number="2" />
         <h2>We ask the clients to</h2>
         <span class="how-it-works--gray">take a quick online survey about their experience.</span>
