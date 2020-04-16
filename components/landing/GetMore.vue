@@ -10,17 +10,17 @@
       </nuxt-link>
       <div class="mt-8">
         <span class="grey--text ligthen-1">Get Reviews on</span>
-        <v-row no-gutters class="home__get-more-logos">
+        <v-row
+          justify-xl="start"
+          justify-lg="start"
+          justify-md="start"
+          justify="center"
+          align="center"
+        >
+          <img style="height: width: 85px; height: 28px;" src="@/assets/google.png" alt="google">
+          <img style="height: width: 96px; height: 20px;" src="@/assets/zillow.png" alt="zillow">
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Google_wordmark.svg/800px-Google_wordmark.svg.png"
-            alt="google"
-          >
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Zillow_logo19.png"
-            alt="zillow"
-          >
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Yelp_Logo.svg/1280px-Yelp_Logo.svg.png"
+            src="@/assets/yelp.png"
             alt="yelp"
           >
         </v-row>
@@ -42,7 +42,7 @@ export default {
 @import '~/styles';
 
 .home__get-more {
-    height: 800px;
+    height: 900px;
     @include large("down") {
       text-align: center;
       justify-content: center;
@@ -89,14 +89,10 @@ export default {
     }
 }
 .home__get-more-logos {
-  @include large("down") {
-    justify-content: center;
-    margin-bottom: 30px;
-  }
-  margin-top: 5px;
   img {
-    max-width: 65px;
-    margin: 0 9px;
+    // width: 96px;
+    // height: 20px;
+    // margin: 0 9px;
   }
 }
 </style>
