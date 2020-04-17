@@ -10,20 +10,22 @@
       </nuxt-link>
       <div class="mt-8">
         <span class="grey--text ligthen-1">Get Reviews on</span>
-        <v-row
-          justify-xl="start"
-          justify-lg="start"
-          justify-md="start"
-          justify="center"
-          align="center"
-        >
-          <img style="height: width: 85px; height: 28px;" src="@/assets/google.png" alt="google">
-          <img style="height: width: 96px; height: 20px;" src="@/assets/zillow.png" alt="zillow">
-          <img
-            src="@/assets/yelp.png"
-            alt="yelp"
+        <v-container>
+          <v-row
+            justify-xl="start"
+            justify-lg="start"
+            justify-md="start"
+            justify="center"
+            align="center"
           >
-        </v-row>
+            <img style="height: width: 85px; height: 28px;" src="@/assets/google.png" alt="google">
+            <img style="height: width: 96px; height: 20px;" src="@/assets/zillow.png" alt="zillow">
+            <img
+              src="@/assets/yelp.png"
+              alt="yelp"
+            >
+          </v-row>
+        </v-container>
       </div>
     </div>
     <div class="home__get-more-image">

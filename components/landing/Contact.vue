@@ -60,6 +60,10 @@ input {
 }
 img {
   max-width: 100%;
+  @include small("down") {
+    width: 85%;
+    margin-bottom: 10px;
+  }
   @include xlarge("down") {
     margin-right: 8px;
   }

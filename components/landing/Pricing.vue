@@ -4,10 +4,12 @@
     <h2 class="text-center mb-7">
       Solutions for both individuals or for your whole company
     </h2>
-    <v-row class="mb-8" justify="center">
-      <Individual />
-      <Agency />
-    </v-row>
+    <v-container>
+      <v-row class="mb-8" justify="center">
+        <Individual />
+        <Agency />
+      </v-row>
+    </v-container>
   </div>
 </template>
 

@@ -10,6 +10,18 @@
   }
 }
 
+@mixin custom($value, $identifier: "up") {
+  @if ($identifier == "down") {
+    @media (max-width: #{$value}) {
+      @content;
+    }
+  } @else {
+    @media (min-width: #{$value}) {
+      @content;
+    }
+  }
+}
+
 // Medium devices
 @mixin medium($identifier: "up") {
   @if ($identifier == "down") {
