@@ -2,7 +2,7 @@
   <v-container>
     <div class="footer">
       <v-divider class="mx-4 mb-4" />
-      <div class="d-flex justify-space-between">
+      <div class="d-flex justify-space-between flex-wrap">
         <div>
           <nuxt-link class="footer__link" to="/about">
             About us

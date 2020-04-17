@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row class="how-it-works-person--2" justify="center">
+    <v-row class="flex-column-reverse align-center flex-sm-column-reverse flex-md-row align-sm-center align-md-start" justify="center">
       <v-col sm="7" lg="7" cols="11" md="7">
         <img class="how-it-works-image--single" src="@/assets/person2.png" alt="person">
       </v-col>

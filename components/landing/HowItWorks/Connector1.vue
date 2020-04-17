@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-center connector1">
+  <div class="d-none justify-center connector1 d-sm-none d-md-flex">
     <img style="max-width: 100%; position: absolute; bottom: -85px" width="583px" src="@/assets/line1.png" alt="connector">
   </div>
 </template>
@@ -14,12 +14,5 @@ export default {
 @import '~/styles';
 .connector1 {
     position: relative; height: 60px;
-    @include xlarge("down") {
-        display: none;
-        height: 0;
-        img {
-            display: none;
-        }
-    }
 }
 </style>

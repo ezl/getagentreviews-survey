@@ -25,7 +25,6 @@ export default {
       ]
     },
     logout () {
-      alert('happeend')
       return this.$store.dispatch('auth/logout', this.$cookiz.get('auth-token'))
     }
   }

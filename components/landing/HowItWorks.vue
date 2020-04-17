@@ -50,12 +50,5 @@ export default {
         width: 100%;
     }
 }
-.how-it-works-text {}
 
-.how-it-works-person--2 {
-  @include xlarge("down") {
-    flex-direction: column-reverse !important;
-    align-items: center;
-  }
-}
 </style>
