@@ -4,7 +4,8 @@ const state = () => ({
   loading: false,
   serverErrors: [],
   tempEmail: '',
-  reviews: []
+  reviews: [],
+  message: ''
 })
 
 const actions = {
@@ -77,6 +78,7 @@ const actions = {
       })
       .then(({ data }) => {
         dispatch('login', { email: user.email, password: user.password })
+        commit('setMessage', `Hello ${data.user.name.split(' ')[0]}, thanks for choosing GetAgencyReviews. Here's your dashboard where you can manage your clients.`)
       })
       .catch((err) => {
         console.log(err.response)
@@ -116,6 +118,9 @@ const mutations = {
   },
   setServerErrors (state, errors) {
     state.serverErrors = errors
+  },
+  setMessage (state, message) {
+    state.message = message
   }
 }
 

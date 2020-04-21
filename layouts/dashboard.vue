@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <WelcomeMessage />
     <div class="auth-dashboard auth-dashboard__grid">
       <div>
         <Drawer />
@@ -19,11 +20,13 @@
 import Drawer from '~/components/dashboard/Drawer'
 import BottomNavigation from '~/components/dashboard/BottomNavigation'
 import DashboardTop from '~/components/dashboard/DashboardTop'
+import WelcomeMessage from '~/components/dashboard/WelcomeMessage'
 export default {
   components: {
     Drawer,
     DashboardTop,
-    BottomNavigation
+    BottomNavigation,
+    WelcomeMessage
   },
   data () {
     return {
@@ -31,7 +34,6 @@ export default {
     }
   },
   middleware: 'authed',
-
   methods: {
     logout () {
       return this.$store.dispatch('auth/logout', this.$cookiz.get('auth-token'))

@@ -1,8 +1,13 @@
 <template>
-  <div id="get-more" class="home__get-more d-flex justify-space-between w-100">
+  <div
+    id="get-more"
+    class="home__get-more d-flex justify-space-between w-100"
+  >
     <div class="home__get-more-cta align-self-center">
       <h1>Get More 5 Star Reviews Online</h1>
-      <p>We make it simple and automatic for you to keep getting more 5 star reviews on Zillow, Yelp, or Google.</p>
+      <div class="ml-1 mr-1 ml-sm-0 mr-sm-0">
+        <p>We make it simple and automatic for you to keep getting more 5 star reviews on Zillow, Yelp, or Google.</p>
+      </div>
       <nuxt-link to="/register">
         <button class="button button--landing">
           Get Started Now
@@ -18,8 +23,16 @@
             justify="center"
             align="center"
           >
-            <img style="height: width: 85px; height: 28px;" src="@/assets/google.png" alt="google">
-            <img style="height: width: 96px; height: 20px;" src="@/assets/zillow.png" alt="zillow">
+            <img
+              style="height: width: 85px; height: 28px;"
+              src="@/assets/google.png"
+              alt="google"
+            >
+            <img
+              style="height: width: 96px; height: 20px;"
+              src="@/assets/zillow.png"
+              alt="zillow"
+            >
             <img
               src="@/assets/yelp.png"
               alt="yelp"
@@ -29,7 +42,10 @@
       </div>
     </div>
     <div class="home__get-more-image">
-      <img src="@/assets/reviewbg.png" alt="title">
+      <img
+        src="@/assets/reviewbg.png"
+        alt="title"
+      >
     </div>
   </div>
 </template>
@@ -44,51 +60,63 @@ export default {
 @import '~/styles';
 
 .home__get-more {
-    height: 900px;
-    @include large("down") {
-      text-align: center;
-      justify-content: center;
-      flex-wrap: wrap-reverse;
-      height: auto;
-      margin-top: 50px;
-    }
-     @include xlarge("down") {
+  height: 900px;
+  @include large('down') {
+    text-align: center;
+    justify-content: center;
+    flex-wrap: wrap-reverse;
+    height: auto;
+    margin-top: 50px;
+  }
+  @include xlarge('down') {
     height: auto;
   }
 }
 .home__get-more-image {
   position: relative;
+  img {
+    @include xlarge('down') {
+      width: 632px;
+    }
+  }
 
-  @include large("down") {
+  @include large('down') {
     display: none;
   }
 }
 .home__get-more-cta {
   margin-left: 120px;
-  @include large("down") {
+  @include large('down') {
     margin: 0 auto !important;
   }
-  @include xlarge("down") {
+  @include xlarge('down') {
     font-size: 15px;
     margin-left: 2em;
   }
   @include xxlarge {
-    margin-left: auto;
+    margin-left: 60px;
   }
 
-    h1, p {
-        width: 59%;
-        @include large("down") {
-          width: 100%;
-        }
+  h1,
+  p {
+    width: 90%;
+    @include large('down') {
+      width: 100%;
     }
-    h1 {
-        color: $purple;
+    @include xxlarge {
+      width: 90%;
     }
-    p {
-        color: $purple;
-        font-weight: 50;
+    @include xxxlarge {
+      width: 100%;
     }
+  }
+  h1 {
+    color: $purple;
+  }
+  p {
+    color: $purple;
+    font-weight: 50;
+  }
 }
 .home__get-more-logos {
   img {

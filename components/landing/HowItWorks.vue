@@ -45,7 +45,7 @@ export default {
     }
 }
 .how-it-works-image--double {
-    width: 460px;
+    width: 400px;
     @include large("down") {
         width: 100%;
     }
