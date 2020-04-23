@@ -29,7 +29,7 @@ const actions = {
     const lname = state.csvData.find(each => each.match === 'Last Name')
     const number = state.csvData.find(each => each.match === 'Phone Number')
     let arr = []
-    if (!email || !number) {
+    if (!email) {
       return
     }
 
@@ -40,7 +40,7 @@ const actions = {
     }
 
     if (fname && lname && !fullname) {
-      if (fname.data.length !== rightLength || lname.data.length !== rightLength || number.data.length !== rightLength) {
+      if (fname.data.length !== rightLength || lname.data.length !== rightLength) {
         commit('setErrors', { text: 'All your csv columns must have the same length', type: 'csvError' })
         return
       }
