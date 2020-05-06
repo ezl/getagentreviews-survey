@@ -17,13 +17,13 @@
     </v-snackbar>
     <v-row justify-xl="space-between" justify-lg="space-between" justify="center">
       <v-col :lg="cols.lg" :md="cols.md" :sm="cols.sm" :cols="cols.reg">
-        <DashboardTopCard />
+        <DashboardTopCard card-type="positive" />
       </v-col>
       <v-col :lg="cols.lg" :md="cols.md" :sm="cols.sm" :cols="cols.reg">
-        <DashboardTopCard />
+        <DashboardTopCard card-type="negative" />
       </v-col>
       <v-col :lg="cols.lg" :md="cols.md" :sm="cols.sm" :cols="cols.reg">
-        <DashboardTopCard />
+        <DashboardTopCard card-type="pending" />
       </v-col>
       <v-col :lg="cols.lg" md="3" cols="6">
         <span style="font-size: 14px;" class="text--grey font-weight-bold text-center ml-4">
