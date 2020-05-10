@@ -15,7 +15,7 @@
       <span class="text-purple display-1">{{ count }}</span>
     </v-card-text>
 
-    <v-list-item>
+    <!-- <v-list-item>
       <v-list-item-title>
         <span class="text-purple">
           {{ title.split(' ')[0] }}
@@ -23,9 +23,9 @@
       </v-list-item-title>
 
       <v-list-item-subtitle class="text-right">
-        <!-- <span class="text-purple"><i class="fas fa-long-arrow-alt-up" style="color:green" /> {{ growth }}</span> -->
+        <span class="text-purple"><i class="fas fa-long-arrow-alt-up" style="color:green" /> {{ growth }}</span>
       </v-list-item-subtitle>
-    </v-list-item>
+    </v-list-item> -->
   </v-card>
 </template>
 
@@ -82,7 +82,12 @@ export default {
       return feedbackArray.length
     },
     total () {
-      return this.$store.state.clients.all.length
+      const totalArray = this.$store.state.clients.all.filter((review) => {
+        if (!review.feedback_completed && !review.feedback && !review.external_link_clicked && !review.external_review_completed) {
+          return review
+        }
+      })
+      return totalArray.length
     },
     count () {
       if (this.negative) {

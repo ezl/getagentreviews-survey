@@ -116,6 +116,11 @@ export default {
   }
   h1 {
     color: $purple;
+    font-family: 'serif';
+    font-size: 1.85em;
+    @include medium("down") {
+      font-size: 1.5em;
+    }
   }
   p {
     color: $purple;

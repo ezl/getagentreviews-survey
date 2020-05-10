@@ -18,7 +18,7 @@
       </v-card-title>
       <v-container>
         <h1 class="text-center">
-          If any of the coliumns are incorrect, please reassign
+          If any of the columns are incorrect, please reassign
         </h1>
         <!-- <div class="text-center">
           <ValidationBox v-if="errors" width="70%" :message="errors.text" />
