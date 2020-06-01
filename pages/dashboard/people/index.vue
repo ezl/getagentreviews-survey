@@ -153,6 +153,9 @@ export default {
     if (!this.clients.length) {
       this.$store.dispatch('clients/getUserClients', this.$store.state.auth.user.id)
     }
+    this.$nextTick(() => {
+      setTimeout(() => this.$nuxt.$loading.finish(), 1200)
+    })
   },
   // temporary
   layout: 'dashboard',
