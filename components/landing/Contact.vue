@@ -1,12 +1,12 @@
 <template>
-  <v-container class="d-flex justify-lg-space-between home__contact">
-    <img src="@/assets/contactperson.png" alt="title">
+  <v-container class="d-flex justify-xl-center justify-lg-space-between home__contact">
+    <img class="mr-xl-12" src="@/assets/contactperson.png" alt="title">
     <div id="contact" class="home__contact-form">
       <span class="d-block text-purple text-center">CONTACT US</span>
       <h2 class="text-center mb-7">
         Let us know if you have any questions -- we'll get back to you ASAP!
       </h2>
-      <form>
+      <form class="ml-xl-12">
         <v-row no-gutters justify="space-between">
           <v-col class="mr-1">
             <ValidationInput input-classes="w-100" placeholder="First Name" label="First Name" input-styles="width: 100%" />
@@ -59,6 +59,8 @@ input {
   }
 }
 img {
+  // width: 25% !important;
+  // margin-left: 140px;
   max-width: 100%;
   @include small("down") {
     width: 85%;
