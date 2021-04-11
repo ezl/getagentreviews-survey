@@ -5,7 +5,7 @@
         <div class="text-center">
           <img src="@/assets/title.png" alt="title">
         </div>
-        <span class="text-purple d-block text-center">Welcome</span>
+        <span class="text-center text-purple d-block">Welcome</span>
         <h4 class="text-center">
           Sign into your account
         </h4>
@@ -49,10 +49,11 @@
                 Forgot Password?
               </nuxt-link>
             </div>
-            <button :class="loading ? 'button--disabled' : 'button--purple'" class="button w-100 mt-5">
+            <button :class="loading ? 'button--disabled' : 'button--purple'" class="mt-5 button w-100">
               Sign In
             </button>
-            <span v-if="loading">Logging you in...</span>
+            <!-- <span v-if="loading">Logging you in...</span> -->
+            <span v-if="attempted">We are currently on pause. Check in later.</span>
           </form>
         </ValidationObserver>
         <span class="mt-10">Don't have an acount? <nuxt-link
@@ -87,6 +88,7 @@ export default {
       remember: false,
       loading: false,
       showPass: false,
+      attempted: false,
       serverErrors: [],
       submitted: false
 
@@ -95,6 +97,7 @@ export default {
   methods: {
     login () {
       this.loading = true
+      this.attempted = true
       this.errors = null
       this.$axios.post('/users/login',
         {

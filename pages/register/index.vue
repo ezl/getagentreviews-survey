@@ -4,7 +4,7 @@
       <div class="text-center">
         <img src="@/assets/title.png" alt="title">
       </div>
-      <span class="text-purple d-block text-center">Welcome</span>
+      <span class="text-center text-purple d-block">Welcome</span>
       <h4 class="text-center">
         Sign up for your account
       </h4>
@@ -97,7 +97,8 @@
           <button :class="loading || invalid ? 'button--disabled' : 'button--purple'" class="button w-100">
             Sign Up
           </button>
-          <span v-if="loading">Registering your account...</span>
+          <!-- <span v-if="loading">Registering your account...</span> -->
+          <span v-if="attempted">We are currently on pause. Check in later.</span>
         </form>
       </ValidationObserver>
       <span class="mt-10">Already have an account? <nuxt-link
@@ -133,7 +134,8 @@ export default {
       password: '',
       passwordConfirmation: '',
       showPass: false,
-      submitted: false
+      submitted: false,
+      attempted: false
     }
   },
   computed: {
@@ -162,6 +164,7 @@ export default {
   methods: {
     register () {
       this.submitted = true
+      this.attempted = true
       this.$store.dispatch('auth/register', { batch: this.batch, user: { email: this.email, password: this.password } })
     },
     toggleShowPassword () {
